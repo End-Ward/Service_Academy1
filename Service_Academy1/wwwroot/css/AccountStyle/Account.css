@@ -1,0 +1,106 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font stack */
+    background-color: #f4f4f4; /* Softer background */
+    margin: 0; /* Reset default margins */
+}
+
+#overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    z-index: 1000;
+}
+
+#loginForm {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background-color: white;
+    padding: 40px 30px; /* Increased padding */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* More subtle shadow */
+    max-width: 400px;
+}
+
+.title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600; /* Slightly lighter weight */
+    margin-bottom: 25px;
+    color: #f0544f; /* Updated color */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: 500; /* Slightly bolder labels */
+}
+
+input[type=text], input[type=password], input[type=date], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+    input[type=text]:focus,
+    input[type=password]:focus,
+    input[type=date]:focus,
+    select:focus {
+        outline: none;
+        border-color: #f0544f; /* Focus color */
+        box-shadow: 0 0 0 2px rgba(240, 84, 79, 0.2); /* Focus shadow */
+    }
+
+.btn {
+    background-color: #f0544f;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+    .btn:hover {
+        background-color: #d9433f; /* Darken on hover */
+    }
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+    .close-btn:hover {
+        color: #333; /* Darken on hover */
+    }
+
+/* Optional: Styling for select dropdowns */
+select {
+    -webkit-appearance: none; /* Remove default styles for better customization */
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}

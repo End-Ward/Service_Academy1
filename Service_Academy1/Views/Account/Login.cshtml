@@ -1,0 +1,43 @@
+﻿@model LoginViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Service Academy</title>
+    <link rel="stylesheet" href="~/css/AccountStyle/Account.css">
+</head>
+<body>
+    <div id="overlay"></div>
+    <div id="loginForm">
+        <span class="close-btn" onclick="closeForm()">&times;</span>
+        <h1 class="title">Service Academy</h1>
+        <form asp-action="Login" method="post">
+            <div class="container">
+                <label asp-for="Email"><b>Email</b></label>
+                <input asp-for="Email" type="text" placeholder="Enter Email" />
+
+                <label asp-for="Password"><b>Password</b></label>
+                <input asp-for="Password" type="password" placeholder="Enter Password" />
+
+                <div class="remember-me">
+                    <label asp-for="RememberMe">Remember Me</label>
+                    <input asp-for="RememberMe" type="checkbox" />
+                </div>
+
+                <button type="submit" class="btn">Login</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        window.onload = function () {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("loginForm").style.display = "block";
+        };
+        function closeForm() {
+            window.location.href = "/"; // Redirect to the homepage
+        }
+    </script>
+</body>
+</html>
+

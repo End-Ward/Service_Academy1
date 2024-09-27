@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "My Learning Page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/TraineeStyle/TraineeStyle.css">
+}
+
+@section Scripts {
+    <script src="~/js/TraineeScript/MyLearningScript.js"></script>
+}
+
+<div class="container">
+    <div class="main-content">
+        <div class="col-md-8 mb-8">
+            <div class="my-learning-container">
+                <img src="../Images/MyLearning.png" alt="My Learning" class="MyLearning">
+                <span class="myLearning">My Learning</span>
+            </div>
+            <div class="current-programs">
+                <p>Let's find a course for you.</p>
+                <p>We at Service Academy set out to create a unique and interactive way of learning for you. Unlock your skills and expertise by choosing from our range of career paths precisely designed for you.</p>
+                <button id="cta-button" onclick="location.href='@Url.Action("ProgramCatalog", "Home")'">Browse Catalog</button>
+
+            </div>
+            <div class="programs">
+                <div class="programs-enrolled">
+                    <div class="row g-4">
+                        <div class="col-md-6 mb-6">
+                            <div class="program-card" onclick="redirectToLesson('Lesson.html')">
+                                <div class="program-image">
+                                    <img src="../Images/e-sulat.png" alt="E-Sulat Program">
+                                </div>
+                                <div class="program-content">
+                                    <h3>E-SULAT</h3>
+                                    <p class="description">Strengthening and upgrading research skills...</p>
+                                    <div class="trainees">
+                                        <i class="fa-solid fa-graduation-cap"></i> 15 Trainees
+                                    </div>
+                                    <div class="program-icons">
+                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-folder"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <div class="program-card" onclick="redirectToLesson('Lesson.html')">
+                                <div class="program-image">
+                                    <img src="../Images/google-workspace.png" alt="Google Workspace Training">
+                                </div>
+                                <div class="program-content">
+                                    <h3>Google Workspace Training</h3>
+                                    <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
+                                    <div class="trainees">
+                                        <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
+                                    </div>
+                                    <div class="program-icons">
+                                        <i class="fa fa-user"></i>
+                                        <i class="fa fa-folder"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6 mb-6">
+                            <div class="program-card add-program-card" onclick="redirectToCatalog('ProgramCatalog.html')">
+                                <div class="add-catalog">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-5">
+            <div class="content">
+                <div class="assignments">
+                    <h5>Upcoming Assignments</h5>
+                    <div class="no-assignments">
+                        <p>No Upcoming Assignments For Now</p>
+                        <p>Watch this space for upcoming assignments!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Instructor Dashboard Page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/InstructorStyle/InstructorDashboardStyle.css">
+}
+
+<main class="container-fluid">
+    <h2>Your Programs</h2>
+    <div class="row">
+        <!-- Main Content Area -->
+        <section class="col-md-10">
+            <div class="programs">
+                <div class="program-box">
+                    <div class="program-filters">
+                        <select>
+                            <option value="all">All</option>
+                        </select>
+                        <div class="search-container">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search">
+                        </div>
+                        <select>
+                            <option value="recently-accessed">Sort by Recently Accessed</option>
+                        </select>
+                        <button id="add-program" onclick="location.href='@Url.Action("ProgramCreation", "ProgramCreate")'">ADD NEW PROGRAM</button>
+                    </div>
+
+                    <div class="program-cards">
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="../Images/e-sulat.png" alt="E-Sulat Program">
+                            </div>
+                            <div class="program-content">
+                                <h3>E-SULAT</h3>
+                                <p class="description">Strengthening and upgrading research skills...</p>
+                                <div class="trainees">
+                                    <i class="fa-solid fa-graduation-cap"></i> 15 Trainees
+                                </div>
+                                <div class="program-icons">
+                                    <i class="fas fa-user"></i>
+                                    <i class="fas fa-folder"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="../Images/google-workspace.png" alt="Google Workspace Training">
+                            </div>
+                            <div class="program-content">
+                                <h3>Google Workspace Training</h3>
+                                <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
+                                <div class="trainees">
+                                    <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
+                                </div>
+                                <div class="program-icons">
+                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-folder"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="../Images/tree.jpg" alt="Tree">
+                            </div>
+                            <div class="program-content">
+                                <h3>Sample Training</h3>
+                                <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
+                                <div class="trainees">
+                                    <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
+                                </div>
+                                <div class="program-icons">
+                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-folder"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="program-card">
+                            <div class="program-image">
+                                <img src="../Images/camera.jpg" alt="Camera">
+                            </div>
+                            <div class="program-content">
+                                <h3>Sample Training</h3>
+                                <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
+                                <div class="trainees">
+                                    <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
+                                </div>
+                                <div class="program-icons">
+                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-folder"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="col-md-2">
+            <div class="sidebar">
+                <div class="upcoming-events">
+                    <h4>Upcoming Events</h4>
+                    <!-- Upcoming events content here -->
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>

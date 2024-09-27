@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+@{
+    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/AdminStyle/ManageProgramStyle.css">
+}
+
+<div class="container">
+        <section class="layout">
+            <!-- Sidebar & Main Content -->
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                        <div class="sidebar-sticky pt-3">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#" id="overviewTab">
+                                        <i class="fas fa-list-alt"></i>
+                                        Program Overview
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="createProgramTab">
+                                        <i class="fas fa-plus-circle"></i>
+                                        Create Program
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+
+                    <!-- Main Content -->
+                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                        <!-- Program Overview -->
+                        <div id="programOverview" class="content-section">
+                            <h2>Program Overview</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" id="searchProgram" class="form-control" placeholder="Search by program name, code, or description..." onkeyup="filterPrograms()">
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <table id="programTable" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Program Name</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Enrolled Students</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="programList">
+                                        <!-- Example programs -->
+                                        <tr>
+                                            <td>Bachelor of Science in Computer Science</td>
+                                            <td>Degree</td>
+                                            <td>Active</td>
+                                            <td>350</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm" onclick="editProgram('BSc Computer Science')">Edit</button>
+                                                <button class="btn btn-danger btn-sm" onclick="deleteProgram('BSc Computer Science')">Delete</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Web Development Bootcamp</td>
+                                            <td>Non-Degree</td>
+                                            <td>Active</td>
+                                            <td>150</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm" onclick="editProgram('Web Development Bootcamp')">Edit</button>
+                                                <button class="btn btn-danger btn-sm" onclick="deleteProgram('Web Development Bootcamp')">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Program Creation -->
+                        <div id="createProgram" class="content-section" style="display: none;">
+                            <h4 class="mt-5">Create New Program</h4>
+                            <div class="container program-form mt-3">
+                                <div class="photo-upload-container">
+                                    <div class="photo-upload">
+                                        <p>Add Photo</p>
+                                    </div>
+                                    <button class="btn btn-warning">Upload Photo</button>
+                                </div>
+                                <form id="createProgramForm" class="form-container" onsubmit="createProgram(event)">
+                                    <div class="form-group">
+                                        <label for="programName">Program Name</label>
+                                        <input type="text" id="programName" class="form-control" placeholder="Enter program name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="programCode">Program Code</label>
+                                        <input type="text" id="programCode" class="form-control" placeholder="Enter program code" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="programType">Program Type</label>
+                                        <select id="programType" class="form-control" required>
+                                            <option value="Degree">Degree</option>
+                                            <option value="Non-Degree">Non-Degree</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="programDescription">Program Description</label>
+                                        <textarea id="programDescription" class="form-control" placeholder="Enter program description" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="programFees">Program Fees</label>
+                                        <input type="number" id="programFees" class="form-control" placeholder="Enter program fees" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="programDuration">Program Duration (in months)</label>
+                                        <input type="number" id="programDuration" class="form-control" placeholder="Enter program duration" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Create Program</button>
+                                </form>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </section>
+    </div>
+

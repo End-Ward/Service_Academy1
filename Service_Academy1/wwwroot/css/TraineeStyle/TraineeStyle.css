@@ -1,0 +1,212 @@
+/* Main content styling */
+.main-content {
+    display: flex;
+    margin: 20px;
+    padding: 20px;
+}
+
+.container {
+    flex: 1;
+}
+
+.content {
+    padding: 20px 20px 20px 20px;
+    border-radius: 10px;
+}
+
+.my-learning-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.MyLearning {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.myLearning {
+    font-size: 28px;
+    color: #333;
+}
+
+/* Left panel (My Learning content) */
+.left-panel {
+    flex: 2;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#cta-button {
+    background-color: #ff782d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: .80vw;
+    margin-left: 10px; /* Adjust value as needed for desired indentation */
+}
+
+    #cta-button:hover {
+        background-color: #ff782d;
+    }
+
+/* Right panel (Achievements and assignments) */
+.right-panel {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.achievements, .assignments {
+    background-color: rgb(243, 243, 243);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .achievements h3, .assignments h3 {
+        margin-top: 0;
+    }
+
+    .achievements ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .achievements ul li {
+            margin-bottom: 10px;
+        }
+
+.assignments {
+    padding: 30px 0px 30px 0px;
+    text-align: center;
+}
+
+.no-assignments {
+    padding: 30px 0px 30px 0px;
+    text-align: center;
+    color: #888;
+}
+
+.programs {
+    margin: 20px 0px 0px 20px;
+}
+
+.programs-enrolled {
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Program Cards */
+.program-cards {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 55px;
+}
+
+/* Program Card */
+.program-card {
+    background-color: #f8f8f8;
+    padding: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%; /* Set to 100% to fill the column */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 370px;
+}
+
+.program-image img {
+    width: 100%; /* Ensures the image takes full width of the card */
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+/* Content Section */
+.program-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between title, description, and trainees */
+    flex: 1; /* Take up available space */
+    position: relative; /* For positioning the line and icons */
+}
+
+    /* Title and Description */
+    .program-content h3 {
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+.description {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Trainees */
+.trainees {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    padding-top: 50px;
+}
+
+    /* Icon Styling */
+    .trainees i {
+        color: #FF782D; /* Icon color */
+        font-size: 0.9rem; /* Match the size of the text */
+    }
+
+    /* Line below trainees and above icons */
+    .trainees::after {
+        content: "";
+        display: block;
+        border-top: 1px solid #ddd; /* Line below the trainees */
+        margin-top: 10px; /* Space between text and line */
+        margin-bottom: 20px; /* Space between line and icons */
+    }
+
+/* Icons Section */
+.program-icons {
+    position: absolute;
+    bottom: 15px; /* Space from the bottom of the card */
+    right: 30px; /* Space from the left edge of the card */
+    display: flex;
+    gap: 10px;
+}
+
+    .program-icons i {
+        color: var(--primary-color);
+        cursor: pointer;
+        font-size: 1.2rem; /* Adjust size as needed */
+    }
+
+.add-program-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    height: 370px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+    .add-program-card:hover {
+        background-color: #e2e2e2; /* Slightly darker on hover */
+    }
+
+.add-catalog i {
+    font-size: 3rem;
+    color: #FF782D; /* Match your primary color */
+}

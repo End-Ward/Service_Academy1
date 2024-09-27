@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Instructor Dashboard Page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/ProgramStyle/ProgramCreateStyle.css">
+}
+
+@section Scripts {
+    <script src="~/js/InstructorScript/ProgramCreateScript.js"></script>
+}
+
+<div class="container">
+
+    <div class="breadcrumb">
+        <a href="@Url.Action("InstructorDashboard", "Instructor")">Dashboard</a>
+        <span class="separator">&gt;</span>
+        <span>Course Creation</span>
+    </div>
+
+
+    <div class="content">
+        <section class="layout">
+            <div class="form-container">
+                <div class="photo-upload">
+                    <div id="photoPreview" class="photo-preview">Add Photo</div>
+                    <label for="photoInput" class="photo-upload-btn">Upload Photo</label>
+                    <input type="file" id="photoInput" class="photo-input" accept="image/*">
+                </div>
+
+                <div class="form-content">
+                    <h2>ADD PROGRAM</h2>
+                    <form id="programForm">
+                        <label for="programTitle">Program Title</label>
+                        <input type="text" id="programTitle" placeholder="Program Title" required>
+
+                        <label for="programInstructor">Program Instructor</label>
+                        <input type="text" id="programInstructor" placeholder="Program Instructor" required> <!--Can be inserted for the current insturctor using the add program-->
+
+                        <label for="programDescription">Program Description</label>
+                        <textarea id="programDescription" placeholder="Program Description" required></textarea>
+
+                        <button type="submit" id="addProgramBtn">Add</button> <!--Add a function a prompt of successful add and return to the cards-->
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
