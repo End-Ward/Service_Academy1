@@ -101,5 +101,28 @@ namespace ServiceAcademy.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost] // Or [HttpDelete] for RESTful design
+        public async Task<IActionResult> DeleteAccount(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Account deleted successfully!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the account.";
+            }
+            return RedirectToAction("ManageAccount");
+        }
+
+
     }
 }
