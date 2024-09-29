@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 
 namespace ServiceAcademy.Controllers
@@ -84,37 +85,45 @@ namespace ServiceAcademy.Controllers
         }
 
         // Login View
-        public IActionResult Login() => View();
-
-        [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email);
                     if (user != null)
                     {
                         var roles = await _userManager.GetRolesAsync(user);
-                        var role = roles.FirstOrDefault(); // Assuming a single role per user
-                        return role switch
+                        // Debug output to see assigned roles
+                        Debug.WriteLine($"Roles for user {user.Email}: {string.Join(", ", roles)}");
+
+                        // Redirect to the appropriate page after login
+                        if (roles.Contains("Student"))
                         {
-                            "Admin" => RedirectToAction("Dashboard", "Admin"),
-                            "Instructor" => RedirectToAction("InstructorDashboard", "Instructor"),
-                            "Student" => RedirectToAction("MyLearning", "Trainee"),
-                            _ => RedirectToAction("Home", "Home") // Default case
-                        };
+                            return RedirectToAction("MyLearning", "Trainee");
+                        }
+                        else if (roles.Contains("Instructor"))
+                        {
+                            return RedirectToAction("InstructorDashboard", "Instructor");
+                        }
+                        else if (roles.Contains("Admin"))
+                        {
+                            return RedirectToAction("Dashboard", "Admin");
+                        }
+                        // Default redirect if no specific role
+                        return RedirectToAction("Home", "Home");
                     }
                 }
-
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                }
             }
+
             return View(model);
         }
-
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

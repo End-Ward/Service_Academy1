@@ -29,9 +29,38 @@
             <a href="@Url.Action("Faqs", "Home")" class="@(Html.IsActive("Faqs", "Home") ? "active" : "")">FAQs</a>
         </nav>
         <div class="nav-right">
-            <a href="@Url.Action("MyLearning", "Home")">Learning</a> <!--Need a backend that will change depending on who login (Will change to MyLearning if its the Student otherwise MyTeaching if its an Instructor-->
-            <a href="@Url.Action("Login", "Account")">Login</a>
-            <a href="@Url.Action("Register", "Account")">Register</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                // Display specific links based on the user role
+                if (User.IsInRole("Student"))
+                {
+                    <a href="@Url.Action("MyLearning", "Trainee")" class="@(Html.IsActive("MyLearning", "Trainee") ? "active" : "")">My Learning</a>
+                }
+                else if (User.IsInRole("Instructor"))
+                {
+                    <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">My Teaching</a>
+                }
+
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle"></i> @User.Identity.Name
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("MyProfile", "Account")">Profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Logout", "Account")">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <a href="@Url.Action("Learning", "Home")">Learning</a>
+                <a href="@Url.Action("Login", "Account")" class="@(Html.IsActive("Login", "Account") ? "active" : "")">Login</a>
+                <a href="@Url.Action("Register", "Account")" class="@(Html.IsActive("Register", "Account") ? "active" : "")">Register</a>
+            }
         </div>
     </div>
 
