@@ -18,10 +18,10 @@
 </head>
 <body>
     <div class="header">
-        <div class="logo-container">
+        <a href="@Url.Action("Home", "Home")" class="logo-container">
             <img src="~/Images/logo.png" alt="Logo" class="logo">
             <span class="service-academy">Service Academy</span>
-        </div>
+        </a>
         <nav class="nav-links">
             <a href="@Url.Action("Home", "Home")" class="@(Html.IsActive("Home", "Home") ? "active" : "")">Home</a>
             <a href="@Url.Action("ProgramCatalog", "Home")" class="@(Html.IsActive("ProgramCatalog", "Home") ? "active" : "")">Programs</a>
@@ -63,6 +63,7 @@
             }
         </div>
     </div>
+
 
     <div class="container">
         <main role="main" class="pb-3">

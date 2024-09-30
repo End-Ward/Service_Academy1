@@ -11,18 +11,24 @@
     <div id="overlay"></div>
     <div id="loginForm">
         <span class="close-btn" onclick="closeForm()">&times;</span>
-        <h1 class="title">Service Academy</h1>
+        <h1 class="title">Sign In</h1>
+
         <form asp-action="Login" method="post">
             <div class="container">
+                <p class="new-user">
+                    New to Service Academy?
+                    <a href="@Url.Action("Register", "Account")">Create an Account</a>
+                </p>
                 <label asp-for="Email"><b>Email</b></label>
-                <input asp-for="Email" type="text" placeholder="Enter Email" />
+                <input asp-for="Email" type="text" placeholder="Enter Email Address" />
 
                 <label asp-for="Password"><b>Password</b></label>
                 <input asp-for="Password" type="password" placeholder="Enter Password" />
 
                 <div class="remember-me">
-                    <label asp-for="RememberMe">Remember Me</label>
                     <input asp-for="RememberMe" type="checkbox" />
+                    <label asp-for="RememberMe">Remember Me</label>
+                    <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
                 </div>
 
                 <button type="submit" class="btn">Login</button>
@@ -40,4 +46,3 @@
     </script>
 </body>
 </html>
-
