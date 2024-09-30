@@ -77,7 +77,8 @@ input[type="text"], input[type="password"], select {
     display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center items vertically */
     gap: 5px; /* Smaller gap between checkbox and label */
-    margin-bottom: 20px; /* Increased spacing between Remember Me and Forgot Password */
+    margin-bottom: 24px; /* Increased spacing between Remember Me and Forgot Password */
+    margin-left: 10px; /*Indent the check box*/
 }
 
     .remember-me input[type="checkbox"] {
@@ -91,9 +92,26 @@ input[type="text"], input[type="password"], select {
     }
 
 .forgot-password {
-    margin-left: 57px; /* Optional: Add some space to the left of the Forgot Password link */
+    margin-left: 48px; /* Optional: Add some space to the left of the Forgot Password link */
     font-size: 14px;
 }
+
+.password-container {
+    position: relative; /* To position the icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer; /* Change cursor to pointer */
+    color: #FF6600; /* Color for the eye icon */
+}
+
+    .toggle-password i {
+        font-size: 17px; /* Adjust size as needed */
+    }
 
 .close-btn {
     position: absolute;
