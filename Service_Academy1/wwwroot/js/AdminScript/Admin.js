@@ -198,5 +198,45 @@ function createProgram(event) {
 // Initialize program table on page load
 document.addEventListener('DOMContentLoaded', updateProgramTable);
 
+function filterAccounts() {
+    var searchText = document.getElementById("searchAccount").value.toLowerCase();
+    var roleFilter = document.getElementById("filterRole").value.toLowerCase();
 
+    var tableRows = document.getElementById("accountList").getElementsByTagName("tr");
+
+    for (var i = 0; i < tableRows.length; i++) {
+        var username = tableRows[i].getElementsByTagName("td")[0].textContent.toLowerCase();
+        var email = tableRows[i].getElementsByTagName("td")[1].textContent.toLowerCase();
+        var fullName = tableRows[i].getElementsByTagName("td")[2].textContent.toLowerCase();
+        var role = tableRows[i].getElementsByTagName("td")[3].textContent.toLowerCase();
+
+        if (
+            (username.indexOf(searchText) > -1 ||
+                email.indexOf(searchText) > -1 ||
+                fullName.indexOf(searchText) > -1) &&
+            (roleFilter === "" || role === roleFilter)
+        ) {
+            tableRows[i].style.display = "";
+        } else {
+            tableRows[i].style.display = "none";
+        }
+    }
+}
+
+// JavaScript for handling the Edit button and populating the modal
+$('#editAccountModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var userId = button.data('userid');
+    var username = button.data('username');
+    var email = button.data('email');
+    var fullName = button.data('fullname');
+
+    // Update the modal's content
+    var modal = $(this);
+    modal.find('#editUserId').val(userId);
+    modal.find('#editUserName').val(username);
+    modal.find('#editEmail').val(email);
+    modal.find('#editFullName').val(fullName);
+    // You might need additional logic to pre-select the correct role in the 'editRole' dropdown
+});
 

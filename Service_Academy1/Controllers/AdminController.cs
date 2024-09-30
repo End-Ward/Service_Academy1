@@ -88,20 +88,54 @@ namespace ServiceAcademy.Controllers
             // Return the ManageAccount view with both the user list and the form data
             return View("ManageAccount", manageAccountViewModel);
         }
-        // ManageProgram action: Handles the program management view
-        public IActionResult ManageProgram()
+
+        // EditAccount action: Handles editing of existing users
+        [HttpPost]
+        public async Task<IActionResult> EditAccount(EditAccountViewModel model)
         {
-            ViewData["ActivePage"] = "ManageProgram";
-            return View();
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(model.Id);
+
+                if (user != null)
+                {
+                    user.Email = model.Email;
+                    user.FullName = model.FullName;
+
+                    var result = await _userManager.UpdateAsync(user);
+
+                    if (result.Succeeded)
+                    {
+                        // Update user roles if necessary
+                        var currentRoles = await _userManager.GetRolesAsync(user);
+                        await _userManager.RemoveFromRolesAsync(user, currentRoles);
+                        await _userManager.AddToRoleAsync(user, model.Role);
+
+                        TempData["SuccessMessage"] = "Account updated successfully!";
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "User not found.";
+                    return NotFound(); // Return NotFound() if the user doesn't exist
+                }
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to update the account."; // Set error message for validation errors
+            }
+
+            return RedirectToAction("ManageAccount");
         }
 
-        // Error handling action
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
+        // DeleteAccount action: Handles deletion of users
         [HttpPost] // Or [HttpDelete] for RESTful design
         public async Task<IActionResult> DeleteAccount(string id)
         {
@@ -123,6 +157,18 @@ namespace ServiceAcademy.Controllers
             return RedirectToAction("ManageAccount");
         }
 
+        // ManageProgram action: Handles the program management view
+        public IActionResult ManageProgram()
+        {
+            ViewData["ActivePage"] = "ManageProgram";
+            return View();
+        }
 
+        // Error handling action
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }
