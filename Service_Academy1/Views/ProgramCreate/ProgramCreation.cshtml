@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ProgramsModel
+
+@{
     ViewData["Title"] = "Instructor Dashboard Page";
 }
 
@@ -11,39 +13,47 @@
 }
 
 <div class="container">
-
     <div class="breadcrumb">
         <a href="@Url.Action("InstructorDashboard", "Instructor")">Dashboard</a>
         <span class="separator">&gt;</span>
         <span>Course Creation</span>
     </div>
 
-
     <div class="content">
         <section class="layout">
             <div class="form-container">
-                <div class="photo-upload">
-                    <div id="photoPreview" class="photo-preview">Add Photo</div>
-                    <label for="photoInput" class="photo-upload-btn">Upload Photo</label>
-                    <input type="file" id="photoInput" class="photo-input" accept="image/*">
-                </div>
+                <form id="programForm" asp-action="ProgramCreation" method="post" enctype="multipart/form-data">
+                    <div class="photo-upload">
+                        <div id="photoPreview" class="photo-preview">Add Photo</div>
+                        <label for="photoInput" class="photo-upload-btn">Upload Photo</label>
+                        <input type="file" id="photoInput" name="photoInput" class="photo-input" accept="image/*" required>
+                    </div>
+                    <div class="form-content">
+                        <h2>ADD PROGRAM</h2>
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.ValidationMessageFor(model => model.Title)
+                            <label asp-for="Title"><b>Program Title</b></label>
+                            <input asp-for="Title" class="form-control" placeholder="Program Title" required />
+                        </div>
 
-                <div class="form-content">
-                    <h2>ADD PROGRAM</h2>
-                    <form id="programForm">
-                        <label for="programTitle">Program Title</label>
-                        <input type="text" id="programTitle" placeholder="Program Title" required>
+                        <div class="form-group">
+                            @Html.ValidationMessageFor(model => model.Instructor)
+                            <label asp-for="Instructor"><b>Program Instructor</b></label>
+                            <input asp-for="Instructor" class="form-control" placeholder="Program Instructor" required />
+                        </div>
 
-                        <label for="programInstructor">Program Instructor</label>
-                        <input type="text" id="programInstructor" placeholder="Program Instructor" required> <!--Can be inserted for the current insturctor using the add program-->
+                        <div class="form-group">
+                            @Html.ValidationMessageFor(model => model.Description)
+                            <label asp-for="Description"><b>Program Description</b></label>
+                            <textarea asp-for="Description" class="form-control" placeholder="Program Description" required></textarea>
+                        </div>
 
-                        <label for="programDescription">Program Description</label>
-                        <textarea id="programDescription" placeholder="Program Description" required></textarea>
-
-                        <button type="submit" id="addProgramBtn">Add</button> <!--Add a function a prompt of successful add and return to the cards-->
-                    </form>
-                </div>
+                        <button type="submit" id="addProgramBtn" class="btn-add">Add Program</button>
+                    </div>
+                </form>
             </div>
         </section>
     </div>
 </div>
+

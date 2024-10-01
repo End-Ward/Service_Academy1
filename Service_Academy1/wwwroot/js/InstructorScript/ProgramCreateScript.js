@@ -28,7 +28,7 @@ photoPreview.addEventListener('click', function () {
 const programForm = document.getElementById('programForm');
 
 programForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+    //e.preventDefault();
 
     const title = document.getElementById('programTitle').value;
     const instructor = document.getElementById('programInstructor').value;
