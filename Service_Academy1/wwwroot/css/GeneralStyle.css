@@ -41,6 +41,8 @@ body {
     display: flex;
     align-items: center;
     padding-left: 120px; /* Add padding to indent */
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Maintain text color */
 }
 
 .logo {
@@ -52,6 +54,14 @@ body {
     font-size: 1.5em; /* Adjusted font size */
     font-weight: bold;
 }
+
+/* Optional: Ensure no underline on hover */
+.logo-container:hover {
+    text-decoration: none;
+    color: black;
+}
+
+
 
 .nav-links {
     display: flex;

@@ -76,8 +76,9 @@
         background-color: #ff782d;
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 30px;
         border-radius: 20px;
+        text-decoration: none; /* Remove underline */
         cursor: pointer;
         display: block;
         font-size: .80vw;
@@ -86,6 +87,7 @@
 
         .odd-shape .cta-button:hover {
             background-color: #e65c1e;
+            font-weight: 700;
         }
 
 .layout {

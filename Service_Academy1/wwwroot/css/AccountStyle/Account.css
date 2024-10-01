@@ -12,7 +12,6 @@ body {
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
-    height: 100vh;
 }
 
 #loginForm {
@@ -27,7 +26,7 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 400px;
-    transform: translate(-50%, -50%);
+    align-content: center;
 }
 
 .title {
@@ -38,12 +37,17 @@ body {
     color: #FF6600; /* Orange */
 }
 
+p {
+    font-size: 14px;
+    text-align: center;
+}
+
 .container {
     display: flex;
     flex-direction: column;
 }
 
-input[type=text], input[type=password], select {
+input[type="text"], input[type="password"], select {
     width: 100%;
     padding: 12px;
     margin: 8px 0;
@@ -65,16 +69,54 @@ input[type=text], input[type=password], select {
 
     .btn:hover {
         opacity: 0.9;
+        background-color: #cc5200;
+        color: white;
     }
 
 .remember-me {
-    margin-bottom: 15px;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    gap: 5px; /* Smaller gap between checkbox and label */
+    margin-bottom: 24px; /* Increased spacing between Remember Me and Forgot Password */
+    margin-left: 10px; /*Indent the check box*/
 }
+
+    .remember-me input[type="checkbox"] {
+        margin-right: 5px; /* Reduced space between checkbox and label */
+        transform: scale(1.2); /* Slightly larger checkbox for better visibility */
+    }
+
+    .remember-me label {
+        font-size: 14px; /* Standard font size for the label */
+        color: #333; /* Darker color for better readability */
+    }
+
+.forgot-password {
+    margin-left: 48px; /* Optional: Add some space to the left of the Forgot Password link */
+    font-size: 14px;
+}
+
+.password-container {
+    position: relative; /* To position the icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer; /* Change cursor to pointer */
+    color: #FF6600; /* Color for the eye icon */
+}
+
+    .toggle-password i {
+        font-size: 17px; /* Adjust size as needed */
+    }
 
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 5px;
+    right: 20px;
     font-size: 24px;
     cursor: pointer;
     color: #FF6600; /* Orange */
