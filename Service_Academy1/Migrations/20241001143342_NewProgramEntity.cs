@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ServiceAcademy.Migrations
 {
     /// <inheritdoc />
-    public partial class AddProgramEntity : Migration
+    public partial class NewProgramEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,8 @@ namespace ServiceAcademy.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     Instructor = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    PhotoPath = table.Column<string>(type: "text", nullable: false)
+                    PhotoPath = table.Column<string>(type: "text", nullable: false),
+                    InstructorId = table.Column<string>(type: "text", nullable: false),
                 },
                 constraints: table =>
                 {

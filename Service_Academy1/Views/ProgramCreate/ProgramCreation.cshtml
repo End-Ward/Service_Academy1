@@ -1,4 +1,4 @@
-﻿@model ProgramsModel
+﻿@model ProgramCreateViewModel
 
 @{
     ViewData["Title"] = "Instructor Dashboard Page";
@@ -26,7 +26,7 @@
                     <div class="photo-upload">
                         <div id="photoPreview" class="photo-preview">Add Photo</div>
                         <label for="photoInput" class="photo-upload-btn">Upload Photo</label>
-                        <input type="file" id="photoInput" name="photoInput" class="photo-input" accept="image/*" required>
+                        <input type="file" id="photoInput" name="photoInput" class="photo-input" accept="image/*" required />
                     </div>
                     <div class="form-content">
                         <h2>ADD PROGRAM</h2>
@@ -38,9 +38,8 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.ValidationMessageFor(model => model.Instructor)
-                            <label asp-for="Instructor"><b>Program Instructor</b></label>
-                            <input asp-for="Instructor" class="form-control" placeholder="Program Instructor" required />
+                            <label><b>Program Instructor</b></label>
+                            <input type="text" class="form-control" value="@Model.InstructorName" readonly />
                         </div>
 
                         <div class="form-group">
@@ -49,6 +48,9 @@
                             <textarea asp-for="Description" class="form-control" placeholder="Program Description" required></textarea>
                         </div>
 
+                        <!-- Hidden field for InstructorId -->
+                        <input type="hidden" asp-for="InstructorId" value="@Model.InstructorId" />
+
                         <button type="submit" id="addProgramBtn" class="btn-add">Add Program</button>
                     </div>
                 </form>
@@ -56,4 +58,3 @@
         </section>
     </div>
 </div>
-
