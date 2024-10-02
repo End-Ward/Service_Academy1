@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Service_Academy1.Models;
 using System.Diagnostics;
@@ -7,18 +8,29 @@ namespace ServiceAcademy.Controllers
     public class InstructorController : Controller
     {
         private readonly ILogger<InstructorController> _logger;
-
-        public InstructorController(ILogger<InstructorController> logger)
+        private readonly ApplicationDbContext _context;
+        public InstructorController(ILogger<InstructorController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         // Action method for Home.cshtml
-        public IActionResult InstructorDashboard()
+        public async Task<IActionResult> InstructorDashboard()
         {
-            ViewData["ActivePage"] = "InstructorDashboard";
-            return View();
+            // Fetch all programs for testing
+            var programs = await _context.Programs.ToListAsync();
+
+            // Check if any programs are being retrieved
+            if (programs == null || !programs.Any())
+            {
+                // Log or handle the empty result case (optional)
+                ViewData["Message"] = "No programs available.";
+            }
+
+            return View(programs);
         }
+
         public IActionResult Home()
         {
             ViewData["ActivePage"] = "Home";

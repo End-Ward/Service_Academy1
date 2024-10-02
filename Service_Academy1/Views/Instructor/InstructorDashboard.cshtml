@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Service_Academy1.Models.ProgramsModel>
+
+@{
     ViewData["Title"] = "Instructor Dashboard Page";
 }
 
@@ -28,70 +30,24 @@
                     </div>
 
                     <div class="program-cards">
-                        <div class="program-card">
-                            <div class="program-image">
-                                <img src="../Images/e-sulat.png" alt="E-Sulat Program">
-                            </div>
-                            <div class="program-content">
-                                <h3>E-SULAT</h3>
-                                <p class="description">Strengthening and upgrading research skills...</p>
-                                <div class="trainees">
-                                    <i class="fa-solid fa-graduation-cap"></i> 15 Trainees
+                        @foreach (var program in Model)
+                        {
+                            <div class="program-card">
+                                <div class="program-image">
+                                    <img src="@Url.Content(program.PhotoPath)" alt="@program.Title">
                                 </div>
-                                <div class="program-icons">
-                                    <i class="fas fa-user"></i>
-                                    <i class="fas fa-folder"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="program-card">
-                            <div class="program-image">
-                                <img src="../Images/google-workspace.png" alt="Google Workspace Training">
-                            </div>
-                            <div class="program-content">
-                                <h3>Google Workspace Training</h3>
-                                <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
-                                <div class="trainees">
-                                    <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
-                                </div>
-                                <div class="program-icons">
-                                    <i class="fa fa-user"></i>
-                                    <i class="fa fa-folder"></i>
+                                <div class="program-content">
+                                    <h3>@program.Title</h3> 
+                                    <div class="instructor">
+                                        <i class="fas fa-user"></i> @program.Instructor
+                                    </div>
+                                    <div class="program-icons">
+                                        <i class="fa-solid fa-graduation-cap"></i> X Trainees
+                                        <i class="fas fa-folder"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="program-card">
-                            <div class="program-image">
-                                <img src="../Images/tree.jpg" alt="Tree">
-                            </div>
-                            <div class="program-content">
-                                <h3>Sample Training</h3>
-                                <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
-                                <div class="trainees">
-                                    <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
-                                </div>
-                                <div class="program-icons">
-                                    <i class="fa fa-user"></i>
-                                    <i class="fa fa-folder"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="program-card">
-                            <div class="program-image">
-                                <img src="../Images/camera.jpg" alt="Camera">
-                            </div>
-                            <div class="program-content">
-                                <h3>Sample Training</h3>
-                                <p class="description">Training/Workshop for employees of Batangas Medical Center...</p>
-                                <div class="trainees">
-                                    <i class="fa-solid fa-graduation-cap"></i> 45 Trainees
-                                </div>
-                                <div class="program-icons">
-                                    <i class="fa fa-user"></i>
-                                    <i class="fa fa-folder"></i>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
