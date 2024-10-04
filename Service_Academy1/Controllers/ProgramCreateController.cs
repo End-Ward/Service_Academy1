@@ -54,7 +54,7 @@ namespace ServiceAcademy.Controllers
 
             if (photoInput != null)
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CreatedImages");
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + photoInput.FileName;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -63,7 +63,7 @@ namespace ServiceAcademy.Controllers
                     await photoInput.CopyToAsync(fileStream);
                 }
 
-                program.PhotoPath = "/Images/" + uniqueFileName;
+                program.PhotoPath = "/CreatedImages/" + uniqueFileName;
             }
             else
             {

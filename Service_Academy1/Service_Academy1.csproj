@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\ProgramCreate\ProgramList.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="bootstrap" Version="5.3.3" />
     <PackageReference Include="jQuery" Version="3.7.1" />
@@ -24,6 +28,14 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="8.0.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\ProgramList\ProgramList.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\CreatedImages\" />
   </ItemGroup>
 
 </Project>

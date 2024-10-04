@@ -90,52 +90,52 @@ namespace ServiceAcademy.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e52f8b74-057c-4a82-98d9-3c9005a5aacc",
+                            Id = "3fc738b1-d0da-4a5f-9745-11f8f13f8631",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3617925-509b-46af-9f9b-9a8319fd46c6",
+                            ConcurrencyStamp = "399e676e-08dd-4f45-9ef2-d7abe638c9f6",
                             Email = "admin@lms.com",
                             EmailConfirmed = true,
                             FullName = "Admin User",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LMS.COM",
                             NormalizedUserName = "ADMIN@LMS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBjqirWQOVvrBOeL83l8cRcN8DTwaGhjLf8hU6/EFrAiKv+Gk7+PLVhB/GcRBCl0NA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF6m67ege7nadudOTU6X2tlg3qRc/iXuK+vnsOdBbbi3IGaoNZrEFGrSm8cXYuWLOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb268759-6b82-4fee-89dd-612da1347861",
+                            SecurityStamp = "b7ed45c0-e2fd-47d5-ab99-612e1f755aa2",
                             TwoFactorEnabled = false,
                             UserName = "admin@lms.com"
                         },
                         new
                         {
-                            Id = "45efd3e0-c8bc-4e4c-96fc-f7d26ca571ee",
+                            Id = "a3d8420c-bd9c-4d29-b4fd-31a7384969ee",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9214e169-977c-4a89-8e11-1289865e9d0b",
+                            ConcurrencyStamp = "94393e90-2dc6-4d94-975c-fb6f7913adbf",
                             Email = "instructor@lms.com",
                             EmailConfirmed = true,
                             FullName = "Instructor User",
                             LockoutEnabled = false,
                             NormalizedEmail = "INSTRUCTOR@LMS.COM",
                             NormalizedUserName = "INSTRUCTOR@LMS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFOgMW5/K/H/6BXxFbBwHZoLpiiIcItramOERZkjPwlDNGcIKJL003VGjG/FW7UWkw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOzhkoi7f2geRHsyeQSbeCsW9+2jjnZpNipW8CsK+ueMk2LT3+dSURC1NVZqZdnK8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f80721d9-54ff-4ad5-b626-9d1e7500bb63",
+                            SecurityStamp = "f13a49c8-cbba-496c-b56a-f70e4e5d1682",
                             TwoFactorEnabled = false,
                             UserName = "instructor@lms.com"
                         },
                         new
                         {
-                            Id = "e46f3cc2-a51b-478e-bf33-265e7db303a0",
+                            Id = "4e56bfbe-8523-47ec-abe0-8025fa031868",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "578d9ac5-06e9-466d-a321-51608cda2101",
+                            ConcurrencyStamp = "10d509b3-9a53-4683-99d1-75e5e95407ec",
                             Email = "student@lms.com",
                             EmailConfirmed = true,
                             FullName = "Student User",
                             LockoutEnabled = false,
                             NormalizedEmail = "STUDENT@LMS.COM",
                             NormalizedUserName = "STUDENT@LMS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELqXKmExlOPgJ9+WCa/9DzERgZkonA5uq5/To2nMlAvRrfW8uJk0Svqc5CCuC4XGCg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEhHE77L1qdoet+VTfIjzl405fdNXNKnjbU/y5ijokoGIEB1qt15/p6TQt2DFDVPPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "096a299c-cfcb-4002-bd40-72700c924e67",
+                            SecurityStamp = "cb3a8ceb-91bb-4a3d-9136-85ed83c39cdc",
                             TwoFactorEnabled = false,
                             UserName = "student@lms.com"
                         });
@@ -169,19 +169,19 @@ namespace ServiceAcademy.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "52424e53-32bf-4451-9f47-afe196d610f8",
+                            Id = "0d594ff0-fe97-4eb2-8e9f-53905fb3ac29",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "57a75072-bbe7-47e2-97eb-15fc2327f474",
+                            Id = "d3d89859-6114-422f-bfad-edc2f5d73687",
                             Name = "Instructor",
                             NormalizedName = "INSTRUCTOR"
                         },
                         new
                         {
-                            Id = "61d6d9dd-e657-4f5c-a1a0-0d0f65c4a402",
+                            Id = "f9b582b8-2868-42ce-aa9f-888fdc2ca092",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -276,18 +276,18 @@ namespace ServiceAcademy.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e52f8b74-057c-4a82-98d9-3c9005a5aacc",
-                            RoleId = "52424e53-32bf-4451-9f47-afe196d610f8"
+                            UserId = "3fc738b1-d0da-4a5f-9745-11f8f13f8631",
+                            RoleId = "0d594ff0-fe97-4eb2-8e9f-53905fb3ac29"
                         },
                         new
                         {
-                            UserId = "45efd3e0-c8bc-4e4c-96fc-f7d26ca571ee",
-                            RoleId = "57a75072-bbe7-47e2-97eb-15fc2327f474"
+                            UserId = "a3d8420c-bd9c-4d29-b4fd-31a7384969ee",
+                            RoleId = "d3d89859-6114-422f-bfad-edc2f5d73687"
                         },
                         new
                         {
-                            UserId = "e46f3cc2-a51b-478e-bf33-265e7db303a0",
-                            RoleId = "61d6d9dd-e657-4f5c-a1a0-0d0f65c4a402"
+                            UserId = "4e56bfbe-8523-47ec-abe0-8025fa031868",
+                            RoleId = "f9b582b8-2868-42ce-aa9f-888fdc2ca092"
                         });
                 });
 
