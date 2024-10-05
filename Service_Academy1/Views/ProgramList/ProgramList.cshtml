@@ -32,6 +32,9 @@
                                 <div class="program-cards">
                                     @foreach (var program in Model)
                                     {
+                                        // Assuming you fetch the latest ProgramManagement entry related to the program
+                                        var programManagement = program.ProgramManagement?.OrderByDescending(pm => pm.StartDate).FirstOrDefault();
+
                                         <div class="program-card">
                                             <div class="program-image">
                                                 <img src="@Url.Content(program.PhotoPath)" alt="@program.Title">
@@ -42,7 +45,10 @@
                                                     @program.Description
                                                 </div>
                                                 <div class="enroll">
-                                                    <button id="enrollbtn" onclick="location.href='@Url.Action("*", "*")'">Enroll Now</button>
+                                                    <button class="btnEnroll @(programManagement?.IsActive == true ? "" : "disabled")"
+                                                            onclick="@(programManagement?.IsActive == true ? $"location.href='{Url.Action("Enroll", "Enrollment")}?programId={program.ProgramId}'" : "return false;")">
+                                                        Enroll Now
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,3 +62,4 @@
         </div>
     </div>
 </main>
+

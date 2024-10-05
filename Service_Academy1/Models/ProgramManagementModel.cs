@@ -15,6 +15,7 @@ namespace Service_Academy1.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsArchived { get; set; } = false;
+        public bool IsActive { get; set; } = false;
 
         public virtual ProgramsModel? ProgramsModel { get; set; } // Navigation property
     }
