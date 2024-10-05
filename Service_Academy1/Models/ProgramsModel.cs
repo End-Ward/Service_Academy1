@@ -17,6 +17,7 @@ namespace Service_Academy1.Models
         // This will hold the instructor's name for display purposes
         public string Instructor { get; set; } = string.Empty;
 
+        public string Agenda { get; set; } = string.Empty;
         public string PhotoPath { get; set; } = string.Empty;
 
         // Foreign key property for the instructor's Id
@@ -25,6 +26,7 @@ namespace Service_Academy1.Models
 
         // Navigation property to the instructor
         public virtual ApplicationUser? currentInstructor { get; set; }
+        public virtual ICollection<ProgramManagementModel> ProgramManagement { get; set; } = new List<ProgramManagementModel>();
     }
 
 }

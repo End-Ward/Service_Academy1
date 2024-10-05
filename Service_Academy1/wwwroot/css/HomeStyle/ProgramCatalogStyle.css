@@ -25,63 +25,88 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-    .sidebar h2 {
-        font-size: 20px;
-        color: #333;
-        margin-bottom: 10px;
-    }
+.sidebar h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
 
-    .sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-        .sidebar ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+.sidebar ul li {
+    padding: 10px 0; /* Keep this for spacing between items */
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-            .sidebar ul li:hover {
-                background-color: #f0f0f0;
-                color: #0056b3;
-            }
+.sidebar ul li:hover {
+    background-color: #f0f0f0;
+    color: #ff782d;
+}
 
-            .sidebar ul li a {
-                text-decoration: none;
-                color: #1a73e8;
-                font-weight: bold;
-            }
+.sidebar ul li a {
+    text-decoration: none;
+    color: #1a73e8;
+    font-weight: bold;
+}
 
-                .sidebar ul li a:hover {
-                    color: #0056b3;
-                }
+.sidebar ul li a:hover {
+    color: #0056b3;
+}
 
-            .sidebar ul li.active {
-                background-color: #f0f0f0;
-                font-weight: bold;
-                color: #0056b3;
-            }
+.sidebar ul li.active {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #0056b3;
+}
 
 .hidden {
     display: none;
 }
 
-/* Hover Effect for "Show More" and "Show Less" */
-#show-more, #show-less-item {
+#show-more, #show-less {
     cursor: pointer;
-    color: blue;
-    padding: 10px 0;
+    color: black;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 10px 0; /* Maintain padding for both buttons */
 }
 
+/* Show More button hover effect */
+#show-more:hover, #show-less:hover {
+    color: #ff782d; /* Change color on hover for both buttons */
+}
+
+/* Show More button styles */
 #show-more {
-    display: block;
+    display: block; /* This is visible by default */
 }
 
+/* Show Less button styles */
 #show-less-item {
-    display: none;
+    display: none; /* This is hidden by default */
+}
+
+/* Ensure no margin or padding causes gaps */
+#show-less-item {
+    margin: 0; /* Remove margin to eliminate any black space above */
+    padding: 0; /* Remove padding */
+}
+
+#show-less-item a {
+    color: black; /* Default link color */
+    display: block; /* Make the link fill the entire space */
+    padding: 10px 0; /* Add vertical padding to ensure the clickable area is larger */
+    text-decoration: none; /* Ensure no underline */
+}
+
+#show-less-item:hover {
+    color: #ff782d; /* Change color on hover */
 }
 
 /* Course Cards */
@@ -117,11 +142,24 @@ h1 {
 .course-card h5 {
     margin: 15px 10px;
     font-size: 16px;
-    height: 50px;
+    height: 110px;
     line-height: 1.2;
 }
 
 /* Enhanced Hover Effect for Course Cards */
 .course-card:hover {
     transform: translateY(-10px);
+
 }
+
+/* Remove underline from links */
+a {
+    text-decoration: none;
+    color: inherit; /* To inherit the color of the parent element or set it to your preferred color */
+}
+
+/* Hover effects for links */
+    a:hover {
+        text-decoration: none;
+        color: #ff782d; /* Or any other color for hover state */
+    }

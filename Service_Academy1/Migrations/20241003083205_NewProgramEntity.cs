@@ -21,6 +21,7 @@ namespace ServiceAcademy.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Instructor = table.Column<string>(type: "text", nullable: false),
+                    Agenda = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     PhotoPath = table.Column<string>(type: "text", nullable: false),
                     InstructorId = table.Column<string>(type: "text", nullable: false),

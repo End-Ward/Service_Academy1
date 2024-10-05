@@ -2,10 +2,15 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+body {
     display: flex;
     flex-direction: column;
 }
-
+.container {
+    flex: 1; /* Allow the container to grow and take available space */
+}
 .header {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
@@ -161,10 +166,7 @@ footer {
     color: #fff;
     padding: 20px;
     font-family: Arial, sans-serif;
-    margin-top: auto; /* Ensures the footer stays at the bottom */
-    /* Add this line to ensure it occupies no space below */
-    position: relative; /* Adjust as necessary */
-    bottom: 0; /* Ensure it is at the bottom */
+    margin-top: auto; /* Ensure footer is pushed to the bottom */
     width: 100%; /* Make sure it stretches the full width */
 }
 
