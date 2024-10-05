@@ -280,16 +280,46 @@ body {
     background-color: #cc5200;
 }
 
-/* Close Button */
 .close-btn {
-    position: absolute;
-    top: 5px;
-    right: 20px;
-    font-size: 24px;
+    background: none;
+    border: none;
+    font-size: 1.5rem; /* Adjust size as needed */
+    color: var(--primary-color); /* Use your primary color for consistency */
     cursor: pointer;
-    color: #FF6600; /* Orange */
 }
 
-.close-btn:hover {
-    color: #cc5200; /* Darker orange */
+    .close-btn:hover {
+        color: darkred; /* Change color on hover for feedback */
+    }
+
+.modal-form .btnYes {
+    background-color: #5cd03d;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
 }
+
+    .modal-form .btnYes:hover {
+        opacity: 0.9;
+        background-color: #cc5200;
+    }
+
+.modal-form .btnNo {
+    background-color: #d03d3d;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+    .modal-form .btnNo:hover {
+        opacity: 0.9;
+        background-color: #cc5200;
+    }

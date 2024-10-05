@@ -45,3 +45,10 @@ programForm.addEventListener('submit', function (e) {
         alert('Please fill out all fields.');
     }
 });
+
+$(document).ready(function () {
+    // Optional: If you'd like to keep auto-hiding the alert after a few seconds while still allowing manual close
+    setTimeout(function () {
+        $(".alert").fadeOut("slow");
+    }, 5000);
+});
