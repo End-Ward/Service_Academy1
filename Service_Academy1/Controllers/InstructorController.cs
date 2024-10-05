@@ -64,5 +64,60 @@ namespace ServiceAcademy.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        // Method to activate a program
+        [HttpPost]
+        public async Task<IActionResult> ActivateProgram(int programId, DateTime startDate, DateTime endDate)
+        {
+            // Ensure the startDate and endDate are in UTC
+            var management = new ProgramManagementModel
+            {
+                ProgramId = programId,
+                StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc), // or startDate.ToUniversalTime() 
+                EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc),     // or endDate.ToUniversalTime()
+                IsArchived = false
+            };
+
+            _context.ProgramManagement.Add(management);
+            await _context.SaveChangesAsync();
+
+            // Add logic to notify the user
+            TempData["Message"] = "Program activated successfully.";
+            return RedirectToAction("InstructorDashboard");
+        }
+
+        // Method to deactivate a program
+        [HttpPost]
+        public async Task<IActionResult> DeactivateProgram(int programId)
+        {
+            var management = await _context.ProgramManagement.FirstOrDefaultAsync(pm => pm.ProgramId == programId);
+            if (management != null)
+            {
+                // Set appropriate flags to deactivate
+                management.EndDate = DateTime.UtcNow; // Or whatever logic you need
+                await _context.SaveChangesAsync();
+
+                // Notify user
+                TempData["Message"] = "Program deactivated successfully.";
+            }
+            return RedirectToAction("InstructorDashboard");
+        }
+
+        // Method to archive a program
+        [HttpPost]
+        public async Task<IActionResult> ArchiveProgram(int programId)
+        {
+            var management = await _context.ProgramManagement.FirstOrDefaultAsync(pm => pm.ProgramId == programId);
+            if (management != null)
+            {
+                management.IsArchived = true;
+                await _context.SaveChangesAsync();
+
+                // Notify user
+                TempData["Message"] = "Program archived successfully.";
+            }
+            return RedirectToAction("InstructorDashboard");
+        }
+
+
     }
 }

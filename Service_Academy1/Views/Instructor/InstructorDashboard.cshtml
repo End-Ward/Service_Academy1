@@ -4,6 +4,11 @@
     ViewData["Title"] = "Instructor Dashboard Page";
 }
 
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+}
+
 @section Styles {
     <link rel="stylesheet" href="~/css/InstructorStyle/InstructorDashboardStyle.css">
 }
@@ -37,13 +42,53 @@
                                     <img src="@Url.Content(program.PhotoPath)" alt="@program.Title">
                                 </div>
                                 <div class="program-content">
-                                    <h3>@program.Title</h3> 
+                                    <h3>@program.Title</h3>
                                     <div class="instructor">
                                         <i class="fas fa-user"></i> @program.Instructor
                                     </div>
                                     <div class="program-icons">
                                         <i class="fa-solid fa-graduation-cap"></i> X Trainees
-                                        <i class="fas fa-folder"></i>
+                                        <!-- Archive Button as an Icon -->
+                                        <form method="post" action="@Url.Action("ArchiveProgram", "Instructor")" style="display:inline;" onsubmit="return confirm('Are you sure you want to archive this program?');">
+                                            <input type="hidden" name="programId" value="@program.ProgramId" />
+                                            <button type="submit" style="background: none; border: none; padding: 0;">
+                                                <i class="fas fa-folder" style="color: var(--primary-color); cursor: pointer; font-size: 1.5rem;"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Buttons aligned with Icons -->
+                                    <div class="action-buttons" style="display: flex; align-items: center; gap: 10px;">
+                                        <!-- Activate Button that opens Modal -->
+                                        <button class="btnActivate" data-toggle="modal" data-target="#activateModal-@program.ProgramId"> Activate</button>
+
+
+                                        <!-- Deactivate Button -->
+                                        <form method="post" action="@Url.Action("DeactivateProgram", "Instructor")" style="display:inline;">
+                                            <input type="hidden" name="programId" value="@program.ProgramId" />
+                                            <button class="btnDeactivate" type="submit">Deactivate</button>
+                                        </form>
+                                    </div>
+                                    <!-- Activate Program Modal -->
+                                    <div class="modal fade" id="activateModal-@program.ProgramId" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div id="modalForm" class="modal-form">
+                                                    <form method="post" action="@Url.Action("ActivateProgram", "Instructor")">
+                                                        <input type="hidden" name="programId" value="@program.ProgramId" />
+                                                        <div class="form-group">
+                                                            <label for="startDate">Start Date</label>
+                                                            <input type="date" name="startDate" required class="form-control" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="endDate">End Date</label>
+                                                            <input type="date" name="endDate" required class="form-control" />
+                                                        </div>
+                                                        <button type="submit" class="btn">Activate</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -64,3 +109,4 @@
         </aside>
     </div>
 </main>
+
