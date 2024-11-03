@@ -10,7 +10,6 @@ body {
 }
 .container {
     flex: 1; /* Allow the container to grow and take available space */
-    overflow-y: auto;
 }
 .header {
     background-color: #ffffff;
@@ -66,6 +65,8 @@ body {
     text-decoration: none;
     color: black;
 }
+
+
 
 .nav-links {
     display: flex;

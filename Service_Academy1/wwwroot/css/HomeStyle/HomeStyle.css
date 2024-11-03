@@ -1,144 +1,169 @@
-/* Body styling to center the form */
-body {
-    margin: 0;
-    height: 100vh; /* Set the body to full height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Prevent scrolling of the body */
+.header{
+    margin-bottom: 0px;
 }
 
-/* Card styling for register form */
-#registerForm {
-    position: relative; /* Maintain relative positioning */
-    margin: auto; /* Center it horizontally */
-    width: 90%;
-    max-width: 500px;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Add scrolling if the content exceeds the height */
-    z-index: 2; /* Ensure form is above the blurred background */
+.hero {
+    position: relative;
+    text-align: center;
+    color: white;
+    height: 75vh; /* Adjusted height for hero section */
+    overflow: hidden;
 }
 
-/* Blurred background effect */
-#registerForm::before {
-    content: '';
+    .hero img {
+        width: 100%;
+        height: 100%; /* Ensure image covers the hero section */
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .hero h1 {
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.odd-shape {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('path/to/your/background-image.jpg'); /* Change to your image path */
-    background-size: cover;
-    background-position: center;
-    filter: blur(8px); /* Adjust blur amount */
-    z-index: -1; /* Place behind the form */
-    border-radius: 8px; /* Match the border radius */
-}
-
-/* Centered title inside the card */
-.title {
-    text-align: center;
-    font-size: 26px;
-    color: #00b09b;
-    margin-bottom: 20px;
-}
-
-/* Close button styling */
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-    color: #666;
-    cursor: pointer;
-}
-
-/* Container styling */
-.container {
+    width: 33%; /* Responsive width */
+    height: 100%;
+    padding: 5% 2%;
+    background-color: rgba(245, 245, 245, 0.8);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    clip-path: polygon(0% 0%, 100% 0%, 70% 170%, 0% 100%);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-/* Label styling */
-label {
-    font-size: 14px;
-    color: #555;
-    font-weight: bold;
-}
-
-/* Input fields and select dropdowns */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
-select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #333;
+    justify-content: center;
+    align-items: flex-start;
     box-sizing: border-box;
 }
 
-/* Styling for rows and columns */
-.row {
-    display: flex;
-    gap: 10px;
-}
-
-.column {
-    flex: 1;
-}
-
-/* Password container styling */
-.password-container {
-    position: relative;
-}
-
-.password-container input {
-    width: 100%;
-    padding-right: 40px;
-}
-
-.password-container .eye-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #888;
-    cursor: pointer;
-}
-
-/* Button styling */
-.btn {
-    background-color: #00b09b;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.btn:hover {
-    background-color: #00997a;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-    .row {
-        flex-direction: column;
+    .odd-shape h1, .odd-shape p {
+        margin: 0;
+        padding: 0;
+        color: black;
+        text-align: left;
+        padding-left: 20px;
     }
+
+    .odd-shape h1 {
+        font-size: 2.7vw;
+        width: 80%;
+        margin-bottom: 1.5rem;
+    }
+
+    .odd-shape p {
+        width: 80%;
+        font-size: .87vw;
+        margin-bottom: 1.5rem;
+        line-height: 2;
+        color: rgb(66, 66, 66);
+    }
+
+    .odd-shape .cta-button {
+        background-color: #ff782d;
+        color: white;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 20px;
+        text-decoration: none; /* Remove underline */
+        cursor: pointer;
+        display: block;
+        font-size: .80vw;
+        margin-left: 30px; /* Adjust value as needed for desired indentation */
+    }
+
+        .odd-shape .cta-button:hover {
+            background-color: #e65c1e;
+            font-weight: 700;
+        }
+
+.layout {
+    display: flex;
+    padding: 30px 150px;
+}
+
+.center-text {
+    text-align: center;
+    margin: 20px 0; /* Optional: add some spacing around the text */
+}
+
+.agenda-title {
+    font-size: 24px; /* Optional: adjust the font size as needed */
+    font-weight: bold; /* Optional: make the title bold */
+}
+
+.agenda-description {
+    font-size: 18px; /* Optional: adjust the font size for the description */
+}
+
+.course-cards {
+    width: 100%;
+    max-width: 320px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    height: 320px;
+    cursor: pointer; /* Indicate that the card is interactive */
+}
+
+.course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.course-card h5 {
+    margin: 15px 10px;
+    font-size: 16px;
+    height: 50px;
+    line-height: 1.2;
+}
+
+/* Initial state of the description - hidden */
+.card-description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 320px;  /*Ayaw neto lumabas kingina para macover fully yung course_cards*/
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allow scrolling if the content is too long */
+    text-align: left;
+    transform: translateY(-100%); /* Initially off-screen */
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    font-size: 12px;
+}
+
+/* Show the description on hover with animation */
+.course-card:hover .card-description {
+    transform: translateY(0); /* Slide into view */
+    opacity: 1;
+}
+
+/* Change opacity of the card and apply scale effect on hover */
+.course-card:hover {
+    opacity: 0.7;
+    transform: scale(1.05); /* Slightly scale up the card */
 }

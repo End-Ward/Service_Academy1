@@ -1,24 +1,19 @@
-/* Ensure no margins or padding affects the layout */
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden; /* Prevent scrolling when the login form is active */
+    margin: 0; /* Ensure no margin is affecting layout */
+    padding: 0; /* Ensure no padding is affecting layout */
+    height: 100vh; /* Make sure it takes full height */
 }
 
-/* Overlay: Semi-transparent background to dim the page */
 #overlay {
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* Slight transparency */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
-    backdrop-filter: blur(5px); /* Optional: adds blur to background */
 }
 
-/* Login Form Container */
 #loginForm {
     position: fixed;
     top: 50%;
@@ -34,28 +29,24 @@ body {
     align-content: center;
 }
 
-/* Title Styling */
 .title {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #FF6600; /* Orange color */
+    color: #FF6600; /* Orange */
 }
 
-/* General paragraph styling */
 p {
     font-size: 14px;
     text-align: center;
 }
 
-/* Container for form elements */
 .container {
     display: flex;
     flex-direction: column;
 }
 
-/* Input fields styling */
 input[type="text"], input[type="password"], select {
     width: 100%;
     padding: 12px;
@@ -65,7 +56,6 @@ input[type="text"], input[type="password"], select {
     box-sizing: border-box;
 }
 
-/* Button Styling */
 .btn {
     background-color: #FF6600; /* Orange */
     color: white;
@@ -77,61 +67,52 @@ input[type="text"], input[type="password"], select {
     font-size: 16px;
 }
 
-    /* Button hover effect */
     .btn:hover {
         opacity: 0.9;
         background-color: #cc5200;
         color: white;
     }
 
-/* Remember me checkbox styling */
 .remember-me {
-    display: flex; /* Flexbox layout */
+    display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center items vertically */
-    gap: 5px; /* Small gap between checkbox and label */
-    margin-bottom: 24px; /* Increased spacing */
-    margin-left: 10px; /* Indent checkbox */
+    gap: 5px; /* Smaller gap between checkbox and label */
+    margin-bottom: 24px; /* Increased spacing between Remember Me and Forgot Password */
+    margin-left: 10px; /*Indent the check box*/
 }
 
-    /* Checkbox scaling */
     .remember-me input[type="checkbox"] {
-        margin-right: 5px; /* Space between checkbox and label */
-        transform: scale(1.2); /* Larger checkbox */
+        margin-right: 5px; /* Reduced space between checkbox and label */
+        transform: scale(1.2); /* Slightly larger checkbox for better visibility */
     }
 
-    /* Label styling */
     .remember-me label {
-        font-size: 14px;
-        color: #333;
+        font-size: 14px; /* Standard font size for the label */
+        color: #333; /* Darker color for better readability */
     }
 
-/* Forgot Password link */
 .forgot-password {
-    margin-left: 48px;
+    margin-left: 48px; /* Optional: Add some space to the left of the Forgot Password link */
     font-size: 14px;
 }
 
-/* Password field container for toggle */
 .password-container {
-    position: relative;
+    position: relative; /* To position the icon */
 }
 
-/* Toggle password visibility icon */
 .toggle-password {
     position: absolute;
-    right: 15px;
+    right: 15px; /* Adjust as needed */
     top: 50%;
     transform: translateY(-50%);
-    cursor: pointer;
-    color: #FF6600; /* Orange color */
+    cursor: pointer; /* Change cursor to pointer */
+    color: #FF6600; /* Color for the eye icon */
 }
 
-    /* Icon styling */
     .toggle-password i {
-        font-size: 17px; /* Adjust icon size */
+        font-size: 17px; /* Adjust size as needed */
     }
 
-/* Close button for the form */
 .close-btn {
     position: absolute;
     top: 5px;
@@ -141,14 +122,13 @@ input[type="text"], input[type="password"], select {
     color: #FF6600; /* Orange */
 }
 
-    /* Close button hover effect */
     .close-btn:hover {
         color: #cc5200; /* Darker orange */
     }
 
 /* Optional: Styling for select dropdowns */
 select {
-    -webkit-appearance: none; /* Remove default select styles */
+    -webkit-appearance: none; /* Remove default styles for better customization */
     -moz-appearance: none;
     appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');

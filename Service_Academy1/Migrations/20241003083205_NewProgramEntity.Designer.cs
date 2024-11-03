@@ -8,11 +8,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Service_Academy1.Migrations
+namespace ServiceAcademy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241103062053_SeedRolesAndUsers")]
-    partial class SeedRolesAndUsers
+    [Migration("20241003083205_NewProgramEntity")]
+    partial class NewProgramEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,59 @@ namespace Service_Academy1.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "3fc738b1-d0da-4a5f-9745-11f8f13f8631",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "399e676e-08dd-4f45-9ef2-d7abe638c9f6",
+                            Email = "admin@lms.com",
+                            EmailConfirmed = true,
+                            FullName = "Admin User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@LMS.COM",
+                            NormalizedUserName = "ADMIN@LMS.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF6m67ege7nadudOTU6X2tlg3qRc/iXuK+vnsOdBbbi3IGaoNZrEFGrSm8cXYuWLOg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b7ed45c0-e2fd-47d5-ab99-612e1f755aa2",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@lms.com"
+                        },
+                        new
+                        {
+                            Id = "a3d8420c-bd9c-4d29-b4fd-31a7384969ee",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "94393e90-2dc6-4d94-975c-fb6f7913adbf",
+                            Email = "instructor@lms.com",
+                            EmailConfirmed = true,
+                            FullName = "Instructor User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "INSTRUCTOR@LMS.COM",
+                            NormalizedUserName = "INSTRUCTOR@LMS.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOzhkoi7f2geRHsyeQSbeCsW9+2jjnZpNipW8CsK+ueMk2LT3+dSURC1NVZqZdnK8Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f13a49c8-cbba-496c-b56a-f70e4e5d1682",
+                            TwoFactorEnabled = false,
+                            UserName = "instructor@lms.com"
+                        },
+                        new
+                        {
+                            Id = "4e56bfbe-8523-47ec-abe0-8025fa031868",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "10d509b3-9a53-4683-99d1-75e5e95407ec",
+                            Email = "student@lms.com",
+                            EmailConfirmed = true,
+                            FullName = "Student User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "STUDENT@LMS.COM",
+                            NormalizedUserName = "STUDENT@LMS.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEhHE77L1qdoet+VTfIjzl405fdNXNKnjbU/y5ijokoGIEB1qt15/p6TQt2DFDVPPA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cb3a8ceb-91bb-4a3d-9136-85ed83c39cdc",
+                            TwoFactorEnabled = false,
+                            UserName = "student@lms.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -115,6 +168,26 @@ namespace Service_Academy1.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0d594ff0-fe97-4eb2-8e9f-53905fb3ac29",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "d3d89859-6114-422f-bfad-edc2f5d73687",
+                            Name = "Instructor",
+                            NormalizedName = "INSTRUCTOR"
+                        },
+                        new
+                        {
+                            Id = "f9b582b8-2868-42ce-aa9f-888fdc2ca092",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -202,6 +275,23 @@ namespace Service_Academy1.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "3fc738b1-d0da-4a5f-9745-11f8f13f8631",
+                            RoleId = "0d594ff0-fe97-4eb2-8e9f-53905fb3ac29"
+                        },
+                        new
+                        {
+                            UserId = "a3d8420c-bd9c-4d29-b4fd-31a7384969ee",
+                            RoleId = "d3d89859-6114-422f-bfad-edc2f5d73687"
+                        },
+                        new
+                        {
+                            UserId = "4e56bfbe-8523-47ec-abe0-8025fa031868",
+                            RoleId = "f9b582b8-2868-42ce-aa9f-888fdc2ca092"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -221,36 +311,6 @@ namespace Service_Academy1.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.ProgramManagementModel", b =>
-                {
-                    b.Property<int>("ProgramManagementId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProgramManagementId"));
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("ProgramId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("ProgramManagementId");
-
-                    b.HasIndex("ProgramId");
-
-                    b.ToTable("ProgramManagement");
                 });
 
             modelBuilder.Entity("Service_Academy1.Models.ProgramsModel", b =>
@@ -342,17 +402,6 @@ namespace Service_Academy1.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Service_Academy1.Models.ProgramManagementModel", b =>
-                {
-                    b.HasOne("Service_Academy1.Models.ProgramsModel", "ProgramsModel")
-                        .WithMany("ProgramManagement")
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProgramsModel");
-                });
-
             modelBuilder.Entity("Service_Academy1.Models.ProgramsModel", b =>
                 {
                     b.HasOne("ApplicationUser", "currentInstructor")
@@ -360,11 +409,6 @@ namespace Service_Academy1.Migrations
                         .HasForeignKey("InstructorId");
 
                     b.Navigation("currentInstructor");
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.ProgramsModel", b =>
-                {
-                    b.Navigation("ProgramManagement");
                 });
 #pragma warning restore 612, 618
         }

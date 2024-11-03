@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ServiceAcademy.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241002010209_AddProgramsPull")]
+    partial class AddProgramsPull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,52 +93,52 @@ namespace ServiceAcademy.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fccb2ba0-267d-43d7-b05b-92f00c3adb1a",
+                            Id = "6808758f-e040-4d1c-9542-8a05bbf8509b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c18e861a-5d16-459c-b853-0fb672bb7eec",
+                            ConcurrencyStamp = "39e33557-ae42-47fb-9f21-9fb0ab11c28e",
                             Email = "admin@lms.com",
                             EmailConfirmed = true,
                             FullName = "Admin User",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LMS.COM",
                             NormalizedUserName = "ADMIN@LMS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOvu0HSQQu8Jx7iNYmi+cw2NAAwgCS6XXRKLYacqxYNRPf3GXFTl+O0aDsCkQdvGvA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENyMDn8IFmCTPmImV1aadzoHLYObNS09KGcDAZCaZRVkj9H873KLXRtOZB8+xUbniQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "60c45102-350f-495f-8052-beb2cfd46e1d",
+                            SecurityStamp = "669fad4a-1a25-4200-8d8a-ca36b897e510",
                             TwoFactorEnabled = false,
                             UserName = "admin@lms.com"
                         },
                         new
                         {
-                            Id = "c4c9311c-1794-4d22-92bb-6fdbf53981f2",
+                            Id = "3057b98c-ca84-464c-aef7-edb6eff9b5a8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "79e0f9be-138a-435b-ad98-e086c0a13a23",
+                            ConcurrencyStamp = "4ca3068f-fbee-4315-a56e-23e59f608c6f",
                             Email = "instructor@lms.com",
                             EmailConfirmed = true,
                             FullName = "Instructor User",
                             LockoutEnabled = false,
                             NormalizedEmail = "INSTRUCTOR@LMS.COM",
                             NormalizedUserName = "INSTRUCTOR@LMS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELXChiL2tr4mdsd5VmIrZ6/3eU8yniuPI8f9gFeDcVF8R0ktA04Bwxn0munA1b8gKQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKOacZUfm+b6KUVSBqrOu8xMd/1iMWR4FEeRTAVf5aaVyugYa5V7M9dwvUY4yJmfkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7e5bc045-a26e-4e1e-b1df-f6a1a86f348d",
+                            SecurityStamp = "8287f60e-4ae9-462a-b1e3-cd52feacf946",
                             TwoFactorEnabled = false,
                             UserName = "instructor@lms.com"
                         },
                         new
                         {
-                            Id = "bf850bb0-3041-4a7f-a6a1-685083dbf158",
+                            Id = "853c9947-f813-4687-9918-84fb03932719",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "67ef25f8-fe78-4d64-a503-8f36c618211c",
+                            ConcurrencyStamp = "8d157455-58b9-4711-a776-ad4ef91a4424",
                             Email = "student@lms.com",
                             EmailConfirmed = true,
                             FullName = "Student User",
                             LockoutEnabled = false,
                             NormalizedEmail = "STUDENT@LMS.COM",
                             NormalizedUserName = "STUDENT@LMS.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFejVe++FCZmL6sOi8XI/zbnPLzKM032Uv98jbtagt7ZjMbBxU4yoyS0JbZvaUJhtg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN/TxGTKOEI4o8pSWlTMhLf19sJOGmePY9ZhX1vMEZXYa9R4qRNJHDHo8Ttq/JiA0Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3309db3e-accb-4c5d-9b47-d4feba8c464e",
+                            SecurityStamp = "73f2d691-4d12-4003-bc02-a11f1b5cd130",
                             TwoFactorEnabled = false,
                             UserName = "student@lms.com"
                         });
@@ -169,19 +172,19 @@ namespace ServiceAcademy.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "37d0db65-8c94-48cb-8b9e-443c58796d81",
+                            Id = "87d8e539-b2b8-4d93-930f-502b321d9c32",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ecb98ce4-0dea-48e1-b41e-34ec602883fa",
+                            Id = "40c527f4-afe8-49c1-8824-ecb1a11a9d6c",
                             Name = "Instructor",
                             NormalizedName = "INSTRUCTOR"
                         },
                         new
                         {
-                            Id = "7ac69882-eac4-4b5a-9e67-d197674f81b9",
+                            Id = "a678c125-c8cd-43b2-9aaf-724d0384a659",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         });
@@ -276,18 +279,18 @@ namespace ServiceAcademy.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "fccb2ba0-267d-43d7-b05b-92f00c3adb1a",
-                            RoleId = "37d0db65-8c94-48cb-8b9e-443c58796d81"
+                            UserId = "6808758f-e040-4d1c-9542-8a05bbf8509b",
+                            RoleId = "87d8e539-b2b8-4d93-930f-502b321d9c32"
                         },
                         new
                         {
-                            UserId = "c4c9311c-1794-4d22-92bb-6fdbf53981f2",
-                            RoleId = "ecb98ce4-0dea-48e1-b41e-34ec602883fa"
+                            UserId = "3057b98c-ca84-464c-aef7-edb6eff9b5a8",
+                            RoleId = "40c527f4-afe8-49c1-8824-ecb1a11a9d6c"
                         },
                         new
                         {
-                            UserId = "bf850bb0-3041-4a7f-a6a1-685083dbf158",
-                            RoleId = "7ac69882-eac4-4b5a-9e67-d197674f81b9"
+                            UserId = "853c9947-f813-4687-9918-84fb03932719",
+                            RoleId = "a678c125-c8cd-43b2-9aaf-724d0384a659"
                         });
                 });
 
@@ -310,33 +313,6 @@ namespace ServiceAcademy.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Service_Academy1.Models.ProgramManagementModel", b =>
-                {
-                    b.Property<int>("ProgramManagementId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProgramManagementId"));
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("ProgramId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("ProgramManagementId");
-
-                    b.HasIndex("ProgramId");
-
-                    b.ToTable("ProgramManagements");
-                });
-
             modelBuilder.Entity("Service_Academy1.Models.ProgramsModel", b =>
                 {
                     b.Property<int>("ProgramId")
@@ -344,10 +320,6 @@ namespace ServiceAcademy.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProgramId"));
-
-                    b.Property<string>("Agenda")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -424,17 +396,6 @@ namespace ServiceAcademy.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.ProgramManagementModel", b =>
-                {
-                    b.HasOne("Service_Academy1.Models.ProgramsModel", "ProgramsModel")
-                        .WithMany()
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProgramsModel");
                 });
 
             modelBuilder.Entity("Service_Academy1.Models.ProgramsModel", b =>
