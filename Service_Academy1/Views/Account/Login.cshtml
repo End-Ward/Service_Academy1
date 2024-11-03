@@ -1,66 +1,95 @@
 ﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login - Service Academy";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/HomeStyle/HomeStyle.css">
+    <link rel="stylesheet" href="~/css/AccountStyle/Account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Service Academy</title>
-    <link rel="stylesheet" href="~/css/AccountStyle/Account.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>@ViewData["Title"]</title>
 </head>
 <body>
-    <div id="overlay"></div>
-    <div id="loginForm">
-        <span class="close-btn" onclick="closeForm()">&times;</span>
-        <h1 class="title">Sign In</h1>
-
-        <form asp-action="Login" method="post">
-            <div class="container">
-                <p class="new-user">
-                    New to Service Academy?
-                    <a href="@Url.Action("Register", "Account")">Create an Account</a>
-                </p>
-                <label asp-for="Email"><b>Email</b></label>
-                <input asp-for="Email" type="text" placeholder="Enter Email Address" />
-
-                <label asp-for="Password"><b>Password</b></label>
-                <div class="password-container">
-                    <input asp-for="Password" type="password" placeholder="Enter Password" id="password" />
-                    <span class="toggle-password" onclick="togglePasswordVisibility()">
-                        <i id="eye-icon" class="fas fa-eye"></i>
-                    </span>
+    <div class="container">
+        <div class="banner">
+            <div class="hero">
+                <img src="../Images/Alangilan-background.jpg" alt="University Entrance" loading="lazy">
+                <div class="odd-shape">
+                    <h1>Build Skills With Online Courses</h1>
+                    <p>
+                        At BatStateU, we are committed to render extension service to depressed and underserved
+                        communities,
+                        as well as to share our expertise in science, technology, education, management, and research
+                        with
+                        public and private agencies/organizations that need our services.
+                    </p>
+                    <a href="ProgramCatalog.html" class="cta-button">Explore Courses</a>
                 </div>
-
-                <div class="remember-me">
-                    <input asp-for="RememberMe" type="checkbox" />
-                    <label asp-for="RememberMe">Remember Me</label>
-                    <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
-                </div>
-
-                <button type="submit" class="btn">Login</button>
             </div>
-        </form>
+        </div>
+
+        <div id="overlay"></div>
+        <div id="loginForm">
+            <span class="close-btn" onclick="closeForm()">&times;</span>
+            <h1 class="title">Sign In</h1>
+
+            <form asp-action="Login" method="post">
+                <div class="container">
+                    <p class="new-user">
+                        New to Service Academy?
+                        <a href="@Url.Action("Register", "Account")">Create an Account</a>
+                    </p>
+                    <label asp-for="Email"><b>Email</b></label>
+                    <input asp-for="Email" type="text" placeholder="Enter Email Address" />
+
+                    <label asp-for="Password"><b>Password</b></label>
+                    <div class="password-container">
+                        <input asp-for="Password" type="password" placeholder="Enter Password" id="password" />
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                            <i id="eye-icon" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+
+                    <div class="remember-me">
+                        <input asp-for="RememberMe" type="checkbox" />
+                        <label asp-for="RememberMe">Remember Me</label>
+                        <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
+
     <script>
         window.onload = function () {
-            document.getElementById("overlay").style.display = "block";
-            document.getElementById("loginForm").style.display = "block";
+            document.getElementById("overlay").style.display = "block"; // Show overlay when page loads
         };
+
         function closeForm() {
-            window.location.href = "/"; // Redirect to the homepage
+            window.location.href = '@Url.Action("Home", "Home")'; // Redirect to the homepage
         }
 
+
         function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
+            const passwordInput = document.getElementById("password");
+            const eyeIcon = document.getElementById("eye-icon");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
             } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
             }
         }
     </script>

@@ -122,7 +122,7 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between title, description, and trainees */
+    gap: 20px; /* Space between title, description, and trainees */
     flex: 1; /* Take up available space */
     position: relative; /* For positioning the line and icons */
 }
