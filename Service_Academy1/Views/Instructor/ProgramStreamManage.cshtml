@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Service_Academy1.Models.EnrolleeViewModel>
+@using Service_Academy1.Utilities
+
+@{
+    ViewData["Title"] = "Program Stream Manage Page";
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/InstructorScript/ProgramStreamManageScript.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/InstructorStyle/ProgramStreamManageStyle.css">
+}
+
+<nav class="navbar">
+    <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">Dashboard</a>
+    <a href="@Url.Action("ProgramStream", "Instructor", new { programId = Model.FirstOrDefault()?.ProgramId })" class="@(Html.IsActive("ProgramStream", "Instructor") ? "active" : "")">Stream</a>
+    <a href="javascript:void(0);" class="@(Html.IsActive("ProgramStreamManage", "Instructor") ? "active" : "")" onclick="location.reload();">Manage</a>
+</nav>
+
+<div class="enrolled-trainees">
+    <div class="heading-options">
+        <h2>ENROLLED TRAINEES</h2>
+        <div class="sort-options">
+            <select id="statusFilter">
+                <option value="all">All</option>
+                <option value="complete">Completed</option>
+                <option value="incomplete">Incomplete</option>
+            </select>
+            <button id="sortButton" onclick="toggleSortTrainees()">
+                <i class="fa-solid fa-arrow-up-a-z" id="sortIconTrainees"></i>
+            </button>
+        </div>
+    </div>
+    <div class="trainee-header">
+        <p>Status</p>
+    </div>
+    <div class="trainee-list">
+        @foreach (var enrollee in Model.Where(e => e.EnrollmentStatus == "Approved"))
+        {
+            <div class="trainee-item">
+                <p>@enrollee.TraineeName</p>
+                <div class="status @(enrollee.ProgramStatus.ToLower())">@enrollee.ProgramStatus</div>
+                <div>
+                    <button>View Grades</button>
+                    <button>Approve Completion</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- Enrollee Requests Section -->
+<div class="enrollee-requests">
+    <div class="heading-options">
+        <h2>ENROLLEE REQUESTS</h2>
+        <div class="sort-options">
+            <select id="requestFilter">
+                <option value="all">All</option>
+                <option value="complete">Completed</option>
+                <option value="incomplete">Incomplete</option>
+            </select>
+            <button id="requestSortButton" onclick="toggleSortRequests()">
+                <i class="fa-solid fa-arrow-up-a-z" id="sortIconRequests"></i>
+            </button>
+        </div>
+    </div>
+    <div class="request-list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Trainee Name</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var enrollee in Model.Where(e => e.EnrollmentStatus == "Pending"))
+                {
+                    <tr>
+                        <td>@enrollee.TraineeName</td>
+                        <td>@enrollee.EnrollmentStatus</td>
+                        <td>
+                            <form asp-action="ApproveEnrollment" method="post">
+                                <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
+                                <button type="submit" class="btn btn-success">Approve</button>
+                            </form>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal-@enrollee.EnrollmentId">
+                                Deny
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Deny Enrollment Modal -->
+                    <div class="modal fade" id="denyModal-@enrollee.EnrollmentId" tabindex="-1" role="dialog" aria-labelledby="denyModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="denyModalLabel">Deny Enrollment for @enrollee.TraineeName</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" asp-action="DenyEnrollment">
+                                        <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
+                                        <div class="form-group">
+                                            <label for="reasonForDenial">Reason for Denial:</label>
+                                            <input type="text" name="reasonForDenial" class="form-control" placeholder="Provide reason for denial" required />
+                                        </div>
+                                        <button type="submit" class="btn btn-danger">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
