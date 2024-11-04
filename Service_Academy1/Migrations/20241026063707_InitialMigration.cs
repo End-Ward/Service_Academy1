@@ -4,12 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
-namespace ServiceAcademy.Migrations
+namespace Service_Academy1.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +32,6 @@ namespace ServiceAcademy.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     FullName = table.Column<string>(type: "text", nullable: true),
-                    Role = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -161,34 +158,80 @@ namespace ServiceAcademy.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "Programs",
+                columns: table => new
                 {
-                    { "139df910-505b-4595-9992-5d9389fb9712", null, "Admin", "ADMIN" },
-                    { "2afc6252-78d8-4585-a775-2ebe989714f1", null, "Student", "STUDENT" },
-                    { "b88d0586-88c8-4efe-bb77-fd0cb56ba11f", null, "Instructor", "INSTRUCTOR" }
+                    ProgramId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Instructor = table.Column<string>(type: "text", nullable: false),
+                    Agenda = table.Column<string>(type: "text", nullable: false),
+                    PhotoPath = table.Column<string>(type: "text", nullable: false),
+                    InstructorId = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Programs", x => x.ProgramId);
+                    table.ForeignKey(
+                        name: "FK_Programs_AspNetUsers_InstructorId",
+                        column: x => x.InstructorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "Enrollment",
+                columns: table => new
                 {
-                    { "2c929ecd-f2a6-423f-9cc3-a6a89508a160", 0, "f7bc0713-471d-4fad-8d79-f7b897b6c8b0", "instructor@lms.com", true, "Instructor User", false, null, "INSTRUCTOR@LMS.COM", "INSTRUCTOR@LMS.COM", "AQAAAAIAAYagAAAAEOQbkITlHERlX/Tv8hX3cZO17wUhkKrjEUHPPfuQVNWuGxlo0fk+7COrSOK/E7lFAQ==", null, false, "Instructor", "42270b95-f2e7-4bd3-8264-6d3e88e5743a", false, "instructor@lms.com" },
-                    { "55e9750f-1fb8-4688-bc26-4f3ca2922cb1", 0, "9241019c-fe1f-4abf-b2b7-8c5677bbb415", "student@lms.com", true, "Student User", false, null, "STUDENT@LMS.COM", "STUDENT@LMS.COM", "AQAAAAIAAYagAAAAEIuLsYkD36CT+OI52YqlGaHz2HZMlY2qFxSvC1qrHPNb6ubN4quR0jj8GMiOAN2F3Q==", null, false, "Student", "f888407c-88c1-4b73-97f5-1864e93bde89", false, "student@lms.com" },
-                    { "9de411fb-616c-4968-aaa8-0734dd1e314a", 0, "dd7f0274-07be-4dd5-8bff-0ae7793948aa", "admin@lms.com", true, "Admin User", false, null, "ADMIN@LMS.COM", "ADMIN@LMS.COM", "AQAAAAIAAYagAAAAEMgxFjg7aq45pHwRqyKC4UXZX/xfnfQZKyNsyBf4ARVsN3nZOXnodNJ6mQYbhHaW0g==", null, false, "Admin", "6d81501b-812c-4ad6-9435-a95ee28767ea", false, "admin@lms.com" }
+                    EnrollmentId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TraineeId = table.Column<string>(type: "text", nullable: true),
+                    ProgramId = table.Column<int>(type: "integer", nullable: false),
+                    EnrollmentStatus = table.Column<string>(type: "text", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ProgramStatus = table.Column<string>(type: "text", nullable: false),
+                    StatusDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ReasonForDenial = table.Column<string>(type: "text", nullable: false),
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollment", x => x.EnrollmentId);
+                    table.ForeignKey(
+                        name: "FK_Enrollment_AspNetUsers_TraineeId",
+                        column: x => x.TraineeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Enrollment_Programs_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Programs",
+                        principalColumn: "ProgramId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "ProgramManagement",
+                columns: table => new
                 {
-                    { "b88d0586-88c8-4efe-bb77-fd0cb56ba11f", "2c929ecd-f2a6-423f-9cc3-a6a89508a160" },
-                    { "2afc6252-78d8-4585-a775-2ebe989714f1", "55e9750f-1fb8-4688-bc26-4f3ca2922cb1" },
-                    { "139df910-505b-4595-9992-5d9389fb9712", "9de411fb-616c-4968-aaa8-0734dd1e314a" }
+                    ProgramManagementId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProgramId = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsArchived = table.Column<bool>(type: "boolean", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProgramManagement", x => x.ProgramManagementId);
+                    table.ForeignKey(
+                        name: "FK_ProgramManagement_Programs_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Programs",
+                        principalColumn: "ProgramId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -227,6 +270,26 @@ namespace ServiceAcademy.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enrollment_ProgramId",
+                table: "Enrollment",
+                column: "ProgramId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enrollment_TraineeId",
+                table: "Enrollment",
+                column: "TraineeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProgramManagement_ProgramId",
+                table: "ProgramManagement",
+                column: "ProgramId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Programs_InstructorId",
+                table: "Programs",
+                column: "InstructorId");
         }
 
         /// <inheritdoc />
@@ -248,7 +311,16 @@ namespace ServiceAcademy.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Enrollment");
+
+            migrationBuilder.DropTable(
+                name: "ProgramManagement");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Programs");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

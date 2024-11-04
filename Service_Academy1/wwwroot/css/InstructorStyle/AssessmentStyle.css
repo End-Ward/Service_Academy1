@@ -1,0 +1,109 @@
+﻿/* General Container */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+/* Title Section */
+.form-title-input {
+    width: 100%;
+    font-size: 24px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+/* Description Section */
+.form-description-input {
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 10px 0;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+/* Question Section */
+.question-section {
+    padding: 15px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.question-title {
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    padding: 8px 0;
+    margin-bottom: 15px;
+}
+
+/* Options */
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .option input[type="radio"] {
+        margin-right: 10px;
+    }
+
+.option-input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 100%;
+    font-size: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Add Option Button */
+.add-option {
+    font-size: 16px;
+    color: #1a73e8;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+    .add-option:hover {
+        text-decoration: underline;
+    }
+/* Container for each question */
+.question-container {
+    padding: 15px 0;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+/* Additional spacing between questions and options */
+.add-question {
+    font-size: 16px;
+    color: #1a73e8;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 0;
+    margin-top: 20px;
+    display: block;
+}
+
+    .add-question:hover {
+        text-decoration: underline;
+    }

@@ -23,21 +23,26 @@
         </a>
         <nav class="nav-links">
             <a href="@Url.Action("Home", "Home")" class="@(Html.IsActive("Home", "Home") ? "active" : "")">Home</a>
-            <a href="@Url.Action("ProgramCatalog", "Home")" class="@(Html.IsActive("ProgramCatalog", "Home") ? "active" : "")">Programs</a>
+            <a href="@Url.Action("ProgramCatalog", "Home")" class="@(ViewContext.RouteData.Values["action"].ToString() == "ProgramCatalog" || (ViewContext.RouteData.Values["action"].ToString() == "ProgramList" && ViewContext.RouteData.Values["controller"].ToString() == "ProgramList") ? "active" : "")">Programs</a>
             <a href="@Url.Action("Contact", "Home")" class="@(Html.IsActive("Contact", "Home") ? "active" : "")">Contact Us</a>
             <a href="@Url.Action("Faqs", "Home")" class="@(Html.IsActive("Faqs", "Home") ? "active" : "")">FAQs</a>
         </nav>
+
         <div class="nav-right">
             @if (User.Identity.IsAuthenticated)
             {
                 // Display specific links based on the user role
                 if (User.IsInRole("Student"))
                 {
-                    <a href="@Url.Action("MyLearning", "Trainee")" class="@(Html.IsActive("MyLearning", "Trainee") ? "active" : "")">My Learning</a>
+                    <a href="@Url.Action("MyLearning", "Trainee")" class="@(Html.IsActive("MyLearning", "Trainee") ||
+        ViewContext.RouteData.Values["action"].ToString() == "MyLearningStream" ? "active" : "")">My Learning</a>
                 }
                 else if (User.IsInRole("Instructor"))
                 {
-                    <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">My Teaching</a>
+                    <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ||
+        ViewContext.RouteData.Values["action"].ToString() == "ProgramStream" ||
+        ViewContext.RouteData.Values["action"].ToString() == "ProgramStreamManage" ||
+        ViewContext.RouteData.Values["action"].ToString() == "ProgramCreation" ? "active" : "")">My Teaching</a>
                 }
 
                 <div class="dropdown">
