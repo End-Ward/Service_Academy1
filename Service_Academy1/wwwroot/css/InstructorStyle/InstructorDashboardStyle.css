@@ -21,6 +21,7 @@ body {
     font-family: var(--font-family);
 }
 
+
 /* Main Content */
 .programs {
     width: 100%;
@@ -91,9 +92,13 @@ body {
     gap: 20px;
     flex-wrap: wrap;
 }
-
+.program-card-link {
+    text-decoration: none;
+    color: inherit;
+}
 /* Program Card */
 .program-card {
+    cursor: pointer;
     background-color: var(--card-bg-color);
     padding: 0; /* Remove padding for the image */
     margin-top: 20px; /* Space between filters and program cards */
