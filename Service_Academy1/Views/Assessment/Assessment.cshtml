@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Assessment Page";
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/InstructorScript/AssessmentScript.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/InstructorStyle/AssessmentStyle.css">
+}
+
+<div class="form-container">
+    <!-- Title Section -->
+    <div class="form-title">
+        <input type="text" class="form-title-input" placeholder="Untitled form" />
+    </div>
+
+    <!-- Description Section -->
+    <div class="form-description">
+        <textarea class="form-description-input" placeholder="Form description"></textarea>
+    </div>
+
+    <!-- Questions Container -->
+    <div id="questions-container">
+        <!-- Placeholder for dynamically added questions -->
+    </div>
+
+    <!-- Button to add a new question -->
+    <button id="add-question" class="add-question">+ Add Question</button>
+</div>

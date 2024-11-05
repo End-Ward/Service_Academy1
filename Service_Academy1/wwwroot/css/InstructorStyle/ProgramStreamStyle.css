@@ -1,0 +1,413 @@
+﻿/* Reset and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Root variables */
+:root {
+    --primary-color: #2b2b5f;
+    --secondary-color: #f4f4f4;
+    --banner-bg-color: #4a4a7d; /* Banner background color */
+    --font-family: 'Poppins', sans-serif;
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Add shadow color variable */
+}
+
+/* Body */
+body {
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+}
+
+/* Header styles */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 50px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+    padding-left: 80px;
+}
+
+    .navbar a {
+        color: black;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 500;
+        position: relative; /* Positioning for the separator */
+    }
+
+        .navbar a:not(:last-child)::after { /* Add separator after each item except the last */
+            content: "|"; /* Separator */
+            margin-left: 10px; /* Space between text and separator */
+            color: black; /* Color of the separator */
+        }
+
+        .navbar a:hover {
+            color: #ddd;
+        }
+
+.profile-picture img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+/* User Text */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+    .user-text p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+        .user-text p:first-child {
+            font-weight: bold;
+        }
+
+        .user-text p:last-child {
+            color: rgb(217, 217, 217);
+        }
+
+/* Logout Icon */
+.logout-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+    .logout-icon i {
+        font-size: 1.2rem;
+        color: white;
+    }
+
+.logout-text {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--dropdown-bg-color);
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px var(--shadow-color);
+    font-size: 0.9rem;
+}
+
+/* Show text on hover */
+.logout-icon:hover .logout-text {
+    display: block;
+}
+
+/* Class Banner Section */
+.class-banner {
+    background-color: #ebebeb; /* Gray background */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    width: 90%; /* Width of the banner */
+    margin: 10px auto; /* Center the banner horizontally and add margin on top and bottom */
+    border-radius: 10px; /* Optional rounded corners */
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: 2px solid #ccc; /* Add border to the banner */
+}
+
+/* Content Container */
+.banner-content {
+    width: 100%; /* Full width for the content */
+}
+
+/* Banner Image */
+.banner-image {
+    width: 100%; /* Full width for the image container */
+    height: 50%; /* Take half of the banner's height */
+}
+
+    .banner-image img {
+        width: 100%; /* Image stretches to fill its container */
+        height: auto; /* Maintain aspect ratio */
+        max-height: 300px; /* Set a maximum height */
+        object-fit: cover; /* Ensure the image covers the area without stretching */
+        border-top-left-radius: 10px; /* Rounded corners on the top left */
+        border-top-right-radius: 10px; /* Rounded corners on the top right */
+    }
+
+/* Banner Text */
+.banner-text {
+    width: 100%; /* Full width for the text */
+    height: 50%; /* Take the other half of the banner's height */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack text vertically */
+    justify-content: center; /* Center text vertically */
+    align-items: left; /* Align text to the left */
+    text-align: left; /* Align text to the left */
+    padding: 20px; /* Padding for the text section */
+}
+
+.class-title {
+    font-size: 2.5rem; /* Increased font size for title */
+    font-weight: bold; /* Bold text */
+    margin-bottom: 15px; /* Space between title and number */
+}
+
+.trainees-count {
+    font-size: 1.2rem; /* Font size for number of trainees */
+}
+
+/* Announcements Section */
+.announcements {
+    margin-bottom: 20px;
+    width: 80%;
+    margin: 0 auto; /* Center the announcements */
+    border: 2px solid #ccc; /* Add border to announcements */
+    border-radius: 10px; /* Rounded corners for announcements */
+    padding: 10px; /* Padding for visual spacing */
+}
+
+.announcement-container {
+    margin-bottom: 20px;
+}
+
+.announcement-prompt {
+    background-color: #f1f1f1; /* Light gray background */
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center; /* Center text */
+    transition: background-color 0.2s;
+}
+
+    .announcement-prompt:hover {
+        background-color: #e1e1e1; /* Darker gray on hover */
+    }
+
+.announcement-input {
+    margin-top: 10px; /* Space above input */
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px var(--shadow-color);
+}
+
+.input-toolbar {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-bottom: 10px; /* Space below toolbar */
+}
+
+    .input-toolbar button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF; /* Bootstrap primary color */
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .input-toolbar button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+.editable-textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    resize: none; /* Prevent resizing */
+    min-height: 100px; /* Minimum height for the editable area */
+}
+
+.input-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-top: 10px; /* Space above buttons */
+}
+
+.cancel-btn,
+.post-btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: #fff;
+    cursor: pointer;
+}
+
+    .cancel-btn:hover {
+        background-color: #c82333; /* Darker red on hover */
+    }
+
+.post-btn {
+    background-color: #28a745; /* Bootstrap success color */
+}
+
+    .post-btn:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+
+.posts {
+    margin-top: 20px;
+}
+
+/* Individual Post Styling */
+.post {
+    background-color: #f9f9f9; /* Light background for posts */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px; /* Space between posts */
+    position: relative;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.post-user {
+    display: flex;
+    align-items: center;
+}
+
+.post-user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Circular profile picture */
+    margin-right: 10px;
+}
+
+.post-user-name {
+    font-weight: bold;
+}
+
+.post-timestamp {
+    color: #888; /* Lighter color for timestamp */
+    font-size: 0.9em;
+}
+
+.post-content {
+    margin-top: 5px;
+}
+
+/* Content Sections */
+.content-sections {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 100px;
+    gap: 20px;
+}
+
+/* Adjust widths for modules and module-viewer */
+.modules {
+    width: 20%; /* Set width to 20% */
+    background-color: var(--secondary-color); /* Optional background for visibility */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Padding inside modules section */
+    box-shadow: 0 4px 8px var(--shadow-color); /* Optional shadow */
+    border: 2px solid #ccc; /* Add border to modules */
+}
+
+.module-viewer {
+    width: 80%; /* Set width to 80% */
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border: 2px solid #ccc; /* Add border to module viewer */
+}
+
+.module-list .module {
+    margin-bottom: 20px;
+}
+
+.module-title, .final-assessment {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.module-content, .final-exam {
+    display: none; /* Hidden by default, toggled with JavaScript */
+    padding: 10px 20px;
+}
+
+    .module-content ul {
+        list-style-type: none;
+    }
+
+    .module-content li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+.module-viewer .viewer-content {
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .class-banner {
+        padding: 30px 20px;
+    }
+
+    .banner-content .class-title {
+        font-size: 1.5rem;
+    }
+
+    .banner-content .trainees-count {
+        font-size: 1rem;
+    }
+
+    .content-sections {
+        flex-direction: column;
+    }
+
+    .modules,
+    .module-viewer {
+        width: 100%; /* Full width on mobile */
+    }
+}

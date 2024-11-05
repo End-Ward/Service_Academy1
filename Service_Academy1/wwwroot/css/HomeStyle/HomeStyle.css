@@ -1,4 +1,4 @@
-.header{
+.header {
     margin-bottom: 0px;
 }
 
@@ -143,7 +143,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 320px;  /*Ayaw neto lumabas kingina para macover fully yung course_cards*/
+    height: 320px; 
     background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
     color: #fff;
     padding: 20px;

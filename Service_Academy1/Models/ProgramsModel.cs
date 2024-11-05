@@ -27,6 +27,8 @@ namespace Service_Academy1.Models
         // Navigation property to the instructor
         public virtual ApplicationUser? currentInstructor { get; set; }
         public virtual ICollection<ProgramManagementModel> ProgramManagement { get; set; } = new List<ProgramManagementModel>();
+        public virtual ICollection<EnrollmentModel> Enrollments { get; set; } = new List<EnrollmentModel>();
+        public virtual ICollection<ModuleModel> Modules { get; set; } = new List<ModuleModel>();
     }
 
 }

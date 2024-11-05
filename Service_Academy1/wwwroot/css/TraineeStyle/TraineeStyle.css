@@ -1,19 +1,26 @@
-/* Main content styling */
-.main-content {
-    display: flex;
-    margin: 20px;
-    padding: 20px;
+/* Reset and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    flex: 1;
+/* Root variables */
+:root {
+    --primary-color: #ff782d;
+    --secondary-color: #f4f4f4;
+    --card-bg-color: #f8f8f8;
+    --dropdown-bg-color: white;
+    --dropdown-hover-bg-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Poppins', sans-serif;
 }
 
-.content {
-    padding: 20px 20px 20px 20px;
-    border-radius: 10px;
+/* Body */
+body {
+    font-family: var(--font-family);
 }
-
+/* My Learning Container */
 .my-learning-container {
     display: flex;
     align-items: center;
@@ -32,45 +39,49 @@
     color: #333;
 }
 
-/* Left panel (My Learning content) */
+/* Left Panel (My Learning Content) */
 .left-panel {
     flex: 2;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+/* CTA Button */
 #cta-button {
-    background-color: #ff782d;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: .80vw;
+    font-size: 1rem;
     margin-left: 10px; /* Adjust value as needed for desired indentation */
 }
 
     #cta-button:hover {
-        background-color: #ff782d;
+        background-color: #ff6600; /* Slightly darker on hover */
     }
 
-/* Right panel (Achievements and assignments) */
+/* Right Panel (Achievements and Assignments) */
 .right-panel {
     flex: 1;
     margin-left: 20px;
 }
 
-.achievements, .assignments {
-    background-color: rgb(243, 243, 243);
+/* Achievements and Assignments */
+.achievements,
+.assignments {
+    background-color: var(--card-bg-color);
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-    .achievements h3, .assignments h3 {
+    .achievements h3,
+    .assignments h3 {
         margin-top: 0;
     }
 
@@ -84,55 +95,118 @@
         }
 
 .assignments {
-    padding: 30px 0px 30px 0px;
     text-align: center;
 }
 
+/* No Assignments */
 .no-assignments {
-    padding: 30px 0px 30px 0px;
+    padding: 30px;
     text-align: center;
     color: #888;
 }
 
+
+/* Main Content */
 .programs {
-    margin: 20px 0px 0px 20px;
+    width: 100%;
+    padding-top: 20px;
 }
 
-.programs-enrolled {
-    background-color: #f8f8f8;
+    .programs h2 {
+        margin-bottom: 25px; /* Space between header and box */
+    }
+
+.program-box {
+    background-color: var(--secondary-color);
     padding: 20px;
-    margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
+
+/* Program Filters */
+.program-filters {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between filter elements */
+}
+
+    .program-filters select,
+    .program-filters input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        padding-right: 40px; /* Space for the dropdown icon */
+    }
+
+.search-container {
+    position: relative;
+}
+
+    .search-container i {
+        position: absolute;
+        left: 10px; /* Adjust to position the icon correctly */
+        top: 50%;
+        transform: translateY(-50%); /* Vertically center the icon */
+        color: var(--primary-color);
+    }
+
+    .search-container input {
+        padding-left: 40px; /* Space for the search icon */
+        width: 100%; /* Ensure it takes the full width of its container */
+    }
+
+.program-filters button {
+    padding: 10px 20px;
+    border: none;
+    margin-left: auto; /* Pushes the button to the right */
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: 400; /* Normal font weight */
+}
+
+    .program-filters button:hover {
+        font-weight: bold; /* Make text bold on hover */
+    }
 
 /* Program Cards */
 .program-cards {
     display: flex;
+    gap: 20px;
     flex-wrap: wrap;
-    padding-left: 55px;
 }
 
+.program-card-link {
+    text-decoration: none;
+    color: inherit;
+}
 /* Program Card */
 .program-card {
-    background-color: #f8f8f8;
-    padding: 0;
-    margin-top: 20px;
+    cursor: pointer;
+    background-color: var(--card-bg-color);
+    padding: 0; /* Remove padding for the image */
+    margin-top: 20px; /* Space between filters and program cards */
     border-radius: 10px;
-    width: 100%; /* Set to 100% to fill the column */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    overflow: hidden; /* Ensures the image stays within the card’s border radius */
     display: flex;
-    flex-direction: column;
-    height: 370px;
+    flex-direction: column; /* Stack content vertically */
+    height: 370px; /* Fixed height for consistency */
 }
 
+/* Program Image */
 .program-image img {
-    width: 100%; /* Ensures the image takes full width of the card */
-    height: 150px;
-    object-fit: cover;
-    display: block;
+    width: 100%;
+    height: 150px; /* Fixed height for the image */
+    object-fit: cover; /* Ensure the image covers the area */
+    border-top-left-radius: 10px; /* Match the card’s border radius */
+    border-top-right-radius: 10px; /* Match the card’s border radius */
+    display: block; /* Remove bottom space */
 }
+
 /* Content Section */
 .program-content {
     padding: 15px;
@@ -143,7 +217,6 @@
     position: relative; /* For positioning the line and icons */
 }
 
-    /* Title and Description */
     .program-content h3 {
         font-size: 1.2rem;
         margin: 0;
@@ -161,13 +234,11 @@
     padding-top: 50px;
 }
 
-    /* Icon Styling */
     .trainees i {
         color: #FF782D; /* Icon color */
         font-size: 0.9rem; /* Match the size of the text */
     }
 
-    /* Line below trainees and above icons */
     .trainees::after {
         content: "";
         display: block;
@@ -191,22 +262,154 @@
         font-size: 1.2rem; /* Adjust size as needed */
     }
 
-.add-program-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f1f1f1;
-    height: 370px;
+/* Sidebar */
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+
+/* Upcoming Events */
+.upcoming-events {
+    background-color: var(--secondary-color);
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    margin-top: 20px; /* Space between widgets */
+}
+
+.btnDeactivate {
+    background-color: #d03d3d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.btnActivate {
+    background-color: #5cd03d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .programs {
+        width: 100%;
+    }
+
+    .program-cards {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .program-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .program-filters button {
+            width: 100%;
+        }
+}
+/* Modal Overlay */
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Modal Form */
+#modalForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Modal Input Fields */
+.modal-form input[type="text"],
+.modal-form input[type="password"],
+.modal-form input[type="date"],
+.modal-form select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Modal Buttons */
+.modal-form .btn {
+    background-color: #FF6600; /* Orange */
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+    .modal-form .btn:hover {
+        opacity: 0.9;
+        background-color: #cc5200;
+    }
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem; /* Adjust size as needed */
+    color: var(--primary-color); /* Use your primary color for consistency */
     cursor: pointer;
 }
 
-    .add-program-card:hover {
-        background-color: #e2e2e2; /* Slightly darker on hover */
+    .close-btn:hover {
+        color: darkred; /* Change color on hover for feedback */
     }
 
-.add-catalog i {
-    font-size: 3rem;
-    color: #FF782D; /* Match your primary color */
+.modal-form .btnYes {
+    background-color: #5cd03d;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
 }
+
+    .modal-form .btnYes:hover {
+        opacity: 0.9;
+        background-color: #cc5200;
+    }
+
+.modal-form .btnNo {
+    background-color: #d03d3d;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+    .modal-form .btnNo:hover {
+        opacity: 0.9;
+        background-color: #cc5200;
+    }

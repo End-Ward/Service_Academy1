@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Service_Academy1.Models.ProgramsModel>
+﻿@model Service_Academy1.Models.ProgramListViewModel
 
 @{
     ViewData["Title"] = "Program Catalog Dashboard Page";
@@ -30,10 +30,13 @@
                                     </div>
                                 </div>
                                 <div class="program-cards">
-                                    @foreach (var program in Model)
+                                    @foreach (var program in Model.Programs)
                                     {
-                                        // Assuming you fetch the latest ProgramManagement entry related to the program
                                         var programManagement = program.ProgramManagement?.OrderByDescending(pm => pm.StartDate).FirstOrDefault();
+
+                                        // Check if the user is enrolled in this program
+                                        var existingEnrollment = Model.UserEnrollments.FirstOrDefault(e => e.ProgramId == program.ProgramId);
+                                        bool canEnroll = existingEnrollment == null || existingEnrollment.EnrollmentStatus == "Denied";
 
                                         <div class="program-card">
                                             <div class="program-image">
@@ -45,10 +48,12 @@
                                                     @program.Description
                                                 </div>
                                                 <div class="enroll">
-                                                    <button class="btnEnroll @(programManagement?.IsActive == true ? "" : "disabled")"
-                                                            onclick="@(programManagement?.IsActive == true ? $"location.href='{Url.Action("Enroll", "Enrollment")}?programId={program.ProgramId}'" : "return false;")">
-                                                        Enroll Now
-                                                    </button>
+                                                    <form method="post" action="@Url.Action("Enroll", "ProgramList")">
+                                                        <input type="hidden" name="programId" value="@program.ProgramId" />
+                                                        <button type="submit" class="btnEnroll @(programManagement?.IsActive == true && canEnroll ? "" : "disabled")" @(programManagement?.IsActive == true && canEnroll ? "" : "disabled")>
+                                                            Enroll Now
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

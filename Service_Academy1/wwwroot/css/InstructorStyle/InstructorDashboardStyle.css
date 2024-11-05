@@ -122,6 +122,7 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
+    gap: 20px; /* Space between title, description, and trainees */
     gap: 10px; /* Space between title, description, and trainees */
     flex: 1; /* Take up available space */
     position: relative; /* For positioning the line and icons */
@@ -275,10 +276,10 @@ body {
     font-size: 16px;
 }
 
-.modal-form .btn:hover {
-    opacity: 0.9;
-    background-color: #cc5200;
-}
+    .modal-form .btn:hover {
+        opacity: 0.9;
+        background-color: #cc5200;
+    }
 
 .close-btn {
     background: none;
@@ -322,4 +323,3 @@ body {
     .modal-form .btnNo:hover {
         opacity: 0.9;
         background-color: #cc5200;
-    }

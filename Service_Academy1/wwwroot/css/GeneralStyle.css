@@ -8,9 +8,11 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .container {
     flex: 1; /* Allow the container to grow and take available space */
 }
+
 .header {
     background-color: #ffffff;
     color: rgb(0, 0, 0);

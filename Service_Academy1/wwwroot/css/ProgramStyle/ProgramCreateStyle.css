@@ -6,6 +6,10 @@
     padding: 30px;
 }
 
+h2{
+    font-weight: 700;
+}
+
 #programForm {
     display: flex;
     max-width: 900px;
