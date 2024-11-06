@@ -1,0 +1,20 @@
+﻿@model Service_Academy1.Models.QuizModel
+
+<h2>@Model.QuizTitle</h2>
+<p>@Model.QuizDirection</p>
+
+@foreach (var question in Model.Questions)
+{
+    <div class="question">
+        <h4>@question.Question</h4>
+        <p><strong>Correct Answer:</strong> @question.CorrectAnswer</p>
+
+        <!-- Display all answer options if needed -->
+        <ul>
+            @foreach (var answer in question.Answers)
+            {
+                <li>@answer.Answer</li>
+            }
+        </ul>
+    </div>
+}

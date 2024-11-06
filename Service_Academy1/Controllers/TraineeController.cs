@@ -94,6 +94,9 @@ namespace ServiceAcademy.Controllers
 
             var program = _context.Programs
                 .Include(p => p.Modules) // Include Modules data
+                .Include(p => p.Quizzes)
+                .ThenInclude(q => q.Questions)
+                .ThenInclude(q => q.Answers)
                 .FirstOrDefault(p => p.ProgramId == programId);
 
             if (program == null)
@@ -108,7 +111,8 @@ namespace ServiceAcademy.Controllers
                 Title = program.Title,
                 Description = program.Description,
                 PhotoPath = program.PhotoPath,
-                Modules = program.Modules.ToList() // Include modules in the view model
+                Modules = program.Modules.ToList(),
+                Quizzes = program.Quizzes.ToList() // Include modules in the view model
             };
 
             return View(viewModel);

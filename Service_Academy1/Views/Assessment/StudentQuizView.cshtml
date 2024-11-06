@@ -1,0 +1,22 @@
+﻿@model Service_Academy1.Models.QuizModel
+@{
+    ViewData["Title"] = "Student Quiz";
+}
+
+<h2>@Model.QuizTitle</h2>
+<p>@Model.QuizDirection</p>
+
+<form method="post" action="@Url.Action("SubmitQuiz", "Assessment")">
+    <input type="hidden" name="QuizId" value="@Model.QuizId" />
+    <input type="hidden" name="EnrollmentId" value="@ViewBag.EnrollmentId" /> <!-- Pass EnrollmentId here -->
+
+    @foreach (var question in Model.Questions)
+    {
+        <div class="question">
+            <h3>@question.Question</h3>
+            <input type="text" name="answers[@question.QuestionId]" class="answer-field" placeholder="Your answer here" />
+        </div>
+    }
+
+    <button type="submit">Submit</button>
+</form>

@@ -14,6 +14,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<ProgramManagementModel> ProgramManagement { get; set; }
     public DbSet<EnrollmentModel> Enrollment { get; set; }
     public DbSet<ModuleModel> Modules { get; set; }
+    public DbSet<QuizModel> Quizzes { get; set; }
+    public DbSet<QuestionModel> Questions { get; set; }
+    public DbSet<AnswerModel> Answers { get; set; }
+    public DbSet<StudentAnswerModel> StudentAnswers { get; set; }
+    public DbSet<StudentQuizResultModel> StudentQuizResults { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

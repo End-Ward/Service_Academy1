@@ -45,6 +45,11 @@
                 {
                     <button class="module-title" onclick="loadModuleContent('@module.FilePath')">Module @module.Title</button>
                 }
+                <h3>Quizzes</h3>
+                @foreach (var quiz in Model.Quizzes)
+                {
+                    <button class="quiz-title" onclick="location.href='@Url.Action("StudentQuizView", "Assessment", new { quizId = quiz.QuizId })'">@quiz.QuizTitle</button>
+                }
             </div>
 
         </aside>

@@ -77,6 +77,9 @@ namespace ServiceAcademy.Controllers
         {
             var program = _context.Programs
                                   .Include(p => p.Modules)
+                                  .Include(p => p.Quizzes)
+                                  .ThenInclude(q => q.Questions)
+                                  .ThenInclude(q => q.Answers)
                                   .FirstOrDefault(p => p.ProgramId == programId);
 
             if (program == null)
@@ -91,11 +94,13 @@ namespace ServiceAcademy.Controllers
                 Title = program.Title,
                 Description = program.Description,
                 PhotoPath = program.PhotoPath,
-                Modules = program.Modules.ToList()
+                Modules = program.Modules.ToList(),
+                Quizzes = program.Quizzes.ToList() // Include quizzes here
             };
 
             return View(viewModel);
         }
+
 
         public IActionResult ProgramStreamManage(int programId)
         {
@@ -221,6 +226,7 @@ namespace ServiceAcademy.Controllers
         {
             var program = await _context.Programs
                                          .Include(p => p.Modules) // Include related modules
+                                         .Include(p => p.Quizzes) // Include related Quizzes
                                          .Include(p => p.Enrollments) // Include related enrollments
                                          .FirstOrDefaultAsync(p => p.ProgramId == programId);
 

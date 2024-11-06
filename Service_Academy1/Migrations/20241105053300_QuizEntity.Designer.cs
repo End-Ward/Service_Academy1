@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Service_Academy1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241105053300_QuizEntity")]
+    partial class QuizEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,72 +431,6 @@ namespace Service_Academy1.Migrations
                     b.ToTable("Quizzes");
                 });
 
-            modelBuilder.Entity("Service_Academy1.Models.StudentAnswerModel", b =>
-                {
-                    b.Property<int>("StudentAnswerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("StudentAnswerId"));
-
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("StudentQuizResultId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("StudentAnswerId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.HasIndex("StudentQuizResultId");
-
-                    b.ToTable("StudentAnswers");
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.StudentQuizResultModel", b =>
-                {
-                    b.Property<int>("StudentQuizResultId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("StudentQuizResultId"));
-
-                    b.Property<double>("ComputedScore")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("EnrollmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QuizId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RawScore")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("TotalScore")
-                        .HasColumnType("integer");
-
-                    b.HasKey("StudentQuizResultId");
-
-                    b.HasIndex("EnrollmentId");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("StudentQuizResults");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -618,50 +555,12 @@ namespace Service_Academy1.Migrations
             modelBuilder.Entity("Service_Academy1.Models.QuizModel", b =>
                 {
                     b.HasOne("Service_Academy1.Models.ProgramsModel", "ProgramsModel")
-                        .WithMany("Quizzes")
+                        .WithMany()
                         .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ProgramsModel");
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.StudentAnswerModel", b =>
-                {
-                    b.HasOne("Service_Academy1.Models.QuestionModel", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Service_Academy1.Models.StudentQuizResultModel", "StudentQuizResult")
-                        .WithMany("StudentAnswers")
-                        .HasForeignKey("StudentQuizResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-
-                    b.Navigation("StudentQuizResult");
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.StudentQuizResultModel", b =>
-                {
-                    b.HasOne("Service_Academy1.Models.EnrollmentModel", "Enrollment")
-                        .WithMany()
-                        .HasForeignKey("EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Service_Academy1.Models.QuizModel", "Quiz")
-                        .WithMany()
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Enrollment");
-
-                    b.Navigation("Quiz");
                 });
 
             modelBuilder.Entity("Service_Academy1.Models.ProgramsModel", b =>
@@ -671,8 +570,6 @@ namespace Service_Academy1.Migrations
                     b.Navigation("Modules");
 
                     b.Navigation("ProgramManagement");
-
-                    b.Navigation("Quizzes");
                 });
 
             modelBuilder.Entity("Service_Academy1.Models.QuestionModel", b =>
@@ -683,11 +580,6 @@ namespace Service_Academy1.Migrations
             modelBuilder.Entity("Service_Academy1.Models.QuizModel", b =>
                 {
                     b.Navigation("Questions");
-                });
-
-            modelBuilder.Entity("Service_Academy1.Models.StudentQuizResultModel", b =>
-                {
-                    b.Navigation("StudentAnswers");
                 });
 #pragma warning restore 612, 618
         }

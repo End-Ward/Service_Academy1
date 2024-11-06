@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/css/InstructorStyle/ProgramStreamStyle.css">
 }
 
+
 <nav class="navbar">
     <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">Dashboard</a>
     <a href="javascript:void(0);" class="@(Html.IsActive("ProgramStream", "Instructor") ? "active" : "")" onclick="location.reload();">Stream</a>
@@ -64,7 +65,7 @@
     </section>
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModuleModal"> Upload Module</button>
-    <a href="@Url.Action("Assessment", "Assessment")" class="btn btn-primary">Create Assessment</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAssessmentModal">Create Assessment</button>
 
      
     <!-- Modules and Module Content Sections -->
@@ -77,7 +78,11 @@
                     <button class="module-title" onclick="loadModuleContent('@module.FilePath')">Module @module.Title</button>
                 }
             </div>
-
+            <h3>Quizzes</h3>
+            @foreach (var quiz in Model.Quizzes)
+            {
+                <button class="quiz-title" onclick="location.href='@Url.Action("ViewQuiz", "Assessment", new { quizId = quiz.QuizId })'">@quiz.QuizTitle</button>
+            }
         </aside>
 
         <section class="module-viewer">
@@ -112,6 +117,39 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createAssessmentModal" tabindex="-1" aria-labelledby="createAssessmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createAssessmentModalLabel">Create Assessment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="createAssessmentForm" asp-action="Create" asp-controller="Assessment" method="post">
+                    <input type="hidden" name="ProgramId" value="@Model.ProgramId" />
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="quizTitle">Quiz Title</label>
+                            <input type="text" class="form-control" id="quizTitle" name="QuizTitle" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="quizDescription">Quiz Description</label>
+                            <textarea class="form-control" id="quizDescription" name="QuizDirection" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="numberOfQuestions">Number of Questions</label>
+                            <input type="number" class="form-control" id="numberOfQuestions" name="NumberOfQuestions" min="1" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Quiz</button>
                     </div>
                 </form>
             </div>

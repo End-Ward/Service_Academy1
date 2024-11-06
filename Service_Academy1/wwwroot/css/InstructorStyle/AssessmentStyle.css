@@ -1,109 +1,79 @@
-﻿/* General Container */
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+﻿/* General body styles */
+body {
     font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
 }
 
-/* Title Section */
-.form-title-input {
-    width: 100%;
-    font-size: 24px;
-    font-weight: 500;
-    border: none;
-    outline: none;
-    padding: 10px 0;
+/* Header styles */
+h2 {
+    color: #333;
     margin-bottom: 10px;
 }
 
-/* Description Section */
-.form-description-input {
-    width: 100%;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    padding: 10px 0;
-    resize: none;
+h4 {
+    color: #666;
     margin-bottom: 20px;
 }
 
-/* Question Section */
-.question-section {
-    padding: 15px 0;
-    border-top: 1px solid #e0e0e0;
+/* Form styles */
+form {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.question-title {
-    width: 100%;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    padding: 8px 0;
-    margin-bottom: 15px;
+/* Input group styles */
+.form-group {
+    margin-bottom: 20px;
 }
 
-/* Options */
-.options {
-    display: flex;
-    flex-direction: column;
-}
-
-.option {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-    .option input[type="radio"] {
-        margin-right: 10px;
-    }
-
-.option-input {
-    border: none;
-    outline: none;
-    padding: 8px;
-    width: 100%;
-    font-size: 16px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-/* Add Option Button */
-.add-option {
-    font-size: 16px;
-    color: #1a73e8;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px 0;
-    margin-top: 10px;
-}
-
-    .add-option:hover {
-        text-decoration: underline;
-    }
-/* Container for each question */
-.question-container {
-    padding: 15px 0;
-    border-top: 1px solid #e0e0e0;
-    margin-bottom: 15px;
-}
-
-/* Additional spacing between questions and options */
-.add-question {
-    font-size: 16px;
-    color: #1a73e8;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px 0;
-    margin-top: 20px;
+/* Label styles */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
     display: block;
 }
 
-    .add-question:hover {
-        text-decoration: underline;
+/* Input styles */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+    input[type="text"]:focus {
+        border-color: #4A90E2;
+        outline: none;
     }
+
+/* Button styles */
+.btn {
+    background-color: #4A90E2;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+    .btn:hover {
+        background-color: #357ABD;
+    }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
