@@ -23,6 +23,7 @@ namespace ServiceAcademy.Controllers
             _logger = logger;
             _context = context;
             _environment = environment;
+
         }
 
         // Action method for Home.cshtml
@@ -35,6 +36,7 @@ namespace ServiceAcademy.Controllers
             var programs = await _context.Programs
                                           .Where(p => p.InstructorId == currentUserId) // Filter by the current instructor's ID
                                           .Include(p => p.ProgramManagement) // Include the ProgramManagement relationship
+                                          .Include(p => p.Enrollments)
                                           .ToListAsync();
 
             // Check if any programs are being retrieved
@@ -75,12 +77,15 @@ namespace ServiceAcademy.Controllers
         }
         public IActionResult ProgramStream(int programId)
         {
+            var programData = _context.Programs.FirstOrDefault(p => p.ProgramId == programId);
+            if (programData == null)
+            {
+                return NotFound();
+            }
+
+            // Load the program first
             var program = _context.Programs
-                                  .Include(p => p.Modules)
-                                  .Include(p => p.Quizzes)
-                                  .ThenInclude(q => q.Questions)
-                                  .ThenInclude(q => q.Answers)
-                                  .FirstOrDefault(p => p.ProgramId == programId);
+                .FirstOrDefault(p => p.ProgramId == programId);
 
             if (program == null)
             {
@@ -88,20 +93,29 @@ namespace ServiceAcademy.Controllers
                 return RedirectToAction("InstructorDashboard");
             }
 
+            // Load related data in separate queries
+            var modules = _context.Modules.Where(m => m.ProgramId == programId).ToList();
+            var quizzes = _context.Quizzes.Where(q => q.ProgramId == programId)
+                                          .Include(q => q.Questions)
+                                          .ThenInclude(q => q.Answers)
+                                          .ToList();
+
             var programManagement = _context.ProgramManagement.FirstOrDefault(pm => pm.ProgramId == programId);
+
             var viewModel = new ProgramStreamViewModel
             {
                 ProgramId = program.ProgramId,
                 Title = program.Title,
                 Description = program.Description,
                 PhotoPath = program.PhotoPath,
-                Modules = program.Modules.ToList(),
-                Quizzes = program.Quizzes.ToList(),
+                Modules = modules,
+                Quizzes = quizzes,
                 IsArchived = programManagement?.IsArchived ?? false // Get archive status
             };
 
             return View(viewModel);
         }
+
 
         public IActionResult ProgramStreamManage(int programId)
         {
@@ -129,8 +143,12 @@ namespace ServiceAcademy.Controllers
                 _logger.LogInformation("Found {Count} enrolled trainees for Program ID: {ProgramId}", enrolledTrainees.Count, programId);
             }
 
+            // Pass the ProgramId to the view (via ViewBag or ViewModel)
+            ViewBag.ProgramId = programId;
+
             return View(enrolledTrainees);
         }
+
 
         // Approve enrollment
         [HttpPost]
@@ -207,8 +225,14 @@ namespace ServiceAcademy.Controllers
 
                 TempData["Message"] = "Program deactivated successfully.";
             }
+            else
+            {
+                TempData["Error"] = "Program deactivation failed. Program not found.";
+            }
+
             return RedirectToAction("InstructorDashboard");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> ArchiveProgram(int programId)
@@ -226,16 +250,12 @@ namespace ServiceAcademy.Controllers
         public async Task<IActionResult> DeleteProgram(int programId)
         {
             var program = await _context.Programs
-                                        .Include(p => p.Modules)  // Include related modules
-                                        .Include(p => p.Quizzes)  // Include related quizzes
-                                        .Include(p => p.Enrollments) // Include related enrollments
                                         .FirstOrDefaultAsync(p => p.ProgramId == programId);
 
             if (program != null)
             {
-                // Remove all related quizzes and their dependent entities
+                // Remove related quizzes and their dependent entities
                 var quizzes = _context.Quizzes.Where(q => q.ProgramId == programId).ToList();
-
                 foreach (var quiz in quizzes)
                 {
                     // Remove associated StudentQuizResults
@@ -255,11 +275,11 @@ namespace ServiceAcademy.Controllers
                     _context.Quizzes.Remove(quiz);
                 }
 
-                // Remove all related modules
+                // Remove related modules (no need to load them using Include)
                 var modules = _context.Modules.Where(m => m.ProgramId == programId);
                 _context.Modules.RemoveRange(modules);
 
-                // Remove all related enrollments
+                // Remove related enrollments (no need to load them using Include)
                 var enrollments = _context.Enrollment.Where(e => e.ProgramId == programId);
                 _context.Enrollment.RemoveRange(enrollments);
 
@@ -267,7 +287,7 @@ namespace ServiceAcademy.Controllers
                 _context.Programs.Remove(program);
                 await _context.SaveChangesAsync();
 
-                TempData["Message"] = "Program and its related data are deleted successfully.";
+                TempData["Message"] = "Program and its related data deleted successfully.";
             }
             else
             {
@@ -276,6 +296,7 @@ namespace ServiceAcademy.Controllers
 
             return RedirectToAction("InstructorDashboard");
         }
+
         [HttpPost]
         public async Task<IActionResult> UploadModule(int programId, string title, IFormFile file)
         {

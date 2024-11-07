@@ -60,16 +60,25 @@
                 <div class="programs">
                     <div class="program-box">
                         <div class="program-filters">
-                            <select>
-                                <option value="all">All</option>
+                            <select id="filterAgenda">
+                                <option value="all">All Agendas</option>
+                                <option value="BISIG">BISIG</option>
+                                <option value="LEAF">LEAF</option>
+                                <option value="Environment">Environment</option>
+                                <option value="SAEI">SAEI</option>
+                                <option value="BINADI">BINADI</option>
+                                <option value="Outreach">Outreach</option>
+                                <option value="TVET">TVET</option>
+                                <option value="TTAU">TTAU</option>
+                                <option value="TAAS">TAAS</option>
+                                <option value="PESODEV">PESODEV</option>
+                                <option value="GAD">GAD</option>
+                                <option value="DisasterRisk">Disaster Risk</option>
                             </select>
                             <div class="search-container">
                                 <i class="fas fa-search"></i>
-                                <input type="text" placeholder="Search">
+                                <input type="text" placeholder="Search Programs by Title">
                             </div>
-                            <select>
-                                <option value="recently-accessed">Sort by Recently Accessed</option>
-                            </select>
                         </div>
 
                         <div class="program-cards">
@@ -77,7 +86,7 @@
                             {
                                 foreach (var enrollment in Model)
                                 {
-                                    <div class="program-card">
+                                    <div class="program-card" data-title="@enrollment.Program.Title" data-agenda="@enrollment.Program.Agenda">
                                         <div class="program-image">
                                             <!-- Check both EnrollmentStatus and IsArchived -->
                                             @if (enrollment.EnrollmentStatus == "Approved" && !enrollment.IsArchived)

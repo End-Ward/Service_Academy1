@@ -27,6 +27,7 @@ namespace ServiceAcademy.Controllers
                 .Where(e => e.TraineeId == userId)
                 .Include(e => e.ProgramsModel)
                     .ThenInclude(p => p.ProgramManagement) // Include ProgramManagement for IsArchived
+                .AsSplitQuery()  // Split the query to avoid joining too many tables
                 .Select(e => new
                 {
                     Program = e.ProgramsModel,
@@ -38,6 +39,7 @@ namespace ServiceAcademy.Controllers
                 .ToList();
             return View(enrolledPrograms);
         }
+
 
         public IActionResult Home()
         {
@@ -114,8 +116,8 @@ namespace ServiceAcademy.Controllers
             var program = _context.Programs
                 .Include(p => p.Modules) // Include Modules data
                 .Include(p => p.Quizzes)
-                .ThenInclude(q => q.Questions)
-                .ThenInclude(q => q.Answers)
+                    .ThenInclude(q => q.Questions)  // Avoid including Answers if unnecessary
+                .AsSplitQuery()  // Split the queries for related entities
                 .FirstOrDefault(p => p.ProgramId == programId);
 
             if (program == null)
@@ -131,11 +133,12 @@ namespace ServiceAcademy.Controllers
                 Description = program.Description,
                 PhotoPath = program.PhotoPath,
                 Modules = program.Modules.ToList(),
-                Quizzes = program.Quizzes.ToList() // Include modules in the view model
+                Quizzes = program.Quizzes.ToList() // Include only the necessary data
             };
 
             return View(viewModel);
         }
+
         [HttpGet]
         public IActionResult RedirectToQuizOrResult(int quizId)
         {

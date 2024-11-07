@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Program Stream Manage Page";
+    var programId = ViewBag.ProgramId;
 }
 
 @section Scripts {
@@ -17,7 +18,10 @@
 
 <nav class="navbar">
     <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">Dashboard</a>
-    <a href="@Url.Action("ProgramStream", "Instructor", new { programId = Model.FirstOrDefault()?.ProgramId })" class="@(Html.IsActive("ProgramStream", "Instructor") ? "active" : "")">Stream</a>
+    <a href="@Url.Action("ProgramStream", "Instructor", new { programId = programId })"
+       class="@(Html.IsActive("ProgramStream", "Instructor") ? "active" : "")">
+        Stream
+    </a>
     <a href="javascript:void(0);" class="@(Html.IsActive("ProgramStreamManage", "Instructor") ? "active" : "")" onclick="location.reload();">Manage</a>
 </nav>
 
