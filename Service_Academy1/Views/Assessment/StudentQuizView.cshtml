@@ -1,6 +1,17 @@
 ﻿@model Service_Academy1.Models.QuizModel
+
 @{
     ViewData["Title"] = "Student Quiz";
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/TraineeScript/StudentQuizViewScript.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/TraineeStyle/StudentQuizViewStyle.css">
 }
 
 <h2>@Model.QuizTitle</h2>

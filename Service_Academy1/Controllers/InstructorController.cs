@@ -88,6 +88,7 @@ namespace ServiceAcademy.Controllers
                 return RedirectToAction("InstructorDashboard");
             }
 
+            var programManagement = _context.ProgramManagement.FirstOrDefault(pm => pm.ProgramId == programId);
             var viewModel = new ProgramStreamViewModel
             {
                 ProgramId = program.ProgramId,
@@ -95,12 +96,12 @@ namespace ServiceAcademy.Controllers
                 Description = program.Description,
                 PhotoPath = program.PhotoPath,
                 Modules = program.Modules.ToList(),
-                Quizzes = program.Quizzes.ToList() // Include quizzes here
+                Quizzes = program.Quizzes.ToList(),
+                IsArchived = programManagement?.IsArchived ?? false // Get archive status
             };
 
             return View(viewModel);
         }
-
 
         public IActionResult ProgramStreamManage(int programId)
         {
@@ -225,13 +226,35 @@ namespace ServiceAcademy.Controllers
         public async Task<IActionResult> DeleteProgram(int programId)
         {
             var program = await _context.Programs
-                                         .Include(p => p.Modules) // Include related modules
-                                         .Include(p => p.Quizzes) // Include related Quizzes
-                                         .Include(p => p.Enrollments) // Include related enrollments
-                                         .FirstOrDefaultAsync(p => p.ProgramId == programId);
+                                        .Include(p => p.Modules)  // Include related modules
+                                        .Include(p => p.Quizzes)  // Include related quizzes
+                                        .Include(p => p.Enrollments) // Include related enrollments
+                                        .FirstOrDefaultAsync(p => p.ProgramId == programId);
 
             if (program != null)
             {
+                // Remove all related quizzes and their dependent entities
+                var quizzes = _context.Quizzes.Where(q => q.ProgramId == programId).ToList();
+
+                foreach (var quiz in quizzes)
+                {
+                    // Remove associated StudentQuizResults
+                    var studentQuizResults = _context.StudentQuizResults.Where(sqr => sqr.QuizId == quiz.QuizId).ToList();
+                    _context.StudentQuizResults.RemoveRange(studentQuizResults);
+
+                    // Remove associated Questions and Answers
+                    var questions = _context.Questions.Where(q => q.QuizId == quiz.QuizId).ToList();
+                    foreach (var question in questions)
+                    {
+                        var answers = _context.Answers.Where(a => a.QuestionId == question.QuestionId).ToList();
+                        _context.Answers.RemoveRange(answers);
+                    }
+                    _context.Questions.RemoveRange(questions);
+
+                    // Finally, remove the quiz
+                    _context.Quizzes.Remove(quiz);
+                }
+
                 // Remove all related modules
                 var modules = _context.Modules.Where(m => m.ProgramId == programId);
                 _context.Modules.RemoveRange(modules);
@@ -244,7 +267,7 @@ namespace ServiceAcademy.Controllers
                 _context.Programs.Remove(program);
                 await _context.SaveChangesAsync();
 
-                TempData["Message"] = "Program and its related data deleted successfully.";
+                TempData["Message"] = "Program and its related data are deleted successfully.";
             }
             else
             {
@@ -253,8 +276,6 @@ namespace ServiceAcademy.Controllers
 
             return RedirectToAction("InstructorDashboard");
         }
-
-
         [HttpPost]
         public async Task<IActionResult> UploadModule(int programId, string title, IFormFile file)
         {

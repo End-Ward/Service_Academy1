@@ -1,5 +1,12 @@
 ﻿@model Service_Academy1.Models.StudentQuizResultModel
 
+@if (TempData["QuizErrorMessage"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["QuizErrorMessage"]
+    </div>
+}
+
 <h2>Quiz Result</h2>
 
 @if (Model != null)

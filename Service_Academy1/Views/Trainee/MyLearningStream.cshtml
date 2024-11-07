@@ -17,7 +17,7 @@
 
 <nav class="navbar">
     <a href="@Url.Action("MyLearning", "Trainee")" class="@(Html.IsActive("MyLearning", "Trainee") ? "active" : "")">Dashboard</a>
-    <a href="@Url.Action("MyLearningStream", "Trainee")" class="@(Html.IsActive("MyLearningStream", "Trainee") ? "active" : "")">Stream</a>
+    <a href="javascript:void(0);" class="@(Html.IsActive("MyLearningStream", "Trainee") ? "active" : "")" onclick="location.reload();">Stream</a>
 </nav>
 <!-- Full Width Class Banner Section -->
 <section class="class-banner">
@@ -48,7 +48,9 @@
                 <h3>Quizzes</h3>
                 @foreach (var quiz in Model.Quizzes)
                 {
-                    <button class="quiz-title" onclick="location.href='@Url.Action("StudentQuizView", "Assessment", new { quizId = quiz.QuizId })'">@quiz.QuizTitle</button>
+                    <button class="quiz-title" onclick="location.href='@Url.Action("RedirectToQuizOrResult", "Trainee", new { quizId = quiz.QuizId })'">
+                        @quiz.QuizTitle
+                    </button>
                 }
             </div>
 

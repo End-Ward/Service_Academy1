@@ -35,14 +35,18 @@
                 if (User.IsInRole("Student"))
                 {
                     <a href="@Url.Action("MyLearning", "Trainee")" class="@(Html.IsActive("MyLearning", "Trainee") ||
-        ViewContext.RouteData.Values["action"].ToString() == "MyLearningStream" ? "active" : "")">My Learning</a>
+                        ViewContext.RouteData.Values["action"].ToString() == "StudentQuizView" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "QuizResult" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "MyLearningStream" ? "active" : "")">My Learning</a>
                 }
                 else if (User.IsInRole("Instructor"))
                 {
                     <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ||
-        ViewContext.RouteData.Values["action"].ToString() == "ProgramStream" ||
-        ViewContext.RouteData.Values["action"].ToString() == "ProgramStreamManage" ||
-        ViewContext.RouteData.Values["action"].ToString() == "ProgramCreation" ? "active" : "")">My Teaching</a>
+                        ViewContext.RouteData.Values["action"].ToString() == "ProgramStream" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "ProgramStreamManage" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "ProgramCreate" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "CreateAssessment" ||
+                        ViewContext.RouteData.Values["action"].ToString() == "ViewQuiz" ? "active" : "")">My Teaching</a>
                 }
 
                 <div class="dropdown">
@@ -61,11 +65,12 @@
             }
             else
             {
-                <a href="@Url.Action("Learning", "Home")">Learning</a>
+                <a href="@Url.Action("Login", "Account")">Learning</a>
                 <a href="@Url.Action("Login", "Account")" class="@(Html.IsActive("Login", "Account") ? "active" : "")">Login</a>
                 <a href="@Url.Action("Register", "Account")" class="@(Html.IsActive("Register", "Account") ? "active" : "")">Register</a>
             }
         </div>
+
     </div>
 
 

@@ -54,8 +54,10 @@ namespace Service_Academy1.Controllers
 
             // Fetch programs from the database based on the agenda
             var programsQuery = string.IsNullOrEmpty(agenda)
-        ? _context.Programs.Include(p => p.ProgramManagement)
-        : _context.Programs.Where(p => p.Agenda == agenda).Include(p => p.ProgramManagement);
+       ? _context.Programs.Include(p => p.ProgramManagement).Where(p => !p.ProgramManagement.Any(pm => pm.IsArchived))
+       : _context.Programs.Where(p => p.Agenda == agenda)
+                           .Include(p => p.ProgramManagement)
+                           .Where(p => !p.ProgramManagement.Any(pm => pm.IsArchived));
 
             // Convert the query to a list
             var programs = programsQuery.ToList();

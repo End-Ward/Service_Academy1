@@ -51,3 +51,8 @@ function sortRequestsDescending() {
     // Sort logic for descending order
     console.log('Sorting requests in descending order');
 }
+$(document).ready(function () {
+    @if (ViewBag.QuizResults != null) {
+        $('#quizResultsModal').modal('show');
+    }
+});

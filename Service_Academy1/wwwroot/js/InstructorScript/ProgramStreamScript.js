@@ -70,3 +70,6 @@ function applyFormat(formatType) {
 function loadModuleContent(filePath) {
     document.getElementById("moduleContentFrame").src = filePath;
 }
+function postAnnouncement() {
+    alert("This program is archived and read-only.");
+}

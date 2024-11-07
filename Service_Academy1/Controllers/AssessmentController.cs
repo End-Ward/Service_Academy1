@@ -98,11 +98,22 @@ namespace ServiceAcademy.Controllers
 
             // Fetch the enrollment associated with the logged-in user
             var enrollment = await _context.Enrollment
-                                           .FirstOrDefaultAsync(e => e.TraineeId == currentUserId); // Assuming TraineeId references ApplicationUser.Id
+                                           .FirstOrDefaultAsync(e => e.TraineeId == currentUserId);
 
             if (enrollment == null)
             {
                 return Unauthorized(); // Handle error if the user is not enrolled in any program
+            }
+
+            // Check if the student already has a quiz result
+            var existingResult = await _context.StudentQuizResults
+                .FirstOrDefaultAsync(r => r.QuizId == quizId && r.EnrollmentId == enrollment.EnrollmentId);
+
+            if (existingResult != null)
+            {
+                // Set TempData message and redirect to QuizResult
+                TempData["QuizErrorMessage"] = "Sorry, you already have an existing result! You can't take the quiz again!";
+                return RedirectToAction("QuizResult", new { resultId = existingResult.StudentQuizResultId });
             }
 
             // Get the quiz and its questions
@@ -116,12 +127,13 @@ namespace ServiceAcademy.Controllers
                 return NotFound();
             }
 
-            // Pass the EnrollmentId to the view
             ViewBag.EnrollmentId = enrollment.EnrollmentId;
 
-            return View(quiz); // This will render StudentQuizView.cshtml
+            return View(quiz); // Render StudentQuizView.cshtml if no result exists
         }
 
+
+        [HttpPost]
         [HttpPost]
         public async Task<IActionResult> SubmitQuiz(int quizId, Dictionary<int, string> answers, int enrollmentId)
         {
@@ -137,12 +149,22 @@ namespace ServiceAcademy.Controllers
 
             var quiz = await _context.Quizzes
                 .Include(q => q.Questions)
-                    .ThenInclude(q => q.Answers)
+                .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(q => q.QuizId == quizId);
 
             if (quiz == null)
             {
                 return NotFound();
+            }
+
+            // Check if any answer field is blank
+            foreach (var question in quiz.Questions)
+            {
+                if (!answers.ContainsKey(question.QuestionId) || string.IsNullOrWhiteSpace(answers[question.QuestionId]))
+                {
+                    ModelState.AddModelError("", "Please fill out all answer fields.");
+                    return View("StudentQuizView", quiz);  // Return to the quiz view with the error message
+                }
             }
 
             int rawScore = 0;
@@ -154,7 +176,6 @@ namespace ServiceAcademy.Controllers
                 {
                     QuestionId = question.QuestionId,
                     Answer = answers.ContainsKey(question.QuestionId) ? answers[question.QuestionId] : string.Empty,
-                    // Check if the answer matches the correct answer
                     IsCorrect = answers.ContainsKey(question.QuestionId) && answers[question.QuestionId] == question.CorrectAnswer
                 };
 
@@ -167,7 +188,7 @@ namespace ServiceAcademy.Controllers
             }
 
             int totalScore = quiz.Questions.Count;
-            double computedScore = ((double)rawScore / totalScore) * 63.5 + 37.5;
+            double computedScore = Math.Round(((double)rawScore / totalScore) * 63.5 + 37.5, 2);
 
             var studentQuizResult = new StudentQuizResultModel
             {
@@ -186,6 +207,7 @@ namespace ServiceAcademy.Controllers
             // Redirect to the QuizResult view with the resultId
             return RedirectToAction("QuizResult", new { resultId = studentQuizResult.StudentQuizResultId });
         }
+
 
         public async Task<IActionResult> QuizResult(int resultId)
         {

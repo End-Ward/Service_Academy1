@@ -64,8 +64,9 @@
         <div class="posts" id="posts"></div>
     </section>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModuleModal"> Upload Module</button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAssessmentModal">Create Assessment</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModuleModal" @(Model.IsArchived ? "disabled" : "")>Upload Module</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAssessmentModal" @(Model.IsArchived ? "disabled" : "")>Create Assessment</button>
+
 
      
     <!-- Modules and Module Content Sections -->

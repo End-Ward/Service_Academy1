@@ -24,17 +24,18 @@ namespace ServiceAcademy.Controllers
 
             // Fetch programs the trainee is enrolled in, including enrollment status and reason for denial
             var enrolledPrograms = _context.Enrollment
-                .Where(e => e.TraineeId == userId) // Filter by TraineeId
-                .Include(e => e.ProgramsModel) // Include related program details
+                .Where(e => e.TraineeId == userId)
+                .Include(e => e.ProgramsModel)
+                    .ThenInclude(p => p.ProgramManagement) // Include ProgramManagement for IsArchived
                 .Select(e => new
                 {
                     Program = e.ProgramsModel,
                     e.EnrollmentStatus,
                     e.ProgramStatus,
-                    e.ReasonForDenial // Include reason for denial
+                    e.ReasonForDenial,
+                    IsArchived = e.ProgramsModel.ProgramManagement.Any(pm => pm.IsArchived) // Check if any ProgramManagement entry is archived
                 })
                 .ToList();
-
             return View(enrolledPrograms);
         }
 
@@ -69,21 +70,39 @@ namespace ServiceAcademy.Controllers
         [HttpPost]
         public IActionResult DeleteProgram(int programId)
         {
-            var enrollment = _context.Enrollment.FirstOrDefault(e => e.ProgramId == programId && e.TraineeId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var enrollment = _context.Enrollment
+                .Include(e => e.ProgramsModel)
+                .ThenInclude(p => p.ProgramManagement)
+                .FirstOrDefault(e => e.ProgramId == programId && e.TraineeId == userId);
 
-            if (enrollment != null && enrollment.EnrollmentStatus == "Denied")
+            if (enrollment != null)
             {
-                _context.Enrollment.Remove(enrollment);
-                _context.SaveChanges();
-                TempData["SuccessMessage"] = "Enrollment deleted successfully.";
+                // Check if the program is archived
+                var isArchived = enrollment.ProgramsModel.ProgramManagement.Any(pm => pm.IsArchived);
+
+                if (enrollment.EnrollmentStatus == "Denied" || isArchived)
+                {
+                    // Allow deletion if status is Denied or the program is archived
+                    _context.Enrollment.Remove(enrollment);
+                    _context.SaveChanges();
+                    TempData["SuccessMessage"] = isArchived
+                        ? "Enrollment deleted successfully as the program is archived."
+                        : "Enrollment deleted successfully.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Cannot delete enrollment. It can only be deleted if denied or archived.";
+                }
             }
             else
             {
-                TempData["ErrorMessage"] = "Cannot delete enrollment. It can only be deleted if denied.";
+                TempData["ErrorMessage"] = "Enrollment not found or invalid program ID.";
             }
 
             return RedirectToAction("MyLearning");
         }
+
         public IActionResult MyLearningStream(int programId)
         {
             if (programId <= 0)
@@ -116,6 +135,37 @@ namespace ServiceAcademy.Controllers
             };
 
             return View(viewModel);
+        }
+        [HttpGet]
+        public IActionResult RedirectToQuizOrResult(int quizId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Retrieve the enrollment for the current user and the specified quiz
+            var enrollment = _context.Enrollment
+                .FirstOrDefault(e => e.TraineeId == userId &&
+                                     e.ProgramsModel.Quizzes.Any(q => q.QuizId == quizId));
+
+            if (enrollment == null)
+            {
+                TempData["Error"] = "Enrollment not found for this quiz.";
+                return RedirectToAction("MyLearningStream");
+            }
+
+            // Check for an existing quiz result for this enrollment and quiz
+            var quizResult = _context.StudentQuizResults
+                .FirstOrDefault(sqr => sqr.QuizId == quizId && sqr.EnrollmentId == enrollment.EnrollmentId);
+
+            if (quizResult != null)
+            {
+                // Redirect to QuizResult using the StudentQuizResultId
+                return RedirectToAction("QuizResult", "Assessment", new { resultId = quizResult.StudentQuizResultId });
+            }
+            else
+            {
+                // If no result exists, redirect to StudentQuizView for answering
+                return RedirectToAction("StudentQuizView", "Assessment", new { quizId = quizId });
+            }
         }
 
 
