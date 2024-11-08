@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using System.Reflection;
 using System;
+using Newtonsoft.Json;
 
 namespace ServiceAcademy.Controllers
 {
@@ -147,6 +148,26 @@ namespace ServiceAcademy.Controllers
             ViewBag.ProgramId = programId;
 
             return View(enrolledTrainees);
+        }
+        public async Task<IActionResult> GetGrades(int enrollmentId, int programId)
+        {
+            var grades = await _context.StudentQuizResults
+                .Where(sqr => sqr.EnrollmentId == enrollmentId && sqr.Quiz.ProgramId == programId)
+                .Include(sqr => sqr.Quiz)
+                .Select(sqr => new
+                {
+                    QuizTitle = sqr.Quiz.QuizTitle,
+                    RawScore = sqr.RawScore,
+                    TotalScore = sqr.TotalScore,
+                    ComputedScore = sqr.ComputedScore,
+                    Remarks = sqr.Remarks
+                })
+                .ToListAsync();
+
+            // Log the query results
+            Console.WriteLine("Grades fetched: " + JsonConvert.SerializeObject(grades));
+
+            return Json(grades); // Ensure that the correct grades are returned
         }
 
 

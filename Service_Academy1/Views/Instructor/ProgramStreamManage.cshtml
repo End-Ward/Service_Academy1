@@ -49,23 +49,55 @@
                 <p>@enrollee.TraineeName</p>
                 <div class="status @(enrollee.ProgramStatus.ToLower())">@enrollee.ProgramStatus</div>
                 <div>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#viewGradeModal" data-enrollee-id="@enrollee.EnrollmentId">View Grades</button>
-                    <button>Approve Completion</button>
+                    <div>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#viewGradeModal"
+                                data-enrollee-id="@enrollee.EnrollmentId"
+                                data-trainee-name="@enrollee.TraineeName"
+                                data-program-id="@programId">
+                            View Grades
+                        </button>
+                        <button>Approve Completion</button>
+                    </div>
                 </div>
             </div>
         }
     </div>
+    <!-- Modal for View Grades -->
+    <div class="modal fade" id="viewGradeModal" tabindex="-1" role="dialog" aria-labelledby="viewGradeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewGradeModalLabel">Grades for <span id="traineeName"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Assessment Title</th>
+                                <th>Raw Score</th>
+                                <th>Total Score Achievable</th>
+                                <th>Computed Score</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gradesTableBody">
+                            <!-- Grade data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <!-- Enrollee Requests Section -->
 <div class="enrollee-requests">
     <div class="heading-options">
         <h2>ENROLLEE REQUESTS</h2>
         <div class="sort-options">
-            <select id="requestFilter">
-                <option value="all">All</option>
-                <option value="complete">Completed</option>
-                <option value="incomplete">Incomplete</option>
-            </select>
             <button id="requestSortButton" onclick="toggleSortRequests()">
                 <i class="fa-solid fa-arrow-up-a-z" id="sortIconRequests"></i>
             </button>
@@ -89,9 +121,9 @@
                         <td>
                             <form asp-action="ApproveEnrollment" method="post">
                                 <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
-                                <button type="submit" class="btn btn-success">Approve</button>
+                                <button type="submit" class="btn btn-primary">Approve</button>
                             </form>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal-@enrollee.EnrollmentId">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#denyModal-@enrollee.EnrollmentId">
                                 Deny
                             </button>
                         </td>
