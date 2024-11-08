@@ -45,7 +45,7 @@
     <div class="trainee-list">
         @foreach (var enrollee in Model.Where(e => e.EnrollmentStatus == "Approved"))
         {
-            <div class="trainee-item">
+            <div class="trainee-item" data-status="@enrollee.ProgramStatus" data-name="@enrollee.TraineeName">
                 <p>@enrollee.TraineeName</p>
                 <div class="status @(enrollee.ProgramStatus.ToLower())">@enrollee.ProgramStatus</div>
                 <div>
@@ -98,64 +98,58 @@
     <div class="heading-options">
         <h2>ENROLLEE REQUESTS</h2>
         <div class="sort-options">
-            <button id="requestSortButton" onclick="toggleSortRequests()">
-                <i class="fa-solid fa-arrow-up-a-z" id="sortIconRequests"></i>
-            </button>
+            <div class="sort-options">
+                <button id="sortButtonRequests" onclick="toggleSortRequests()">
+                    <i class="fa-solid fa-arrow-up-a-z" id="sortIconRequests"></i>
+                </button>
+            </div>
         </div>
     </div>
+    <div class="trainee-header">
+        <p>Status</p>
+    </div>
     <div class="request-list">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Trainee Name</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var enrollee in Model.Where(e => e.EnrollmentStatus == "Pending"))
-                {
-                    <tr>
-                        <td>@enrollee.TraineeName</td>
-                        <td>@enrollee.EnrollmentStatus</td>
-                        <td>
-                            <form asp-action="ApproveEnrollment" method="post">
-                                <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
-                                <button type="submit" class="btn btn-primary">Approve</button>
-                            </form>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#denyModal-@enrollee.EnrollmentId">
-                                Deny
+        @foreach (var enrollee in Model.Where(e => e.EnrollmentStatus == "Pending"))
+        {
+            <div class="trainee-request" data-status="@enrollee.ProgramStatus" data-name="@enrollee.TraineeName">
+                <p>@enrollee.TraineeName</p>
+                <div class="status @(enrollee.EnrollmentStatus.ToLower())">@enrollee.EnrollmentStatus</div>
+                <div>
+                    <div>
+                        <form asp-action="ApproveEnrollment" method="post">
+                            <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        </form>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#denyModal-@enrollee.EnrollmentId">
+                            Deny
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Deny Enrollment Modal -->
+            <div class="modal fade" id="denyModal-@enrollee.EnrollmentId" tabindex="-1" role="dialog" aria-labelledby="denyModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="denyModalLabel">Deny Enrollment for @enrollee.TraineeName</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
-                        </td>
-                    </tr>
-
-                    <!-- Deny Enrollment Modal -->
-                    <div class="modal fade" id="denyModal-@enrollee.EnrollmentId" tabindex="-1" role="dialog" aria-labelledby="denyModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="denyModalLabel">Deny Enrollment for @enrollee.TraineeName</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" asp-action="DenyEnrollment">
+                                <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
+                                <div class="form-group">
+                                    <label for="reasonForDenial">Reason for Denial:</label>
+                                    <input type="text" name="reasonForDenial" class="form-control" placeholder="Provide reason for denial" required />
                                 </div>
-                                <div class="modal-body">
-                                    <form method="post" asp-action="DenyEnrollment">
-                                        <input type="hidden" name="enrollmentId" value="@enrollee.EnrollmentId" />
-                                        <div class="form-group">
-                                            <label for="reasonForDenial">Reason for Denial:</label>
-                                            <input type="text" name="reasonForDenial" class="form-control" placeholder="Provide reason for denial" required />
-                                        </div>
-                                        <button type="submit" class="btn btn-danger">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                            </form>
                         </div>
                     </div>
-                   
-                }
-            </tbody>
-        </table>
-    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
+

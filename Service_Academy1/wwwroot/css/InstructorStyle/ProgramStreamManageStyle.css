@@ -65,68 +65,6 @@ header {
             color: #ddd;
         }
 
-.profile-picture img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid white;
-}
-
-/* User Text */
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-}
-
-    .user-text p {
-        margin: 0;
-        font-size: 0.9rem;
-    }
-
-        .user-text p:first-child {
-            font-weight: bold;
-        }
-
-        .user-text p:last-child {
-            color: rgb(217, 217, 217);
-        }
-
-/* Logout Icon */
-.logout-icon {
-    position: relative;
-    cursor: pointer;
-}
-
-    .logout-icon i {
-        font-size: 1.2rem;
-        color: white;
-    }
-
-.logout-text {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: var(--secondary-color);
-    color: black;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-/* Show text on hover */
-.logout-icon:hover .logout-text {
-    display: block;
-}
-
 /* Container for the entire section */
 .container {
     display: flex;
@@ -159,7 +97,7 @@ header {
 
 /* Trainee and request items */
 .trainee-item,
-.request-item {
+.trainee-request {
     display: grid;
     grid-template-columns: 1fr 0.5fr 1fr;
     align-items: center;
@@ -171,7 +109,7 @@ header {
 
     /* Centering the Status text */
     .trainee-item .status,
-    .request-item .status {
+    .trainee-request .status {
         text-align: center;
     }
 
@@ -257,8 +195,38 @@ button {
 
 /* Flexbox layout for buttons */
 .trainee-item div,
-.request-item div {
+.trainee-request div {
     display: flex;
     gap: 10px;
     justify-content: center;
 }
+
+/* Styling for the modal */
+.modal-content {
+    border-radius: 10px;
+}
+
+/* Specific styling for the request list */
+.request-list .trainee-request {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1fr;
+    gap: 15px;
+}
+
+    .request-list .trainee-request p {
+        font-weight: 500;
+    }
+
+    .request-list .trainee-request .status {
+        text-align: center;
+    }
+
+    .request-list .trainee-request div {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .request-list .trainee-request form {
+        margin-bottom: 0;
+    }

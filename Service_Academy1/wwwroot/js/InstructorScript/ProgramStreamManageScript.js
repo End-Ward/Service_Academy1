@@ -1,55 +1,6 @@
-﻿let isAscendingTrainees = true;
-let isAscendingRequests = true;
-
-function toggleSortTrainees() {
-    isAscendingTrainees = !isAscendingTrainees;
-    const sortIcon = document.getElementById('sortIconTrainees');
-    sortIcon.className = isAscendingTrainees ? 'fa-solid fa-arrow-up-a-z' : 'fa-solid fa-arrow-down-a-z';
-
-    // Sorting logic for trainees goes here
-    if (isAscendingTrainees) {
-        sortTrainees(); // Sort ascending
-    } else {
-        sortTraineesDescending(); // Sort descending
-    }
-}
-
-function toggleSortRequests() {
-    isAscendingRequests = !isAscendingRequests;
-    const sortIcon = document.getElementById('sortIconRequests');
-    sortIcon.className = isAscendingRequests ? 'fa-solid fa-arrow-up-a-z' : 'fa-solid fa-arrow-down-a-z';
-
-    // Sorting logic for requests goes here
-    if (isAscendingRequests) {
-        sortRequests(); // Sort ascending
-    } else {
-        sortRequestsDescending(); // Sort descending
-    }
-}
-function openDenyModal(enrollmentId) {
+﻿function openDenyModal(enrollmentId) {
     $('#enrollmentId').val(enrollmentId);  // Set enrollment ID in the hidden input
     $('#denyModal').modal('show');         // Show the modal
-}
-
-// Implement your sorting logic for trainees and requests here
-function sortTrainees() {
-    // Sort logic for ascending order
-    console.log('Sorting trainees in ascending order');
-}
-
-function sortTraineesDescending() {
-    // Sort logic for descending order
-    console.log('Sorting trainees in descending order');
-}
-
-function sortRequests() {
-    // Sort logic for ascending order
-    console.log('Sorting requests in ascending order');
-}
-
-function sortRequestsDescending() {
-    // Sort logic for descending order
-    console.log('Sorting requests in descending order');
 }
 $(document).ready(function () {
     $('#viewGradeModal').on('show.bs.modal', function (event) {
@@ -102,6 +53,55 @@ $(document).ready(function () {
                 alert('Error fetching grade data.');
             }
         });
-
     });
 });
+
+let traineeSortAsc = true;
+
+function toggleSortTrainees() {
+    const traineeList = $('.trainee-list');
+    const trainees = traineeList.children('.trainee-item').get();
+
+    trainees.sort((a, b) => {
+        const nameA = $(a).data('name').toUpperCase();
+        const nameB = $(b).data('name').toUpperCase();
+        return traineeSortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+
+    traineeList.append(trainees);
+    traineeSortAsc = !traineeSortAsc;
+    $('#sortIconTrainees').toggleClass('fa-arrow-up-a-z fa-arrow-down-z-a');
+} 
+
+let requestSortAsc = true;
+
+function toggleSortRequests() {
+    const requestList = $('.request-list');
+    const requests = requestList.children('.trainee-request').get();
+
+    requests.sort((a, b) => {
+        const nameA = $(a).data('name').toUpperCase();
+        const nameB = $(b).data('name').toUpperCase();
+        return requestSortAsc ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+
+    requestList.append(requests);
+    requestSortAsc = !requestSortAsc;
+    $('#sortIconRequests').toggleClass('fa-arrow-up-a-z fa-arrow-down-z-a');
+}
+
+
+
+$('#statusFilter').on('change', function () {
+    const selectedStatus = $(this).val();
+    $('.trainee-item').each(function () {
+        const itemStatus = $(this).data('status');
+        if (selectedStatus === 'all' || selectedStatus === itemStatus.toLowerCase()) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+});
+
+
