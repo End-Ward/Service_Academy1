@@ -186,9 +186,8 @@ header {
     font-size: 1.2rem; /* Font size for number of trainees */
 }
 
-/* Announcements Section */
 .announcements {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important; /* Forcing margin in case of overrides */
     width: 80%;
     margin: 0 auto; /* Center the announcements */
     border: 2px solid #ccc; /* Add border to announcements */
@@ -197,7 +196,7 @@ header {
 }
 
 .announcement-container {
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .announcement-prompt {
@@ -333,6 +332,41 @@ header {
     gap: 20px;
 }
 
+/* Container for the buttons to align them on the right */
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+    padding-right: 100px;
+}
+
+/* Styling for Upload Module and Create Assessment buttons */
+.upload-module,
+.create-assessment {
+    background-color: #2b2b5f; /* Button background color */
+    color: #fff; /* Text color */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Button padding */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    margin-left: 10px; /* Space between buttons */
+}
+
+    /* Hover effect */
+    .upload-module:hover,
+    .create-assessment:hover {
+        background-color: #242449; /* Darker shade on hover */
+    }
+
+    /* Disabled state */
+    .upload-module:disabled,
+    .create-assessment:disabled {
+        background-color: #a0a0a0; /* Grey color for disabled state */
+        cursor: not-allowed; /* Disabled cursor */
+    }
+
+
 /* Adjust widths for modules and module-viewer */
 .modules {
     width: 20%; /* Set width to 20% */
@@ -356,7 +390,7 @@ header {
     margin-bottom: 20px;
 }
 
-.module-title, .final-assessment {
+.module-title, .quiz-title {
     background-color: var(--primary-color);
     color: white;
     border: none;
@@ -383,7 +417,6 @@ header {
     }
 
 .module-viewer .viewer-content {
-    padding: 20px;
     background-color: var(--secondary-color);
     border-radius: 10px;
 }

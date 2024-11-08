@@ -41,13 +41,18 @@
             </div>
         </form>
     </div>
+
+
     <script>
         window.onload = function () {
             document.getElementById("overlay").style.display = "block";
             document.getElementById("loginForm").style.display = "block";
         };
+
         function closeForm() {
-            window.location.href = "/"; // Redirect to the homepage
+            // Hides the form and overlay without redirecting
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("loginForm").style.display = "none";
         }
 
         function togglePasswordVisibility() {

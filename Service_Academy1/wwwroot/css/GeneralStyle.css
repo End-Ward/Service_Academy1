@@ -108,6 +108,7 @@ body {
             color: #ff782d;
         }
 
+
 a.active {
     color: #ff782d; /* Change to any color you want to highlight the current tab */
     font-weight: bold; /* You can also make it bold or apply other styles */
@@ -128,15 +129,16 @@ a.active {
 }
 
     .breadcrumb a {
-        color: #007BFF;
+        color: black;
         text-decoration: none;
         font-weight: 500;
-        transition: color 0.3s ease;
+        transition: color 0.3s ease, transform 0.3s ease; /* Add transition for transform */
     }
 
         .breadcrumb a:hover {
-            color: #0056b3;
-            text-decoration: underline;
+            color: black;
+            text-decoration: none;
+            transform: scale(1.1); /* Slightly increase size on hover */
         }
 
     .breadcrumb .separator {

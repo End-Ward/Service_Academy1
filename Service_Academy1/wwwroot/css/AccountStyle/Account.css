@@ -1,40 +1,37 @@
 body {
-    margin: 0; /* Ensure no margin is affecting layout */
-    padding: 0; /* Ensure no padding is affecting layout */
-    height: 100vh; /* Make sure it takes full height */
+    margin: 0;
+    padding: 0;
+    height: 120vh; /* Keep this for scrolling */
+    overflow-y: auto; /* Enable scrolling */
 }
 
 #overlay {
-    position: fixed;
+    position: fixed; /* Keep the overlay fixed */
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 1; /* Lower z-index for overlay */
+    pointer-events: none; /* Disable pointer events to allow clicks to go through */
 }
 
 #loginForm {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+    margin: auto; /* Center the form */
     background-color: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 400px;
-    align-content: center;
+    z-index: 2; /* Higher z-index for login form */
+    position: relative; /* Added to make the close button position relative to the form */
 }
-
 .title {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #FF6600; /* Orange */
+    color: #FF6600;
 }
 
 p {
@@ -45,6 +42,9 @@ p {
 .container {
     display: flex;
     flex-direction: column;
+    flex-grow: 1; /* Takes available space */
+    padding: 20px;
+    position: relative; /* Ensure proper positioning for child elements */
 }
 
 input[type="text"], input[type="password"], select {
@@ -78,7 +78,7 @@ input[type="text"], input[type="password"], select {
     align-items: center; /* Center items vertically */
     gap: 5px; /* Smaller gap between checkbox and label */
     margin-bottom: 24px; /* Increased spacing between Remember Me and Forgot Password */
-    margin-left: 10px; /*Indent the check box*/
+    margin-left: 10px; /* Indent the check box */
 }
 
     .remember-me input[type="checkbox"] {
@@ -114,17 +114,18 @@ input[type="text"], input[type="password"], select {
     }
 
 .close-btn {
-    position: absolute;
-    top: 5px;
-    right: 20px;
+    position: absolute; /* Keep it absolute */
+    top: 5px; /* Adjust as needed */
+    right: 15px; /* Adjust as needed */
     font-size: 24px;
     cursor: pointer;
-    color: #FF6600; /* Orange */
+    color: #FF6600; /* Orange color */
 }
 
     .close-btn:hover {
-        color: #cc5200; /* Darker orange */
+        color: #cc5200; /* Darker orange on hover */
     }
+
 
 /* Optional: Styling for select dropdowns */
 select {

@@ -16,11 +16,14 @@
 }
 
 
-<nav class="navbar">
+<div class="breadcrumb">
     <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">Dashboard</a>
+    <span class="separator">&gt;</span>
     <a href="javascript:void(0);" class="@(Html.IsActive("ProgramStream", "Instructor") ? "active" : "")" onclick="location.reload();">Stream</a>
+    <span class="separator">&gt;</span>
     <a href="@Url.Action("ProgramStreamManage", "Instructor", new { programId = Model.ProgramId })">Manage</a>
-</nav>
+</div>
+
 
 <!-- Full Width Class Banner Section -->
 <section class="class-banner">
@@ -64,8 +67,10 @@
         <div class="posts" id="posts"></div>
     </section>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModuleModal" @(Model.IsArchived ? "disabled" : "")>Upload Module</button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAssessmentModal" @(Model.IsArchived ? "disabled" : "")>Create Assessment</button>
+    <div class="button-container">
+        <button type="button" class="upload-module" data-toggle="modal" data-target="#uploadModuleModal" @(Model.IsArchived ? "disabled" : "")>Upload Module</button>
+        <button type="button" class="create-assessment" data-toggle="modal" data-target="#createAssessmentModal" @(Model.IsArchived ? "disabled" : "")>Create Assessment</button>
+    </div>
 
      
     <!-- Modules and Module Content Sections -->
