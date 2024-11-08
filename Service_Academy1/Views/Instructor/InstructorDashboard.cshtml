@@ -38,36 +38,23 @@
             <div class="programs">
                 <div class="program-box">
                     <div class="program-filters">
-                        <select id="filterAgenda">
-                            <option value="all">All Agendas</option>
-                            <option value="BISIG">BISIG</option>
-                            <option value="LEAF">LEAF</option>
-                            <option value="Environment">Environment</option>
-                            <option value="SAEI">SAEI</option>
-                            <option value="BINADI">BINADI</option>
-                            <option value="Outreach">Outreach</option>
-                            <option value="TVET">TVET</option>
-                            <option value="TTAU">TTAU</option>
-                            <option value="TAAS">TAAS</option>
-                            <option value="PESODEV">PESODEV</option>
-                            <option value="GAD">GAD</option>
-                            <option value="DisasterRisk">Disaster Risk</option>
+                        <select>
+                            <option value="all">All</option>
                         </select>
                         <div class="search-container">
                             <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Search Programs by Title">
+                            <input type="text" placeholder="Search">
                         </div>
-                        <button id="add-program" onclick="location.href='@Url.Action("ProgramCreation", "ProgramCreate")'">ADD NEW PROGRAM</button>
+                        <select>
+                            <option value="recently-accessed">Sort by Recently Accessed</option>
+                        </select>
+                        <button id="add-program" onclick="location.href='@Url.Action("ProgramCreation", "ProgramCreate")'">Add Program</button>
                     </div>
 
                     <div class="program-cards">
                         @foreach (var program in Model)
                         {
-                            bool isArchived = program.ProgramManagement.Any(pm => pm.IsArchived);
-                            var approvedCount = program.Enrollments.Count(e => e.EnrollmentStatus == "Approved");
-                            var pendingCount = program.Enrollments.Count(e => e.EnrollmentStatus == "Pending");
-
-                            <div class="program-card" data-title="@program.Title" data-agenda ="@program.Agenda">
+                            <div class="program-card">
                                 <div class="program-image">
                                     <a href="@Url.Action("ProgramStream", "Instructor", new { programId = program.ProgramId })">
                                         <img src="@Url.Content(program.PhotoPath)" alt="@program.Title">
@@ -84,8 +71,7 @@
                                     </div>
                                     <!-- Icons for program actions -->
                                     <div class="program-icons">
-                                        <i class="fa-solid fa-graduation-cap"></i>
-                                        @approvedCount Approved, @pendingCount Pending Trainees
+                                        <i class="fa-solid fa-graduation-cap"></i> X Trainees
                                         <!-- Archive Button as an Icon -->
                                         <button class="archive-button" data-toggle="modal" data-target="#archiveModal-@program.ProgramId" style="background: none; border: none; padding: 0;">
                                             <i class="fas fa-folder" style="color: var(--primary-color); cursor: pointer; font-size: 1.5rem;"></i>
@@ -97,16 +83,15 @@
                                     </div>
 
                                     <!-- Buttons aligned with Icons -->
-                                    <div class="action-buttons" style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="action-buttons">
                                         <!-- Activate Button that opens Modal -->
-                                        <button class="btnActivate" data-toggle="modal" data-target="#activateModal-@program.ProgramId" @(isArchived ? "disabled" : "")> Activate</button>
+                                        <button class="btnActivate" data-toggle="modal" data-target="#activateModal-@program.ProgramId"> Activate</button>
 
                                         <!-- Deactivate Button -->
                                         <form method="post" action="@Url.Action("DeactivateProgram", "Instructor")" style="display:inline;">
                                             <input type="hidden" name="programId" value="@program.ProgramId" />
-                                            <button class="btnDeactivate" data-toggle="modal" data-target="#deactivateModal-@program.ProgramId" type="button" @(isArchived ? "disabled" : "")>Deactivate</button>
+                                            <button class="btnDeactivate" type="submit">Deactivate</button>
                                         </form>
-
                                     </div>
                                     <!-- Activate Program Modal -->
                                     <div class="modal fade" id="activateModal-@program.ProgramId" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
@@ -195,32 +180,6 @@
 
                                 </div>
                             </div>
-                            <!-- Deactivate Program Modal -->
-                            <div class="modal fade" id="deactivateModal-@program.ProgramId" tabindex="-1" role="dialog" aria-labelledby="deactivateModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div id="modalForm" class="modal-form">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deactivateModalLabel">Deactivate Program</h5>
-                                                <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
-                                                    &times;
-                                                </button>
-                                            </div>
-                                            <form method="post" action="@Url.Action("DeactivateProgram", "Instructor")">
-                                                <input type="hidden" name="programId" value="@program.ProgramId" />
-                                                <div class="modal-body">
-                                                    <p>Are you sure you want to deactivate this Program? Once deactivated, it cannot be modified unless reactivated.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btnYes">Yes, Deactivate</button>
-                                                    <button type="button" class="btnNo" data-dismiss="modal">No, Cancel</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         }
 
                     </div>
