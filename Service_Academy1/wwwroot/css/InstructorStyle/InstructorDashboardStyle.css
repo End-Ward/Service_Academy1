@@ -229,6 +229,7 @@ body {
         color: var(--primary-color);
         cursor: pointer;
         font-size: 1.2rem; /* Slightly smaller icon size */
+        border: none;
     }
     /* Increase the gap between the 3rd and 4th item */ 
     .program-icons > *:nth-child(3) { 
@@ -236,6 +237,12 @@ body {
     }
 
 /* Activate Button */
+.archive-button, .delete-button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
 .btnActivate {
     background-color: #5cd03d;
     color: white;
@@ -301,7 +308,7 @@ body {
     transform: translate(-50%, -50%);
     z-index: 2;
     background-color: white;
-    padding: 15px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     width: 100%;
