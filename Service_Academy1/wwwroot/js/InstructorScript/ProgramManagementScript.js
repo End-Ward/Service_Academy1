@@ -1,4 +1,6 @@
-﻿function toggleDateInput(programId) {
+﻿
+//PROGRAM MANAGEMENT SCRIPT
+function toggleDateInput(programId) {
     const dateInputs = document.getElementById(`date-inputs-${programId}`);
     dateInputs.style.display = dateInputs.style.display === 'none' || dateInputs.style.display === '' ? 'block' : 'none';
 }
@@ -12,7 +14,7 @@ $(document).ready(function () {
 });
 $('#deactivateModal').on('hidden.bs.modal', function () {
     // Optional: trigger any actions after modal is closed
-}); 
+});
 function filterPrograms() {
     // Get values from search input and filter dropdowns
     var searchText = document.querySelector(".search-container input").value.toLowerCase();
@@ -42,3 +44,4 @@ function filterPrograms() {
 // Add event listeners for the search input and filter changes
 document.querySelector(".search-container input").addEventListener("input", filterPrograms);
 document.querySelector("#filterAgenda").addEventListener("change", filterPrograms);
+

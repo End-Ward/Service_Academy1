@@ -1,4 +1,6 @@
-﻿// Handle photo upload and preview
+﻿//PROGRAM CREATE SCRIPT
+
+// Handle photo upload and preview
 const photoInput = document.getElementById('photoInput');
 const photoPreview = document.getElementById('photoPreview');
 
@@ -52,3 +54,4 @@ $(document).ready(function () {
         $(".alert").fadeOut("slow");
     }, 5000);
 });
+

@@ -1,7 +1,7 @@
 ﻿@model ProgramCreateViewModel
-@using Service_Academy1.Utilities
+
 @{
-    ViewData["Title"] = "Instructor Dashboard Page";
+    ViewData["Title"] = "Service Academy - Instructor Dashboard Page - Program Creation";
 }
 
 @section Styles {
@@ -29,9 +29,9 @@
             </div>
         }
         <div class="breadcrumb">
-            <a href="@Url.Action("InstructorDashboard", "Instructor")" class="@(Html.IsActive("InstructorDashboard", "Instructor") ? "active" : "")">Dashboard</a>
+            <a href="@Url.Action("InstructorDashboard", "Instructor")">Dashboard</a>
             <span class="separator">&gt;</span>
-            <a href="@Url.Action("ProgramCreation", "ProgramCreate")" class="@(Html.IsActive("ProgramCreation", "ProgramCreate") ? "active" : "")">Course Creation</a>
+            <span>Course Creation</span>
         </div>
 
         <section class="layout">

@@ -1,4 +1,5 @@
-﻿const quizForm = document.querySelector('form');
+﻿//STUDENTQUIZVIEWSCRIPT
+const quizForm = document.querySelector('form');
 
 quizForm.addEventListener('submit', function (e) {
     const answerFields = document.querySelectorAll('.answer-field');

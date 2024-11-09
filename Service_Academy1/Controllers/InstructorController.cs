@@ -48,43 +48,20 @@ namespace ServiceAcademy.Controllers
 
             return View(programs);
         }
-
-        public IActionResult Home()
-        {
-            ViewData["ActivePage"] = "Home";
-            return View();
-        }
-
-        public IActionResult ProgramCatalog()
-        {
-            ViewData["ActivePage"] = "ProgramCatalog";
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["ActivePage"] = "Contact";
-            return View();
-        }
-
-        public IActionResult Faqs()
-        {
-            ViewData["ActivePage"] = "Faqs";
-            return View();
-        }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         public IActionResult ProgramStream(int programId)
         {
+            // Check if ProgramId is passed via TempData, use it if not provided in the URL
+            if (programId == 0 && TempData["ProgramId"] != null)
+            {
+                programId = (int)TempData["ProgramId"];
+            }
+
             var programData = _context.Programs.FirstOrDefault(p => p.ProgramId == programId);
             if (programData == null)
             {
                 return NotFound();
             }
 
-            // Load the program first
             var program = _context.Programs
                 .FirstOrDefault(p => p.ProgramId == programId);
 
@@ -94,12 +71,11 @@ namespace ServiceAcademy.Controllers
                 return RedirectToAction("InstructorDashboard");
             }
 
-            // Load related data in separate queries
             var modules = _context.Modules.Where(m => m.ProgramId == programId).ToList();
             var quizzes = _context.Quizzes.Where(q => q.ProgramId == programId)
-                                          .Include(q => q.Questions)
-                                          .ThenInclude(q => q.Answers)
-                                          .ToList();
+                                           .Include(q => q.Questions)
+                                           .ThenInclude(q => q.Answers)
+                                           .ToList();
 
             var programManagement = _context.ProgramManagement.FirstOrDefault(pm => pm.ProgramId == programId);
 
@@ -111,13 +87,11 @@ namespace ServiceAcademy.Controllers
                 PhotoPath = program.PhotoPath,
                 Modules = modules,
                 Quizzes = quizzes,
-                IsArchived = programManagement?.IsArchived ?? false // Get archive status
+                IsArchived = programManagement?.IsArchived ?? false
             };
 
             return View(viewModel);
         }
-
-
         public IActionResult ProgramStreamManage(int programId)
         {
             _logger.LogInformation("Fetching enrolled trainees for Program ID: {ProgramId}", programId);
@@ -347,6 +321,55 @@ namespace ServiceAcademy.Controllers
 
             return RedirectToAction("ProgramStream", new { programId });
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateModule(int moduleId, string moduleTitle, IFormFile file)
+        {
+            var module = await _context.Modules.FindAsync(moduleId);
+            if (module == null)
+            {
+                TempData["Error"] = "Module not found.";
+                return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
+            }
+
+            // Update the module title
+            module.Title = moduleTitle;
+
+            // If a new file is uploaded, update the file path
+            if (file != null && file.Length > 0)
+            {
+                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, file.FileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                module.FilePath = "/uploads/" + file.FileName;
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "Module updated successfully.";
+            return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteModule(int moduleId)
+        {
+            var module = await _context.Modules.FindAsync(moduleId);
+            if (module == null)
+            {
+                TempData["Error"] = "Module not found.";
+                return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
+            }
+
+            // Delete the module
+            _context.Modules.Remove(module);
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "Module deleted successfully.";
+            return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -356,4 +379,4 @@ namespace ServiceAcademy.Controllers
     }
 }
 
- 
+

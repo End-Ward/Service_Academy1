@@ -1,4 +1,5 @@
-﻿function toggleAnnouncementInput() {
+﻿//PROGRAMSTREAMSCRIPT
+function toggleAnnouncementInput() {
     const inputField = document.getElementById('announcement-input');
     inputField.style.display = inputField.style.display === 'none' ? 'block' : 'none';
     if (inputField.style.display === 'block') {
@@ -70,6 +71,43 @@ function applyFormat(formatType) {
 function loadModuleContent(filePath) {
     document.getElementById("moduleContentFrame").src = filePath;
 }
+function openUpdateModuleModal(moduleId, moduleTitle) {
+    // Set the current module ID and title in the modal
+    $('#moduleIdInput').val(moduleId);  // Assuming you have an input in the modal to capture the module ID
+    $('#moduleTitleInput').val(moduleTitle);  // Assuming you have an input for the module title
+    // Open the modal
+    $('#updateModuleModal').modal('show');
+}
+
+function openDeleteModuleModal(moduleId, moduleTitle) {
+    // Set the values in the modal before showing it
+    $('#deleteModuleModal').find('input[name="moduleId"]').val(moduleId);
+    $('#deleteModuleModal').find('.modal-title').text('Delete Module: ' + moduleTitle);
+    $('#deleteModuleModal').modal('show');
+}
+
+// Close the Update Module Modal (Close Button in the Modal Footer)
+$('#updateModuleModal .close, #updateModuleModal .btn-secondary').on('click', function () {
+    $('#updateModuleModal').modal('hide');
+});
+
+// Close the Delete Module Modal (No Button)
+$('#deleteModuleModal .btnNo').on('click', function () {
+    $('#deleteModuleModal').modal('hide');
+});
+
+// Optional: Close the modal when clicking outside (if needed)
+$('#updateModuleModal').on('hidden.bs.modal', function () {
+    // Reset the values when the modal is closed
+    $('#moduleIdInput').val('');
+    $('#moduleTitleInput').val('');
+});
+
+$('#deleteModuleModal').on('hidden.bs.modal', function () {
+    // Reset the module ID in the delete modal when it's closed
+    $('#deleteModuleModal').find('input[name="moduleId"]').val('');
+});
+
 function postAnnouncement() {
     alert("This program is archived and read-only.");
 }

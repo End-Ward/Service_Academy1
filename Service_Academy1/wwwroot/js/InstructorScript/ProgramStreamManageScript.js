@@ -1,4 +1,6 @@
-﻿function openDenyModal(enrollmentId) {
+﻿
+//PROGRAMSTREAMMANAGESCRIPT
+function openDenyModal(enrollmentId) {
     $('#enrollmentId').val(enrollmentId);  // Set enrollment ID in the hidden input
     $('#denyModal').modal('show');         // Show the modal
 }
@@ -71,7 +73,7 @@ function toggleSortTrainees() {
     traineeList.append(trainees);
     traineeSortAsc = !traineeSortAsc;
     $('#sortIconTrainees').toggleClass('fa-arrow-up-a-z fa-arrow-down-z-a');
-} 
+}
 
 let requestSortAsc = true;
 
@@ -90,8 +92,6 @@ function toggleSortRequests() {
     $('#sortIconRequests').toggleClass('fa-arrow-up-a-z fa-arrow-down-z-a');
 }
 
-
-
 $('#statusFilter').on('change', function () {
     const selectedStatus = $(this).val();
     $('.trainee-item').each(function () {
@@ -103,5 +103,3 @@ $('#statusFilter').on('change', function () {
         }
     });
 });
-
-

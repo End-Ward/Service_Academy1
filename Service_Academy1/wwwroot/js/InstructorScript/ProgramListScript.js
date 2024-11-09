@@ -1,4 +1,5 @@
-﻿function enrollInProgram(programId) {
+﻿//PROGRAM LIST SCRIPT
+function enrollInProgram(programId) {
     $.ajax({
         url: '@Url.Action("Enroll", "ProgramList")',
         type: 'POST',
@@ -16,3 +17,4 @@
         }
     });
 }
+

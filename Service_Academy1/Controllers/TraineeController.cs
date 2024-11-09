@@ -40,35 +40,6 @@ namespace ServiceAcademy.Controllers
             return View(enrolledPrograms);
         }
 
-
-        public IActionResult Home()
-        {
-            ViewData["ActivePage"] = "Home";
-            return View();
-        }
-
-        public IActionResult ProgramCatalog()
-        {
-            ViewData["ActivePage"] = "ProgramCatalog";
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["ActivePage"] = "Contact";
-            return View();
-        }
-
-        public IActionResult Faqs()
-        {
-            ViewData["ActivePage"] = "Faqs";
-            return View();
-        }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [HttpPost]
         public IActionResult DeleteProgram(int programId)
         {
@@ -180,3 +151,4 @@ namespace ServiceAcademy.Controllers
 
     }
 }
+

@@ -1,4 +1,6 @@
-﻿function loadModuleContent(filePath) {
+﻿
+//MYLEARNINGSCRIPT
+function loadModuleContent(filePath) {
     document.getElementById("moduleContentFrame").src = filePath;
 }
 function filterPrograms() {

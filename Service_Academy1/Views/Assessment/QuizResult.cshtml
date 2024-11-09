@@ -1,5 +1,9 @@
 ﻿@model Service_Academy1.Models.StudentQuizResultModel
 
+@{
+    ViewData["Title"] = "Service Academy - Student Quiz";
+}
+
 @if (TempData["QuizErrorMessage"] != null)
 {
     <div class="alert alert-warning">

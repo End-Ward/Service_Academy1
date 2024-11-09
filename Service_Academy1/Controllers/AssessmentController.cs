@@ -230,6 +230,139 @@ namespace ServiceAcademy.Controllers
 
             return View(result);
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteQuiz(int quizId)
+        {
+            var quiz = await _context.Quizzes
+                                     .FirstOrDefaultAsync(q => q.QuizId == quizId);
+
+            if (quiz != null)
+            {
+                var programId = quiz.ProgramId;  // Get the ProgramId associated with the quiz
+
+                // Remove related StudentQuizResults
+                var studentQuizResults = _context.StudentQuizResults.Where(sqr => sqr.QuizId == quizId).ToList();
+                _context.StudentQuizResults.RemoveRange(studentQuizResults);
+
+                // Remove associated Questions and Answers
+                var questions = _context.Questions.Where(q => q.QuizId == quizId).ToList();
+                foreach (var question in questions)
+                {
+                    var answers = _context.Answers.Where(a => a.QuestionId == question.QuestionId).ToList();
+                    _context.Answers.RemoveRange(answers);
+                }
+                _context.Questions.RemoveRange(questions);
+
+                // Finally, remove the quiz itself
+                _context.Quizzes.Remove(quiz);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Quiz and its related data deleted successfully.";
+
+                // Store the ProgramId in TempData
+                TempData["ProgramId"] = programId;
+
+                // Redirect to the ProgramStream view for the related ProgramId
+                return RedirectToAction("ProgramStream", "Instructor");
+            }
+            else
+            {
+                TempData["Error"] = "Quiz not found.";
+                return RedirectToAction("ProgramStream", "Instructor");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuiz(QuizModel updatedQuiz, List<QuestionModel> updatedQuestions)
+        {
+            var existingQuiz = await _context.Quizzes
+                                              .Include(q => q.Questions)
+                                              .ThenInclude(q => q.Answers)
+                                              .FirstOrDefaultAsync(q => q.QuizId == updatedQuiz.QuizId);
+
+            if (existingQuiz == null)
+            {
+                return NotFound("Quiz not found.");
+            }
+
+            // Update Quiz title and description
+            existingQuiz.QuizTitle = updatedQuiz.QuizTitle;
+            existingQuiz.QuizDirection = updatedQuiz.QuizDirection;
+
+            List<int> updatedQuestionIds = new List<int>();
+
+            // Update Questions and Answers
+            foreach (var updatedQuestion in updatedQuestions)
+            {
+                var existingQuestion = existingQuiz.Questions.FirstOrDefault(q => q.QuestionId == updatedQuestion.QuestionId);
+                if (existingQuestion != null)
+                {
+                    if (existingQuestion.CorrectAnswer != updatedQuestion.CorrectAnswer)
+                    {
+                        // Track the question if the correct answer changed
+                        updatedQuestionIds.Add(existingQuestion.QuestionId);
+                    }
+
+                    existingQuestion.Question = updatedQuestion.Question;
+                    existingQuestion.CorrectAnswer = updatedQuestion.CorrectAnswer;
+
+                    var existingAnswer = existingQuestion.Answers.FirstOrDefault();
+                    if (existingAnswer != null)
+                    {
+                        existingAnswer.Answer = updatedQuestion.CorrectAnswer;
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            // Update StudentQuizResults based on the updated questions
+            if (updatedQuestionIds.Any())
+            {
+                var affectedResults = _context.StudentQuizResults
+                    .Include(r => r.StudentAnswers)
+                    .Where(r => r.QuizId == updatedQuiz.QuizId)
+                    .ToList();
+
+                foreach (var result in affectedResults)
+                {
+                    int rawScore = 0;
+
+                    foreach (var studentAnswer in result.StudentAnswers)
+                    {
+                        if (updatedQuestionIds.Contains(studentAnswer.QuestionId))
+                        {
+                            var correctAnswer = _context.Questions
+                                .Where(q => q.QuestionId == studentAnswer.QuestionId)
+                                .Select(q => q.CorrectAnswer)
+                                .FirstOrDefault();
+
+                            studentAnswer.IsCorrect = studentAnswer.Answer == correctAnswer;
+
+                            if (studentAnswer.IsCorrect)
+                            {
+                                rawScore++;
+                            }
+                        }
+                        else if (studentAnswer.IsCorrect)
+                        {
+                            rawScore++;
+                        }
+                    }
+
+                    // Recompute the score
+                    result.RawScore = rawScore;
+                    result.TotalScore = result.StudentAnswers.Count;
+                    result.ComputedScore = Math.Round(((double)rawScore / result.TotalScore) * 63.5 + 37.5, 2);
+                    result.Remarks = result.ComputedScore >= 50 ? "Pass" : "Fail";
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            TempData["SuccessMessage"] = "Quiz and student results updated successfully!";
+            return RedirectToAction("ViewQuiz", new { quizId = updatedQuiz.QuizId });
+        }
 
     }
 }
