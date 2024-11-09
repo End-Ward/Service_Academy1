@@ -57,7 +57,7 @@
                             <i class="fas fa-search"></i>
                             <input type="text" placeholder="Search Programs by Title">
                         </div>
-                        <button id="add-program" onclick="location.href='@Url.Action("ProgramCreation", "ProgramCreate")'">ADD NEW PROGRAM</button>
+                        <button id="add-program" onclick="location.href='@Url.Action("ProgramCreation", "ProgramCreate")'">Add Program</button>
                     </div>
 
                     <div class="program-cards">
@@ -84,20 +84,22 @@
                                     </div>
                                     <!-- Icons for program actions -->
                                     <div class="program-icons">
-                                        <i class="fa-solid fa-graduation-cap"></i>
-                                        @approvedCount Approved, @pendingCount Pending Trainees
+                                        <i class="fa-solid fa-graduation-cap" title="Approved Trainees"></i>
+                                        @approvedCount 
+                                        <i class="fa-solid fa-clock" title="Pending Trainees"></i> 
+                                        @pendingCount 
                                         <!-- Archive Button as an Icon -->
-                                        <button class="archive-button" data-toggle="modal" data-target="#archiveModal-@program.ProgramId" style="background: none; border: none; padding: 0;">
-                                            <i class="fas fa-folder" style="color: var(--primary-color); cursor: pointer; font-size: 1.5rem;"></i>
+                                        <button class="archive-button" data-toggle="modal" data-target="#archiveModal-@program.ProgramId">
+                                            <i class="fas fa-folder" title="Archive Program"></i>
                                         </button>
                                         <!-- Delete Button as an Icon -->
-                                        <button class="delete-button" data-toggle="modal" data-target="#deleteModal-@program.ProgramId" style="background: none; border: none; padding: 0;">
-                                            <i class="fas fa-trash" style="color: var(--primary-color); cursor: pointer; font-size: 1.5rem;"></i>
+                                        <button class="delete-button" data-toggle="modal" data-target="#deleteModal-@program.ProgramId">
+                                            <i class="fas fa-trash" title="Delete Program"></i>
                                         </button>
                                     </div>
 
                                     <!-- Buttons aligned with Icons -->
-                                    <div class="action-buttons" style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="action-buttons">
                                         <!-- Activate Button that opens Modal -->
                                         <button class="btnActivate" data-toggle="modal" data-target="#activateModal-@program.ProgramId" @(isArchived ? "disabled" : "")> Activate</button>
 
