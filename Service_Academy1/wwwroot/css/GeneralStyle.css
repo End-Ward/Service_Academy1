@@ -116,9 +116,9 @@ a.active {
 }
 
 .breadcrumb {
-    margin-top: 20px; /* Adjust value to the amount of space you want */
+    margin-top: 10px; /* Adjust value to the amount of space you want */
     padding: 15px 30px;
-    font-size: 14px;
+    font-size: 16px;
     background-color: #f9f9f9;
     border-radius: 8px;
     display: flex;

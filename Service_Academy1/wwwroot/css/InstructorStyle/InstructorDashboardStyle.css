@@ -410,3 +410,40 @@ body {
         margin: 0 0 15px 0; /* Adds 15px space below */
         font-size: 1.2em; /* Adjust font size if needed */
     }
+
+
+
+
+.toggle-button {
+    width: 200px;
+    height: 60px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #5cd03d; /* Initial active color */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    .toggle-button:active {
+        transform: scale(0.98);
+    }
+
+    .toggle-button.deactivated {
+        background-color: #d03d3d;
+        color: #fff;
+    }
+
+button.disabled {
+    background-color: #e0e0e0; /* Grey background */
+    color: #b0b0b0; /* Grey text */
+    cursor: not-allowed; /* Disable cursor */
+    border: 1px solid #d0d0d0; /* Grey border */
+}
+
+    button.disabled:hover {
+        background-color: #e0e0e0; /* Keep greyed-out on hover */
+        color: #b0b0b0;
+    }

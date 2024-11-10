@@ -358,6 +358,7 @@ header {
     .upload-module:hover,
     .create-assessment:hover {
         background-color: #242449; /* Darker shade on hover */
+        color: #ccc;
     }
 
     /* Disabled state */
@@ -366,8 +367,6 @@ header {
         background-color: #a0a0a0; /* Grey color for disabled state */
         cursor: not-allowed; /* Disabled cursor */
     }
-
-
 
 /* Adjust widths for modules and module-viewer */
 .modules {
@@ -392,6 +391,7 @@ header {
     margin-bottom: 20px;
 }
 
+/* Base styles for the button */
 .module-title, .quiz-title {
     background-color: var(--primary-color);
     color: white;
@@ -402,21 +402,46 @@ header {
     cursor: pointer;
     border-radius: 5px;
     font-size: 1rem;
+    position: relative; /* Positioning for the icons */
+    display: flex;
+    align-items: center; /* Aligning icons and text */
+    justify-content: space-between; /* Ensuring icons are on the right */
 }
 
-.module-content, .final-exam {
-    display: none; /* Hidden by default, toggled with JavaScript */
-    padding: 10px 20px;
+    /* Adjust icon spacing using nth-child */
+    .module-title i:nth-child(1) {
+        margin-left: 35px; /* Custom spacing between the first icon and the text */
+    }
+
+    /* Icon styles */
+    .module-title i {
+        font-size: 18px;
+        color: white; /* Default icon color */
+        margin-left: 10px; /* Spacing between text and icons */
+        opacity: 0.6; /* Slightly transparent by default */
+        transition: opacity 0.3s, color 0.3s;
+    }
+
+    /* Hover effect for the module-title button */
+    .module-title:hover {
+        background-color: #2b2b5f; /* Define a hover color for the button */
+    }
+
+        /* Hover effect for icons within the button */
+        .module-title:hover i {
+            opacity: 1; /* Icons become fully visible */
+            color: #ccc; /* Change color on hover */
+        }
+
+/* Ensure the icons are correctly positioned on the right */
+.module-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-    .module-content ul {
-        list-style-type: none;
-    }
-
-    .module-content li {
-        padding: 5px 0;
-        border-bottom: 1px solid #ddd;
-    }
 
 .module-viewer .viewer-content {
     background-color: var(--secondary-color);
@@ -446,3 +471,16 @@ header {
         width: 100%; /* Full width on mobile */
     }
 }
+
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.7rem; /* Adjust size as needed */
+    color: black; /* Use your primary color for consistency */
+    cursor: pointer;
+}
+
+    .close-btn:hover {
+        color: black; /* Change color on hover for feedback */
+    }

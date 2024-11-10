@@ -175,38 +175,33 @@ namespace ServiceAcademy.Controllers
         [HttpPost]
         public async Task<IActionResult> ActivateProgram(int programId, DateTime startDate, DateTime endDate)
         {
-            // Check if there's an existing management record for the program
             var management = await _context.ProgramManagement.FirstOrDefaultAsync(pm => pm.ProgramId == programId);
 
             if (management == null)
             {
-                // If there is no existing management record, create a new one
                 management = new ProgramManagementModel
                 {
                     ProgramId = programId,
                     StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc),
                     EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc),
                     IsArchived = false,
-                    IsActive = true // Set it as active
+                    IsActive = true
                 };
 
                 _context.ProgramManagement.Add(management);
             }
             else
             {
-                // If there is an existing management record, just update it
                 management.StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
                 management.EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
                 management.IsArchived = false;
-                management.IsActive = true; // Ensure it is set to active
+                management.IsActive = true;
             }
 
             await _context.SaveChangesAsync();
-
             TempData["Message"] = "Program activated successfully.";
             return RedirectToAction("InstructorDashboard");
         }
-
 
         [HttpPost]
         public async Task<IActionResult> DeactivateProgram(int programId)
@@ -215,9 +210,8 @@ namespace ServiceAcademy.Controllers
             if (management != null)
             {
                 management.EndDate = DateTime.UtcNow;
-                management.IsActive = false; // Set program as inactive
+                management.IsActive = false;
                 await _context.SaveChangesAsync();
-
                 TempData["Message"] = "Program deactivated successfully.";
             }
             else
@@ -227,6 +221,7 @@ namespace ServiceAcademy.Controllers
 
             return RedirectToAction("InstructorDashboard");
         }
+
 
 
         [HttpPost]

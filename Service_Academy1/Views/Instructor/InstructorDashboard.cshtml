@@ -100,15 +100,29 @@
 
                                     <!-- Buttons aligned with Icons -->
                                     <div class="action-buttons">
-                                        <!-- Activate Button that opens Modal -->
-                                        <button class="btnActivate" data-toggle="modal" data-target="#activateModal-@program.ProgramId" @(isArchived ? "disabled" : "")> Activate</button>
-
-                                        <!-- Deactivate Button -->
-                                        <form method="post" action="@Url.Action("DeactivateProgram", "Instructor")" style="display:inline;">
-                                            <input type="hidden" name="programId" value="@program.ProgramId" />
-                                            <button class="btnDeactivate" data-toggle="modal" data-target="#deactivateModal-@program.ProgramId" type="button" @(isArchived ? "disabled" : "")>Deactivate</button>
-                                        </form>
-
+                                        <!-- Check if Program is Archived -->
+                                        @if (program.ProgramManagement.FirstOrDefault()?.IsArchived == true)
+                                        {
+                                            <!-- If Archived, Disable the Toggle Button -->
+                                            <button class="btnActivate disabled" type="button" disabled>Archived</button>
+                                        }
+                                        else
+                                        {
+                                            <!-- Check if Program is Active or Deactivated -->
+                                            @if (program.ProgramManagement.FirstOrDefault()?.IsActive == true)
+                                            {
+                                                <!-- Deactivate Button -->
+                                                <form method="post" action="@Url.Action("DeactivateProgram", "Instructor")" style="display:inline;">
+                                                    <input type="hidden" name="programId" value="@program.ProgramId" />
+                                                    <button class="btnDeactivate" data-toggle="modal" data-target="#deactivateModal-@program.ProgramId" type="button">Deactivate</button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <!-- Activate Button -->
+                                                <button class="btnActivate" data-toggle="modal" data-target="#activateModal-@program.ProgramId" type="button">Activate</button>
+                                            }
+                                        }
                                     </div>
                                     <!-- Activate Program Modal -->
                                     <div class="modal fade" id="activateModal-@program.ProgramId" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
@@ -117,9 +131,7 @@
                                                 <div id="modalForm" class="modal-form">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="activateModalLabel">Activate Program</h5>
-                                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
-                                                            &times;
-                                                        </button>
+                                                        <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">&times;</button>
                                                     </div>
                                                     <form method="post" action="@Url.Action("ActivateProgram", "Instructor")">
                                                         <input type="hidden" name="programId" value="@program.ProgramId" />
@@ -204,9 +216,7 @@
                                         <div id="modalForm" class="modal-form">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="deactivateModalLabel">Deactivate Program</h5>
-                                                <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">
-                                                    &times;
-                                                </button>
+                                                <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close">&times;</button>
                                             </div>
                                             <form method="post" action="@Url.Action("DeactivateProgram", "Instructor")">
                                                 <input type="hidden" name="programId" value="@program.ProgramId" />
@@ -222,9 +232,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         }
-
                     </div>
                 </div>
             </div>
