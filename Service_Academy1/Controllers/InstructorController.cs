@@ -296,18 +296,24 @@ namespace ServiceAcademy.Controllers
                 return RedirectToAction("ProgramStream", new { programId });
             }
 
+            // Determine next module number
+            var moduleCount = _context.Modules.Count(m => m.ProgramId == programId);
+            var moduleNumber = moduleCount + 1;
+            var moduleTitle = $"Module {moduleNumber}: {title}";
+
+            // Save the file
             var uploads = Path.Combine(_environment.WebRootPath, "uploads");
             var filePath = Path.Combine(uploads, file.FileName);
-
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
 
+            // Create module with the formatted title
             var module = new ModuleModel
             {
                 ProgramId = programId,
-                Title = title,
+                Title = moduleTitle,
                 FilePath = "/uploads/" + file.FileName
             };
 
@@ -316,6 +322,7 @@ namespace ServiceAcademy.Controllers
 
             return RedirectToAction("ProgramStream", new { programId });
         }
+
         [HttpPost]
         public async Task<IActionResult> UpdateModule(int moduleId, string moduleTitle, IFormFile file)
         {
@@ -326,10 +333,11 @@ namespace ServiceAcademy.Controllers
                 return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
             }
 
-            // Update the module title
-            module.Title = moduleTitle;
+            // Extract and keep "Module X" part intact
+            var moduleNumberPrefix = module.Title.Split(':')[0];
+            module.Title = $"{moduleNumberPrefix}: {moduleTitle}";
 
-            // If a new file is uploaded, update the file path
+            // Optionally update file if provided
             if (file != null && file.Length > 0)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "uploads");
@@ -348,6 +356,7 @@ namespace ServiceAcademy.Controllers
             TempData["Message"] = "Module updated successfully.";
             return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteModule(int moduleId)
         {
@@ -362,15 +371,23 @@ namespace ServiceAcademy.Controllers
             _context.Modules.Remove(module);
             await _context.SaveChangesAsync();
 
-            TempData["Message"] = "Module deleted successfully.";
+            // Re-fetch the modules, renumber them, and update titles
+            var modules = _context.Modules
+                                  .Where(m => m.ProgramId == module.ProgramId)
+                                  .OrderBy(m => m.ModuleId)
+                                  .ToList();
+
+            for (int i = 0; i < modules.Count; i++)
+            {
+                modules[i].Title = $"Module {i + 1}: {modules[i].Title.Split(':')[1].Trim()}";
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "Module deleted and modules renumbered successfully.";
             return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
 

@@ -66,6 +66,9 @@ function applyFormat(formatType) {
     // Refocus on the textarea after formatting
     textarea.focus();
 }
+function postAnnouncement() {
+    alert("This program is archived and read-only.");
+}
 
 // Function to insert bullet list
 function loadModuleContent(filePath) {
@@ -85,29 +88,18 @@ function openDeleteModuleModal(moduleId, moduleTitle) {
     $('#deleteModuleModal').find('.modal-title').text('Delete Module: ' + moduleTitle);
     $('#deleteModuleModal').modal('show');
 }
-
-// Close the Update Module Modal (Close Button in the Modal Footer)
-$('#updateModuleModal .close, #updateModuleModal .btn-secondary').on('click', function () {
+$('.close-btn').on('click', function () {
+    $('#uploadModuleModal').modal('hide');
+    $('#createAssessmentModal').modal('hide');
     $('#updateModuleModal').modal('hide');
-});
-
-// Close the Delete Module Modal (No Button)
-$('#deleteModuleModal .btnNo').on('click', function () {
     $('#deleteModuleModal').modal('hide');
 });
 
-// Optional: Close the modal when clicking outside (if needed)
-$('#updateModuleModal').on('hidden.bs.modal', function () {
-    // Reset the values when the modal is closed
-    $('#moduleIdInput').val('');
-    $('#moduleTitleInput').val('');
+$(document).ready(function () {
+    // Optional: If you'd like to keep auto-hiding the alert after a few seconds while still allowing manual close
+    setTimeout(function () {
+        $(".alert").fadeOut("slow");
+    }, 5000);
 });
 
-$('#deleteModuleModal').on('hidden.bs.modal', function () {
-    // Reset the module ID in the delete modal when it's closed
-    $('#deleteModuleModal').find('input[name="moduleId"]').val('');
-});
 
-function postAnnouncement() {
-    alert("This program is archived and read-only.");
-}
