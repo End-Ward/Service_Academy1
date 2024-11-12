@@ -43,40 +43,34 @@ namespace Service_Academy1.Controllers
 
             if (programDetails.TryGetValue(agenda, out selectedProgramDetail))
             {
-                ViewBag.AgendaTitle = selectedProgramDetail.Title; // Set the agenda title
-                ViewBag.AgendaDescription = selectedProgramDetail.Description; // Set the agenda description
+                ViewBag.AgendaTitle = selectedProgramDetail.Title;
+                ViewBag.AgendaDescription = selectedProgramDetail.Description;
             }
             else
             {
-                ViewBag.AgendaTitle = "Default Title"; // Fallback title
-                ViewBag.AgendaDescription = "Default description for all agendas."; // Fallback description
+                ViewBag.AgendaTitle = "Default Title";
+                ViewBag.AgendaDescription = "Default description for all agendas.";
             }
 
-            // Fetch programs from the database based on the agenda
             var programsQuery = string.IsNullOrEmpty(agenda)
-       ? _context.Programs.Include(p => p.ProgramManagement).Where(p => !p.ProgramManagement.Any(pm => pm.IsArchived))
-       : _context.Programs.Where(p => p.Agenda == agenda)
-                           .Include(p => p.ProgramManagement)
-                           .Where(p => !p.ProgramManagement.Any(pm => pm.IsArchived));
+                ? _context.Programs.Include(p => p.ProgramManagement)
+                    .Where(p => !p.ProgramManagement.Any(pm => pm.IsArchived || pm.IsApproved == "Denied" || pm.IsApproved == "Pending"))
+                : _context.Programs.Where(p => p.Agenda == agenda)
+                    .Include(p => p.ProgramManagement)
+                    .Where(p => !p.ProgramManagement.Any(pm => pm.IsArchived || pm.IsApproved == "Denied" || pm.IsApproved == "Pending"));
 
-            // Convert the query to a list
             var programs = programsQuery.ToList();
 
-            // Check if there are no programs for the selected agenda
             if (!programs.Any())
             {
                 return RedirectToAction("NoPrograms");
             }
 
-            // Get the current user's ID
             var userId = _userManager.GetUserId(User);
-
-            // Get the existing enrollments for the current user
             var userEnrollments = _context.Enrollment
                 .Where(e => e.TraineeId == userId)
                 .ToList();
 
-            // Pass both programs and user enrollments to the view
             var model = new ProgramListViewModel
             {
                 Programs = programs,

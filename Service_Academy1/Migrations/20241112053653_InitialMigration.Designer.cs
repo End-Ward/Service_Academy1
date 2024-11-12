@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Service_Academy1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241107061037_InitialMigration")]
+    [Migration("20241112053653_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -223,6 +223,28 @@ namespace Service_Academy1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Service_Academy1.Models.AnnouncementModel", b =>
+                {
+                    b.Property<int>("AnnouncementId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AnnouncementId"));
+
+                    b.Property<string>("Announcement")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProgramId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AnnouncementId");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("Announcemnets");
+                });
+
             modelBuilder.Entity("Service_Academy1.Models.AnswerModel", b =>
                 {
                     b.Property<int>("AnswerId")
@@ -325,11 +347,18 @@ namespace Service_Academy1.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("IsApproved")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsArchived")
                         .HasColumnType("boolean");
 
                     b.Property<int>("ProgramId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("ReasonForDenial")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
@@ -546,6 +575,17 @@ namespace Service_Academy1.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Service_Academy1.Models.AnnouncementModel", b =>
+                {
+                    b.HasOne("Service_Academy1.Models.ProgramsModel", "ProgramsModel")
+                        .WithMany()
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProgramsModel");
                 });
 
             modelBuilder.Entity("Service_Academy1.Models.AnswerModel", b =>

@@ -34,14 +34,12 @@ namespace ServiceAcademy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProgramCreation(ProgramsModel program, IFormFile photoInput)
+        public async Task<IActionResult> ProgramCreation(ProgramsModel program, IFormFile photoInput, DateTime startDate, DateTime endDate)
         {
-            // Remove InstructorId from model binding (set to null) to avoid validation error
             program.InstructorId = null;
 
             if (!ModelState.IsValid)
             {
-                // Log validation errors
                 foreach (var state in ModelState)
                 {
                     foreach (var error in state.Value.Errors)
@@ -74,19 +72,33 @@ namespace ServiceAcademy.Controllers
 
             try
             {
-                // Get the current user Id and name from AspNetUsers
                 var instructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var instructorName = User.FindFirstValue(ClaimTypes.Name); // Get the user's name
+                var instructorName = User.FindFirstValue(ClaimTypes.Name);
 
-                program.InstructorId = instructorId;  // Assign the current user's Id to InstructorId
-                program.Instructor = instructorName;  // Assign the instructor's name
+                program.InstructorId = instructorId;
+                program.Instructor = instructorName;
 
                 // Add the program to the database
                 _context.Programs.Add(program);
                 await _context.SaveChangesAsync();
 
+                // Create a new ProgramManagementModel entry with default IsApproved value
+                var programManagement = new ProgramManagementModel
+                {
+                    ProgramId = program.ProgramId,
+                    StartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc),
+                    EndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc),
+                    IsArchived = false,
+                    IsActive = false,
+                    IsApproved = "Pending",
+                    ReasonForDenial = null
+                };
+
+                _context.ProgramManagement.Add(programManagement);
+                await _context.SaveChangesAsync();
+
                 TempData["Message"] = "Successfully added a Program";
-                return RedirectToAction("ProgramCreation", "ProgramCreate"); // Ensure correct action name
+                return RedirectToAction("ProgramCreation", "ProgramCreate");
             }
             catch (Exception ex)
             {
@@ -95,6 +107,7 @@ namespace ServiceAcademy.Controllers
                 return View(program);
             }
         }
+
     }
 }
 

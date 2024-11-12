@@ -16,7 +16,8 @@ namespace Service_Academy1.Models
         public DateTime EndDate { get; set; }
         public bool IsArchived { get; set; } = false;
         public bool IsActive { get; set; } = false;
-
+        public string IsApproved { get; set; } = string.Empty;
+        public string? ReasonForDenial {  get; set; } = string.Empty;
         public virtual ProgramsModel? ProgramsModel { get; set; } // Navigation property
     }
 }

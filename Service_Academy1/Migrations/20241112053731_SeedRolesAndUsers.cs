@@ -47,9 +47,9 @@ Guid.NewGuid().ToString() }
             // Create a password hasher instance to hash passwords
             var hasher = new PasswordHasher<ApplicationUser>();
             // Insert the users into the AspNetUsers table (include PhoneNumberConfirmed)
-migrationBuilder.InsertData(
-table: "AspNetUsers",
-columns: new[] {
+            migrationBuilder.InsertData(
+            table: "AspNetUsers",
+            columns: new[] {
 "Id",
 "UserName",
 "NormalizedUserName",
@@ -66,9 +66,9 @@ columns: new[] {
 "LockoutEnabled",
 "AccessFailedCount",
 "FullName"
-},
-values: new object[,]
-{
+            },
+            values: new object[,]
+            {
 { adminUserId, "admin@academy.com", "ADMIN@ACADEMY.COM",
 "admin@academy.com", "ADMIN@ACADEMY.COM", true, hasher.HashPassword(null,
 "Admin123!"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), null,
@@ -87,7 +87,7 @@ null, false, false, null, false, 0, "Instructor User 2" },
 "INSTRUCTOR3@ACADEMY.COM", "instructor3@academy.com",
 "INSTRUCTOR3@ACADEMY.COM", true, hasher.HashPassword(null,
 "Instructor123!"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
-null, false, false, null, false, 0, "Instructor User 3" }, 
+null, false, false, null, false, 0, "Instructor User 3" },
 { studentUserId1, "student1@academy.com",
 "STUDENT1@ACADEMY.COM", "student1@academy.com", "STUDENT1@ACADEMY.COM",
 true, hasher.HashPassword(null, "Student123!"), Guid.NewGuid().ToString(),
@@ -108,14 +108,14 @@ Guid.NewGuid().ToString(), null, false, false, null, false, 0, "Student User 4" 
 "STUDENT5@ACADEMY.COM", "student5@academy.com", "STUDENT5@ACADEMY.COM",
 true, hasher.HashPassword(null, "Student123!"), Guid.NewGuid().ToString(),
 Guid.NewGuid().ToString(), null, false, false, null, false, 0, "Student User 5" }
-}
-);
+            }
+            );
             // Add user-role assignments (your role assignment code is correct)
-migrationBuilder.InsertData(
-table: "AspNetUserRoles",
-columns: new[] { "UserId", "RoleId" },
-values: new object[,]
-{
+            migrationBuilder.InsertData(
+            table: "AspNetUserRoles",
+            columns: new[] { "UserId", "RoleId" },
+            values: new object[,]
+            {
 { adminUserId, adminRoleId },
 { instructorUserId1, instructorRoleId },
 { instructorUserId2, instructorRoleId },
@@ -125,17 +125,17 @@ values: new object[,]
 { studentUserId3, studentRoleId },
 { studentUserId4, studentRoleId },
 { studentUserId5, studentRoleId }
-}
-);
+            }
+            );
         }
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             // Reverse Role and User Seeding by deleting the inserted records
-        migrationBuilder.DeleteData(
-        table: "AspNetUserRoles",
-        keyColumns: new[] { "UserId", "RoleId" },
-        keyValues: new object[] { adminUserId, adminRoleId }
-        );
+            migrationBuilder.DeleteData(
+            table: "AspNetUserRoles",
+            keyColumns: new[] { "UserId", "RoleId" },
+            keyValues: new object[] { adminUserId, adminRoleId }
+            );
             migrationBuilder.DeleteData(
             table: "AspNetUserRoles",
             keyColumns: new[] { "UserId", "RoleId" },

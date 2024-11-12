@@ -19,6 +19,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<AnswerModel> Answers { get; set; }
     public DbSet<StudentAnswerModel> StudentAnswers { get; set; }
     public DbSet<StudentQuizResultModel> StudentQuizResults { get; set; }
+    public DbSet<AnnouncementModel> Announcemnets { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

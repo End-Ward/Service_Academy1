@@ -26,8 +26,6 @@ namespace ServiceAcademy.Controllers
             _environment = environment;
 
         }
-
-        // Action method for Home.cshtml
         public async Task<IActionResult> InstructorDashboard()
         {
             // Get the current user's ID

@@ -182,6 +182,26 @@ namespace Service_Academy1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Announcemnets",
+                columns: table => new
+                {
+                    AnnouncementId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProgramId = table.Column<int>(type: "integer", nullable: false),
+                    Announcement = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcemnets", x => x.AnnouncementId);
+                    table.ForeignKey(
+                        name: "FK_Announcemnets_Programs_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Programs",
+                        principalColumn: "ProgramId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Enrollment",
                 columns: table => new
                 {
@@ -242,7 +262,9 @@ namespace Service_Academy1.Migrations
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     IsArchived = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<string>(type: "text", nullable: false),
+                    ReasonForDenial = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -376,6 +398,11 @@ namespace Service_Academy1.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Announcemnets_ProgramId",
+                table: "Announcemnets",
+                column: "ProgramId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Answers_QuestionId",
                 table: "Answers",
                 column: "QuestionId");
@@ -476,6 +503,9 @@ namespace Service_Academy1.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Announcemnets");
+
             migrationBuilder.DropTable(
                 name: "Answers");
 

@@ -1,9 +1,12 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@model IEnumerable<Service_Academy1.Models.ProgramsModel>
+@{
+    ViewData["Title"] = "Manage Program";
 }
 
-@{
-    Layout = "~/Views/Shared/_layoutAdmin.cshtml";
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/AdminScript/ManageProgramScript.js"></script>
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/AdminStyle/ManageProgramStyle.css">
@@ -44,41 +47,79 @@
                                     <input type="text" id="searchProgram" class="form-control" placeholder="Search by program name, code, or description..." onkeyup="filterPrograms()">
                                 </div>
                             </div>
-                            <div class="table-responsive mt-3">
-                                <table id="programTable" class="table table-striped">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Program Name</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                            <th>Enrolled Students</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="programList">
-                                        <!-- Example programs -->
-                                        <tr>
-                                            <td>Bachelor of Science in Computer Science</td>
-                                            <td>Degree</td>
-                                            <td>Active</td>
-                                            <td>350</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-sm" onclick="editProgram('BSc Computer Science')">Edit</button>
-                                                <button class="btn btn-danger btn-sm" onclick="deleteProgram('BSc Computer Science')">Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Web Development Bootcamp</td>
-                                            <td>Non-Degree</td>
-                                            <td>Active</td>
-                                            <td>150</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-sm" onclick="editProgram('Web Development Bootcamp')">Edit</button>
-                                                <button class="btn btn-danger btn-sm" onclick="deleteProgram('Web Development Bootcamp')">Delete</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="program-list">
+                            @foreach (var program in Model)
+                            {
+                                <div class="program-item" data-title="@program.Title">
+                                    <h3>@program.Title</h3>
+                                    <p>Instructor: @program.Instructor</p>
+                                    <p>Status: @(program.ProgramManagement.FirstOrDefault()?.IsApproved ?? "Pending")</p>
+
+                                    <div class="action-buttons">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#viewDescriptionModal"
+                                                data-program-id="@program.ProgramId"
+                                                data-title="@program.Title"
+                                                data-description="@program.Description"
+                                                data-agenda="@program.Agenda">
+                                            View Description
+                                        </button>
+
+                                        <form asp-action="ApproveProgram" method="post" class="d-inline">
+                                            <input type="hidden" name="programId" value="@program.ProgramId" />
+                                            <button type="submit" class="btn btn-success">Approve</button>
+                                        </form>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#denyModal-@program.ProgramId">
+                                            Deny
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Deny Program Modal -->
+                                <div class="modal fade" id="denyModal-@program.ProgramId" tabindex="-1" role="dialog" aria-labelledby="denyModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Deny Program: @program.Title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" asp-action="DenyProgram">
+                                                    <input type="hidden" name="programId" value="@program.ProgramId" />
+                                                    <div class="form-group">
+                                                        <label for="reasonForDenial">Reason for Denial:</label>
+                                                        <input type="text" name="reasonForDenial" class="form-control" placeholder="Provide reason for denial" required />
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!-- Modal for Viewing Program Description -->
+                        <div class="modal fade" id="viewDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="viewDescriptionModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewDescriptionModalLabel">Program Description</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>Agenda:</h6>
+                                        <p id="programAgenda"></p>
+                                        <h6>Description:</h6>
+                                        <p id="programDescription"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                             </div>
                         </div>
 
