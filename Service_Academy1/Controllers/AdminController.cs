@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
+using iText.Commons.Actions.Contexts;
 
 namespace ServiceAcademy.Controllers
 {
@@ -13,11 +14,13 @@ namespace ServiceAcademy.Controllers
     {
         private readonly ILogger<AdminController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(ILogger<AdminController> logger, UserManager<ApplicationUser> userManager)
+        public AdminController(ILogger<AdminController> logger, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _logger = logger;
             _userManager = userManager;
+            _context = context;
         }
 
         // Dashboard action
@@ -160,15 +163,73 @@ namespace ServiceAcademy.Controllers
         // ManageProgram action: Handles the program management view
         public IActionResult ManageProgram()
         {
+            // Assuming you have a context or repository to access the database
+            var programs = _context.Programs
+                .Include(p => p.ProgramManagement) // Load related ProgramManagement data
+                .ToList();
+
             ViewData["ActivePage"] = "ManageProgram";
-            return View();
+            return View(programs); // Pass the list of programs to the view
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetProgramDetails(int programId)
+        {
+            var program = await _context.Programs
+                .Where(p => p.ProgramId == programId)
+                .Select(p => new
+                {
+                    p.Description,
+                    p.Agenda
+                })
+                .FirstOrDefaultAsync();
+
+            if (program == null)
+            {
+                return Json(null);
+            }
+
+            return Json(program); // Return the program details as JSON
         }
 
-        // Error handling action
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        // Approve Program Action
+        [HttpPost]
+        public async Task<IActionResult> ApproveProgram(int programId)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var programManagement = await _context.ProgramManagement
+                .FirstOrDefaultAsync(pm => pm.ProgramId == programId);
+
+            if (programManagement == null)
+            {
+                return NotFound();
+            }
+
+            // Change the approval status to "Approved"
+            programManagement.IsApproved = "Approved";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ManageProgram");
         }
+
+        // Deny Program Action
+        [HttpPost]
+        public async Task<IActionResult> DenyProgram(int programId, string reasonForDenial)
+        {
+            var programManagement = await _context.ProgramManagement
+                .FirstOrDefaultAsync(pm => pm.ProgramId == programId);
+
+            if (programManagement == null)
+            {
+                return NotFound();
+            }
+
+            // Change the approval status to "Denied"
+            programManagement.IsApproved = "Denied";
+            // Store the reason for denial (if needed)
+            programManagement.ReasonForDenial = reasonForDenial;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ManageProgram");
+        }
+
     }
 }
