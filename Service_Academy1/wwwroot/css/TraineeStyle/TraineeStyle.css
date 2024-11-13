@@ -78,6 +78,7 @@ body {
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px var(--shadow-color);
+    overflow: auto;
 }
 
     .achievements h3,
@@ -100,7 +101,7 @@ body {
 
 /* No Assignments */
 .no-assignments {
-    padding: 30px;
+    padding: 10px;
     text-align: center;
     color: #888;
 }
@@ -212,15 +213,47 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between title, description, and trainees */
-    flex: 1; /* Take up available space */
-    position: relative; /* For positioning the line and icons */
+    gap: 10px; /* Space between elements */
+    flex: 1; /* Flexible container to fill available space */
+    position: relative; /* Allows absolute positioning if needed */
 }
 
     .program-content h3 {
         font-size: 1.2rem;
         margin: 0;
+        color: black;
+        width: 100%; /* Full width */
+        height: 1.4em; /* Single-line height */
+        line-height: 1.4em;
+        display: inline-block; /* Keeps text within bounds */
+        text-decoration: none;
     }
+
+    .program-content a {
+        font-size: inherit; /* Matches font size of h3 */
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%; /* Full width */
+        height: 1.4em; /* Single-line height */
+        line-height: 1.4em;
+        color: inherit; /* Inherits color from parent */
+        text-decoration: none;
+        display: inline-block; /* Keeps text within bounds */
+    }
+
+    /* Status Section */
+    .program-content .status {
+        margin-top: auto; /* Positions status at the bottom */
+        font-size: 0.9rem; /* Slightly smaller text */
+        color: #666; /* Subtle gray text */
+        display: flex;
+        justify-content: space-between; /* Aligns status items */
+        border-top: 1px solid #ddd; /* Optional separator */
+        padding-top: 10px; /* Space above status */
+    }
+
 
 .description {
     font-size: 0.9rem;
@@ -264,7 +297,6 @@ body {
 
 /* Sidebar */
 .sidebar {
-    background-color: #f8f9fa;
     padding: 20px;
 }
 
@@ -275,9 +307,11 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px var(--shadow-color);
-    margin-top: 20px; /* Space between widgets */
+    margin-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
 }
-
 .btnDeactivate {
     background-color: #d03d3d;
     color: white;

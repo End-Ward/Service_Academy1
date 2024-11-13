@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="~/css/InstructorStyle/ProgramStreamStyle.css">
 }
 
-<nav class="navbar">
+<div class="breadcrumb">
     <a href="@Url.Action("MyLearning", "Trainee")" class="@(Html.IsActive("MyLearning", "Trainee") ? "active" : "")">Dashboard</a>
+    <span class="separator">&gt;</span>
     <a href="javascript:void(0);" class="@(Html.IsActive("MyLearningStream", "Trainee") ? "active" : "")" onclick="location.reload();">Stream</a>
-</nav>
+</div>
+
 <!-- Full Width Class Banner Section -->
 <section class="class-banner">
     <div class="banner-content">
@@ -43,7 +45,7 @@
             <div class="module-list">
                 @foreach (var module in Model.Modules.OrderBy(m => m.Title))
                 {
-                    <button class="module-title" onclick="loadModuleContent('@module.FilePath')">Module @module.Title</button>
+                    <button class="module-title" onclick="loadModuleContent('@module.FilePath')">@module.Title</button>
                 }
                 <h3>Quizzes</h3>
                 @foreach (var quiz in Model.Quizzes)

@@ -124,15 +124,31 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between title, description, and trainees */
-    flex: 1; /* Take up available space */
-    position: relative; /* For positioning the line and icons */
+    gap: 10px; /* Space between elements */
+    flex: 1; /* Flexible container to fill available space */
+    position: relative; /* Allows absolute positioning if needed */
 }
 
     .program-content h3 {
         font-size: 1.2rem;
         margin: 0;
+        color: black;
+        width: 100%; /* Full width */
+        height: 1.4em; /* Single-line height */
+        line-height: 1.4em;
+        display: inline-block; /* Keeps text within bounds */
+        text-decoration: none;
     }
+
+    /* Status Section */
+    .program-content .enroll {
+        margin-top: auto; /* Positions status at the bottom */
+        font-size: 0.9rem; /* Slightly smaller text */
+        color: #ccc; /* Subtle gray text */
+        border-top: 1px solid #ddd; /* Optional separator */
+        padding-top: 10px; /* Space above status */
+    }
+
 
 .description {
     font-size: 0.9rem;
@@ -232,3 +248,24 @@ body {
         pointer-events: none; /* Prevent clicking */
     }
 
+/* Ensure .main-content spans the full container width */
+.main-content {
+    width: 100%; /* Full width of the container */
+    padding: 15px; /* Optional: Add padding for spacing */
+    box-sizing: border-box;
+}
+
+/* Full-width row */
+.row.full-width {
+    width: 100%; /* Ensure the row spans the entire main-content width */
+    margin: 0; /* Remove any unintended margin */
+    padding: 0; /* Optional: Remove padding if not needed */
+    display: flex; /* Optional: Use flexbox for child alignment */
+    flex-wrap: wrap; /* Ensure content wraps if needed */
+}
+
+    /* Remove default Bootstrap column constraints (if using col-md-10) */
+    .row.full-width section {
+        flex: 1; /* Make section take the available space */
+        max-width: 100%; /* Prevent Bootstrap's default constraints */
+    }

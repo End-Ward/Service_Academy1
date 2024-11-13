@@ -159,7 +159,7 @@ body {
         width: 100%; /* Ensures it takes the full width available */
         height: 1.4em; /* Fixes to single line height */
         line-height: 1.4em;
-        color: inherit; /* To inherit color from parent, if needed */
+        color: black; /* To inherit color from parent, if needed */
         text-decoration: none; /* Optional: remove underline */
         display: inline-block;
     }
@@ -388,11 +388,6 @@ body {
         opacity: 0.9;
         background-color: #b60000;
     }
-
-
-
-
-
 
 /* Upcoming Events */
 .upcoming-events {
