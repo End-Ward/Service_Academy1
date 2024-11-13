@@ -75,10 +75,15 @@ function loadModuleContent(filePath) {
     document.getElementById("moduleContentFrame").src = filePath;
 }
 function openUpdateModuleModal(moduleId, moduleTitle) {
-    // Set the current module ID and title in the modal
-    $('#moduleIdInput').val(moduleId);  // Assuming you have an input in the modal to capture the module ID
-    $('#moduleTitleInput').val(moduleTitle);  // Assuming you have an input for the module title
-    // Open the modal
+    const prefix = moduleTitle.split(': ')[0]; // Extract "Module X"
+    const titleWithoutPrefix = moduleTitle.split(': ')[1]; // Extract title without "Module X"
+
+    // Set the module number in the modal header and the title in the input
+    document.getElementById('updateModuleModalLabel').textContent = prefix;
+    document.getElementById('moduleIdInput').value = moduleId;
+    document.getElementById('moduleTitleInput').value = titleWithoutPrefix;
+
+    // Show the modal
     $('#updateModuleModal').modal('show');
 }
 
@@ -102,4 +107,11 @@ $(document).ready(function () {
     }, 5000);
 });
 
+document.addEventListener("keydown", function (event) {
+    // Block Ctrl+P (print) and Ctrl+S (save as)
+    if ((event.ctrlKey || event.metaKey) && (event.key === 'p' || event.key === 's')) {
+        event.preventDefault();
+        alert("Printing and saving are disabled for this content.");
+    }
+});
 

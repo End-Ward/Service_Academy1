@@ -36,6 +36,7 @@ namespace ServiceAcademy.Controllers
                                           .Where(p => p.InstructorId == currentUserId) // Filter by the current instructor's ID
                                           .Include(p => p.ProgramManagement) // Include the ProgramManagement relationship
                                           .Include(p => p.Enrollments)
+                                          .AsSplitQuery()
                                           .ToListAsync();
 
             // Check if any programs are being retrieved
@@ -73,6 +74,7 @@ namespace ServiceAcademy.Controllers
             var quizzes = _context.Quizzes.Where(q => q.ProgramId == programId)
                                            .Include(q => q.Questions)
                                            .ThenInclude(q => q.Answers)
+                                           .AsSplitQuery()
                                            .ToList();
 
             var programManagement = _context.ProgramManagement.FirstOrDefault(pm => pm.ProgramId == programId);
@@ -297,6 +299,8 @@ namespace ServiceAcademy.Controllers
             // Determine next module number
             var moduleCount = _context.Modules.Count(m => m.ProgramId == programId);
             var moduleNumber = moduleCount + 1;
+
+            // Format the title as "Module X: title" for saving
             var moduleTitle = $"Module {moduleNumber}: {title}";
 
             // Save the file
@@ -331,7 +335,7 @@ namespace ServiceAcademy.Controllers
                 return RedirectToAction("ProgramStream", new { programId = module.ProgramId });
             }
 
-            // Extract and keep "Module X" part intact
+            // Extract the "Module X" prefix from the existing title
             var moduleNumberPrefix = module.Title.Split(':')[0];
             module.Title = $"{moduleNumberPrefix}: {moduleTitle}";
 

@@ -124,13 +124,15 @@
                 <div class="modal-content">
                     <div id="modalForm" class="modal-form">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="uploadModuleModalLabel">Upload Module</h5>
+                            <h5 class="modal-title" id="uploadModuleModalLabel">
+                                Upload Module @(Model.Modules.Count + 1)
+                            </h5>
                             <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                         </div>
                         <form method="post" enctype="multipart/form-data" action="@Url.Action("UploadModule", "Instructor", new { programId = Model.ProgramId })">
                             <div class="modal-body">
                                 <label for="title">Module Title</label>
-                                <input type="text" class="form-control" name="title" value="Module @(Model.Modules.Count + 1): " required />
+                                <input type="text" class="form-control" name="title" placeholder="Enter title (e.g., Introduction)" required />
 
                                 <label for="fileInput">Upload New File (Optional)</label>
                                 <input type="file" id="fileInput" class="form-control" name="file" accept=".pdf,.pptx" required />
@@ -144,14 +146,13 @@
                 </div>
             </div>
         </div>
-
         <!-- Update Module Modal -->
         <div class="modal fade" id="updateModuleModal" tabindex="-1" aria-labelledby="updateModuleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div id="modalForm" class="modal-form">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="updateModuleModalLabel">Update Module</h5>
+                            <h5 class="modal-title" id="updateModuleModalLabel"></h5>
                             <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                         </div>
                         <form asp-action="UpdateModule" asp-controller="Instructor" method="post" enctype="multipart/form-data">
